@@ -1,5 +1,7 @@
 package com.project.ABCDEproject.service;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,17 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void deleteMember(String username) {
 		dao.deleteMember(username);
+	}
+
+	@Override
+	public void lastLogin(String username) {
+		dao.lastLogin(username);
+	}
+
+	@Override
+	public String selectId(HashMap<String, String> map) {
+		String selectId = dao.selectId(map);
+		return selectId;
 	}
 	
 } // service

@@ -30,7 +30,11 @@
 		update
 			member
 		set
-			email = #{email}, phone = #{phone}, thumbnail = #{thumbnail}
+			email = #{email}, phone = #{phone}
+			<if test="originalthumbnail != null and thumbnail != null">
+			, originalthumbnail = #{originalthumbnail},
+			thumbnail = #{thumbnail}
+			</if>
 		where
 			memberid = #{memberid}
 	</update>
@@ -39,6 +43,19 @@
 		where
 			memberid = #{memberid}
 	</delete>
+	<update id="lastLogin" parameterType="String">
+    	update member
+    	set last_login = sysdate
+    	where memberid = #{memberid}
+	</update>
+	<select id="selectId" parameterType="map" resultType="String">
+		select memberid
+		from member
+		where
+			email = #{email} AND
+			phone = #{phone}
+	</select>
+	
 </mapper>
 
 

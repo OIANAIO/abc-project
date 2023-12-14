@@ -1,5 +1,7 @@
 package com.project.ABCDEproject.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -55,13 +57,20 @@ public class MemberController {
 	public String updateForm(@AuthenticationPrincipal UserDetails user, Model model) {
 		Member member = service.selectMember(user.getUsername());
 		model.addAttribute("member", member);
-		
+		model.addAttribute("thumb", member.getThumbnail());
 		return "member/updateForm";
 	}
 	
 	@PostMapping("update")
-	public String updateMember(@AuthenticationPrincipal UserDetails user, Member member) {
+	public String updateMember(@AuthenticationPrincipal UserDetails user, MultipartFile upload, Member member) {
 		member.setMemberid(user.getUsername());
+		if (!upload.isEmpty()) {
+			String savefile = FileService.saveFile(upload, uploadpath);
+			member.setOriginalthumbnail(upload.getOriginalFilename());
+			member.setThumbnail(savefile);
+			FileService.deleteFile(uploadpath + "/" + member.getThumbnail());
+		}
+		
 		int result = service.updateMember(member);
 		log.debug("update: {}", result);
 		
@@ -72,6 +81,28 @@ public class MemberController {
 	public String delete(@AuthenticationPrincipal UserDetails user) {
 		service.deleteMember(user.getUsername());
 		return "redirect:/member/logout";
+	}
+	
+	@GetMapping("logoutin")
+	public String logoutin(@AuthenticationPrincipal UserDetails user) {
+		service.lastLogin(user.getUsername());
+		return "redirect:/member/logout";
+	}
+	
+	@GetMapping("findId")
+	public String findId() {
+		return "member/findIdForm";
+	}
+	
+	@PostMapping("findId")
+	public String findId(String email, String phone, Model model) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("email", email);
+		map.put("phone", phone);
+		String selectId = service.selectId(map);
+		model.addAttribute("selectId", selectId);
+		
+		return "member/findId";
 	}
 	
 } // controller

@@ -1,5 +1,7 @@
 package com.project.ABCDEproject.service;
 
+import java.util.HashMap;
+
 import com.project.ABCDEproject.vo.Member;
 
 public interface MemberService {
@@ -11,5 +13,9 @@ public interface MemberService {
 	int updateMember(Member member);
 
 	void deleteMember(String username);
+
+	void lastLogin(String username);
+
+	String selectId(HashMap<String, String> map);
 	
 }
