@@ -23,5 +23,23 @@ public class MemberServiceImpl implements MemberService{
 		
 		dao.joinMember(member);
 	}
+
+	@Override
+	public Member selectMember(String username) {
+		Member member = dao.selectMember(username);
+		return member;
+	}
+
+	@Override
+	public int updateMember(Member member) {
+		int result = dao.updateMember(member);
+		
+		return result;
+	}
+
+	@Override
+	public void deleteMember(String username) {
+		dao.deleteMember(username);
+	}
 	
 } // service

@@ -23,6 +23,7 @@ public class Member implements UserDetails{
 	String create_at;
 	String last_login;
 	String thumbnail;
+	String originalthumbnail;
 	int point;
 	String rolename;
 	

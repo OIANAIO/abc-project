@@ -7,18 +7,38 @@
 		insert into member
 			(
 				id, memberid, memberpw, email, phone
-				<if test="thumbnail != null">
-					, thumbnail
+				<if test="originalthumbnail != null and thumbnail != null">
+					, originalthumbnail,
+					thumbnail
 				</if>
 			)
 		values
 			(
 				member_seq.nextval, #{memberid}, #{memberpw}, #{email}, #{phone}
-				<if test="thumbnail != null">
-					, #{thumbnail}
+				<if test="originalthumbnail != null and thumbnail != null">
+					, #{originalthumbnail},
+					#{thumbnail}
 				</if>
 			)
 	</insert>
+	<select id="selectMember" parameterType="String" resultType="Member">
+		select * from member
+		where
+			memberid = #{memberid}
+	</select>
+	<update id="updateMember" parameterType="Member">
+		update
+			member
+		set
+			email = #{email}, phone = #{phone}, thumbnail = #{thumbnail}
+		where
+			memberid = #{memberid}
+	</update>
+	<delete id="deleteMember" parameterType="String">
+		delete member
+		where
+			memberid = #{memberid}
+	</delete>
 </mapper>
 
 

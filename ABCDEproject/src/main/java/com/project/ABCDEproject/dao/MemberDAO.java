@@ -8,6 +8,12 @@ import com.project.ABCDEproject.vo.Member;
 public interface MemberDAO {
 
 	void joinMember(Member member);
+
+	Member selectMember(String memberid);
+
+	int updateMember(Member member);
+
+	void deleteMember(String memberid);
 	
 	
 } // DAO

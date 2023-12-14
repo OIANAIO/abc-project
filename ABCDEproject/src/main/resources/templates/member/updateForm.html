@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>UPDATE</title>
+<script>
+	function validCheck(){
+		let name = document.querySelector('#memberid');
+		let password = document.querySelector('#memberpw');
+		let email = document.querySelector('#email');
+		let phone = document.querySelector('#phone');
+		
+		if(name.value.length < 6){
+			alert('6글자 이상 입력');
+			return false;
+		}
+		
+		if(password.value.length < 10){
+			alert('10글자 이상 입력');
+			return false;
+		}
+		
+		if(email.value.length == 0){
+			alert('이메일 필수 입력');
+			return false;
+		}
+		
+		if(phone.value.length == 0){
+			alert('연락처 필수 입력');
+			return false;
+		}
+		
+		return true;
+	}
+</script>
+</head>
+<body>
+	
+	<h1>회원정보 수정</h1>
+	
+	<form th:action="@{/member/update}" method="post" onsubmit="return validCheck();">
+		<table>
+			<tr>
+				<th>내 프로필 사진 변경</th>
+				<td>
+					<input type="text" name="thumbnail" th:value="${member.thumbnail}">
+				</td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td>
+					<input type="email" name="email" th:value="${member.email}">
+				</td>
+			</tr>
+			<tr>
+				<th>전화번호</th>
+				<td>
+					<input type="text" name="phone" th:value="${member.phone}">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="회원정보 수정">
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+</body>
+</html>
+
+
+
+
+
