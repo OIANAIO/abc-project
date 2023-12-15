@@ -11,16 +11,24 @@
 </head>
 <body>
 	
-	<h1>Home Page</h1>
-	
-	<li sec:authorize="isAuthenticated()"><a th:text="|환영합니다, ${#authentication.principal.username}님|"></a></li>
-	<li sec:authorize="isAuthenticated()"><div id="thumbnail"></div></li>
-	<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입"></a></li>
-	<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인"></a></li>
-	<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃"></a></li>
-	<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|"></a></li>
-	<li sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|"></a></li>
-	<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/findId}" th:text="|아이디 찾기|"></a></li>
+	<div>
+		<nav>
+			<li><a th:href="@{stadium/stadiumList}" th:text="구장"></a></li>
+			<li><a th:href="@{matching/requestMatching}" th:text="매칭"></a></li>
+			<li><a th:href="@{record/recordList}" th:text="경기"></a></li>
+			<li><a th:href="@{team/teamList}" th:text="팀"></a></li>
+			<li><a th:href="@{recruitment/recruitmentList}" th:text="게시판"></a></li>
+			
+			<li sec:authorize="isAuthenticated()"><a th:text="|환영합니다, ${#authentication.principal.username}님|"></a></li>
+			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입"></a></li>
+			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인"></a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃"></a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|"></a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|"></a></li>
+			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/findId}" th:text="|아이디 찾기|"></a></li>
+		</nav>
+	</div>
+		
 	
 </body>
 </html>

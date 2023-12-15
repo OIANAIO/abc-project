@@ -3,15 +3,12 @@ package com.project.ABCDEproject.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.ABCDEproject.dao.HomeDAO;
-import com.project.ABCDEproject.vo.Member;
+import com.project.ABCDEproject.dao.MatchingDAO;
 
 @Service
-public class HomeServiceImpl implements HomeService{
+public class MatchingServiceImpl implements MatchingService{
 	
 	@Autowired
-	HomeDAO dao;
-
+	MatchingDAO dao;
 	
-	
-} // Service
+} // service
