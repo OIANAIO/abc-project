@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+	body {
+		height: 100vh;
+		width: 100vw;
+		background-image: url('https://img.freepik.com/premium-photo/soccer-stadium-hd-quality-ultra-realistic-desktop-wallpaper_819052-1830.jpg?w=1060');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-attachment: fixed;
+		overflow: hidden;
+	}
+	nav{
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 100;
+		padding-top: 30px;
+	}
+	ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+    li {
+        margin: 0 10px;
+        
+    }
+    li:hover{
+		font-size: 18px;
+		font-weight: bold;
+	}
+    a {
+		text-decoration: none;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+	}
+	
+	.main{
+		padding-top: 200px;
+		text-align: center;
+		color: white;
+	}
+
+	.text {
+		font-size: 90px;
+		font-family: 'Rubik Lines', Rubik Lines;
+		color:white;
+	}
+	
+	.rank{
+		margin: 0 auto;
+		background-color: rgba(255, 255, 255, 0.3);
+		border: 1px solid white;
+		color: black;
+		width: 80%;
+		border-radius: 10px;
+	}
+	
+	/*#rankTable{
+		max-height: 300px;
+        overflow-y: auto;
+	}*/
+
+
+
+
+
+
+
+
+
+
+
+	
+.slider {
+  position: relative;
+  overflow: hidden;
+  
+  width: 600px;
+  height: 400px;
+}
+
+.slide {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+
+  animation: slider 4.5s infinite linear;
+}
+
+.slide:nth-child(1) {
+  background-image: url('https://image.dongascience.com/Photo/2018/05/9540f8d3c30277c5db36bcaad8048e2a.jpg');
+  animation-delay: 0;
+}
+.slide:nth-child(2) {
+  background-image: url('https://media.istockphoto.com/id/1219371111/ko/%EC%82%AC%EC%A7%84/%EC%86%90%EC%A0%84%EB%93%B1-%EC%8A%B9%EB%A6%AC-%EA%B3%A8-%EB%84%93%EC%9D%80-%EA%B0%81%EB%8F%84%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%B5%EC%9D%84-%EB%B0%9C%EB%A1%9C-%EA%B2%BD%EA%B8%B0%EC%9E%A5%EC%97%90%EC%84%9C-%ED%96%89%EB%8F%99%EC%97%90-%EC%B6%95%EA%B5%AC-%EB%98%90%EB%8A%94-%EC%B6%95%EA%B5%AC-%EC%84%A0%EC%88%98-%EC%95%A1%EC%85%98-%EC%9A%B4%EB%8F%99-%EA%B2%BD%EC%9F%81.jpg?s=612x612&w=0&k=20&c=aAPK6iybUcf9c0yN2DpUOXd9DVRWH_LkWqF-T_G9pL4=');
+  animation-delay: -1.5s;
+}
+.slide:nth-child(3) {
+  background-image: url('https://cdn0000.airklass.com/classes/7408/new_cover-w1920-h1080?v=2889891622');
+  animation-delay: -3s;
+}
+
+@keyframes slider {
+  0% {
+    transform: translateX(0);
+  }
+
+  26% {
+    transform: translateX(0);
+  }
+  33% {
+    transform: translateX(-100%);
+    animation-timing-function: step-end;
+  }
+  93% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}

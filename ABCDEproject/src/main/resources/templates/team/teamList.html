@@ -4,7 +4,29 @@
 <meta charset="UTF-8">
 <title>TEAMLIST</title>
 </head>
+<style>
+	th, td{
+		border: 1px solid black;
+	}
+</style>
 <body>
+	<h1>TEAM</h1>
 	
+	<table>
+		<tr>
+			<td>전체&nbsp;<span></span></td>
+			<td colspan="3"></td>
+			<td>
+				<a th:href="@{/team/makeTeam}">팀 등록</a>
+				<a th:href="@{/}">홈</a>
+			</td>
+		</tr>
+		<tr>
+			<th>엠블럼</th>
+			<th>팀명</th>
+			<th>팀장</th>
+			<th>랭크</th>
+		</tr>
+	</table>
 </body>
 </html>

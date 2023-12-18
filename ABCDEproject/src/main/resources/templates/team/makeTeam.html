@@ -4,10 +4,65 @@
 <meta charset="UTF-8">
 <title>TEAM</title>
 <script>
-	
+	function validCheck(){
+		let name = document.querySelector('#memberid');
+		let password = document.querySelector('#memberpw');
+		let email = document.querySelector('#email');
+		let phone = document.querySelector('#phone');
+		
+		if(name.value.length < 6){
+			alert('6글자 이상 입력');
+			return false;
+		}
+		
+		if(password.value.length < 10){
+			alert('10글자 이상 입력');
+			return false;
+		}
+		
+		if(email.value.length == 0){
+			alert('이메일 필수 입력');
+			return false;
+		}
+		
+		if(phone.value.length == 0){
+			alert('연락처 필수 입력');
+			return false;
+		}
+		
+		return true;
+	}
 </script>
 </head>
 <body>
-	
+	<form th:action="@{/team/makeTeam}" method="post" onsubmit="return validCheck();">
+		<table>
+			<tr>
+				<th>팀 엠블럼</th>
+				<td>
+					<input type="text" name ="team_icon" id ="team_icon">
+				</td>
+			</tr>
+			<tr>
+				<th>팀명</th>
+				<td>
+					<input type="text" name="team_name" id="team_name">
+				</td>
+			</tr>
+			<tr>
+				<th>팀 설명</th>
+				<td>
+					<input type="text" name="team_description" id="team_description">
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="등록">
+				</td>
+			</tr>
+			
+		</table>
+	</form>
 </body>
 </html>

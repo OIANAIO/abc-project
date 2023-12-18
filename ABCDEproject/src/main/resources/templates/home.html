@@ -3,32 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <title>HOME</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" th:href="@{css/home.css}">
 <script>
-	
 	
 </script>
 </head>
 <body>
-	
 	<div>
 		<nav>
-			<li><a th:href="@{stadium/stadiumList}" th:text="구장"></a></li>
-			<li><a th:href="@{matching/requestMatching}" th:text="매칭"></a></li>
-			<li><a th:href="@{record/recordList}" th:text="경기"></a></li>
-			<li><a th:href="@{team/teamList}" th:text="팀"></a></li>
-			<li><a th:href="@{recruitment/recruitmentList}" th:text="게시판"></a></li>
-			
-			<li sec:authorize="isAuthenticated()"><a th:text="|환영합니다, ${#authentication.principal.username}님|"></a></li>
-			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입"></a></li>
-			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인"></a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃"></a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|"></a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|"></a></li>
-			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/findId}" th:text="|아이디 찾기|"></a></li>
+			<ul>
+				<li><a th:href="@{/}" th:text="|SPORTSFOOTBALLPLANET|"></a></li>
+				
+				<li>
+				<li><a th:href="@{stadium/stadiumList}" th:text="stadium"></a></li>
+				<li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a th:href="@{matching/requestMatching}" th:text="matching"></a></li>
+				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{record/recordList}" th:text="schedule"></a></li>
+				<li><a th:href="@{team/teamList}" th:text="team"></a></li>
+				<li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a th:href="@{recruitment/recruitmentList}" th:text="recruitment"></a></li>
+				</li>
+				
+				<li><a th:href="@{myPage/myPage}" th:text="|MY PAGE|"></a></li>
+			</ul>
 		</nav>
 	</div>
-		
+	
+	<div class="main">
+		<a class="text">Find Your</a><br>
+		<a class="text">Competitor!</a><br><br><br><br><br>
+		<div id="rankTable">
+			<table class="rank">
+				<tr class="rank">
+					<th>
+						랭크
+					</th>
+					<th>
+						엠블럼
+					</th>
+					<th>
+						팀명
+					</th>
+					<th>
+						팀장
+					</th>
+				</tr>
+				<tr th:each="rowNumber : ${#numbers.sequence(1, 20)}" class="rank">
+	                <td th:text="${rowNumber}">랭크 번호</td>
+	                <td>엠블럼 내용</td>
+	                <td>팀명 내용</td>
+	                <td>팀장 내용</td>
+	            </tr>
+			</table>
+		</div>
+	</div>
+	
+	<!--<div class="slider">
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+	</div>-->
 	
 </body>
 </html>
+
+
+
+
+
+
