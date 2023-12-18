@@ -54,5 +54,11 @@ public class MemberServiceImpl implements MemberService{
 		String selectId = dao.selectId(map);
 		return selectId;
 	}
+
+	@Override
+	public int getId(String username) {
+		int result = dao.getId(username);
+		return result;
+	}
 	
 } // service

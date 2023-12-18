@@ -20,6 +20,8 @@ public interface MemberDAO {
 	void lastLogin(String memberid);
 
 	String selectId(HashMap<String, String> map);
+
+	int getId(String username);
 	
 	
 } // DAO

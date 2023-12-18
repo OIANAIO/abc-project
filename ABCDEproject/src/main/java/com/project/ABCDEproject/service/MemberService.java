@@ -17,5 +17,7 @@ public interface MemberService {
 	void lastLogin(String username);
 
 	String selectId(HashMap<String, String> map);
+
+	int getId(String username);
 	
 }

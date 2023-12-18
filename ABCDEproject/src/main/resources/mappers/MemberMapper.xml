@@ -55,7 +55,12 @@
 			email = #{email} AND
 			phone = #{phone}
 	</select>
-	
+	<select id="getId" parameterType="String" resultType="int">
+		select id
+		from member
+		where
+			memberid = #{username}
+	</select>
 </mapper>
 
 

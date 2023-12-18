@@ -27,7 +27,6 @@ public class MemberController {
 	@Value("${spring.servlet.multipart.location}")
 	String uploadpath;
 	
-	
 	@Autowired
 	MemberService service;
 	
@@ -105,8 +104,10 @@ public class MemberController {
 		return "member/findId";
 	}
 	
-	@GetMapping("tsuika")
-	public String t() {
+	@GetMapping("getId")
+	public String getId(@AuthenticationPrincipal UserDetails user) {
+		int id = service.getId(user.getUsername());
+		
 		return "";
 	}
 	
