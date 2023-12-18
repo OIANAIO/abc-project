@@ -29,4 +29,4 @@ public class StadiumController {
 		return "stadium/stadiumList";
 	}
 	
-} // controller
+}
