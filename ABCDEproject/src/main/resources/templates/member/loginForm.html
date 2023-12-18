@@ -3,20 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>LOGIN</title>
+<link rel="stylesheet" th:href="@{/css/loginForm.css}">
 </head>
 <body>
-	<h2>로그인</h2>
-	<form th:action="@{/member/login}" method="post">
-		ID: <input type="text" name="memberid"> <br>
-		PW: <input type="password" name="memberpw"> <br>
-		<input type="submit" name="로그인">
-	</form>
+	<div>
+		<h2>로그인</h2>
+		<form th:action="@{/member/login}" method="post">
+			ID: <input type="text" name="memberid"> <br>
+			PW: <input type="password" name="memberpw"> <br>
+			<input type="submit" name="로그인">
+		</form>
+		
+		<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입"></a></li>
+		<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인"></a></li>
+		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃"></a></li>
+		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|"></a></li>
+		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|"></a></li>
+		<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/findId}" th:text="|아이디 찾기|"></a></li>
+	</div>
 	
-	<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입"></a></li>
-	<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인"></a></li>
-	<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃"></a></li>
-	<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|"></a></li>
-	<li sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|"></a></li>
-	<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/findId}" th:text="|아이디 찾기|"></a></li>
 </body>
 </html>

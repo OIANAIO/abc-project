@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+body {
+		height: 100vh;
+		width: 100vw;
+		background-image: url('https://img.freepik.com/premium-photo/soccer-stadium-hd-quality-ultra-realistic-desktop-wallpaper_819052-1830.jpg?w=1060');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-attachment: fixed;
+		overflow: hidden;
+	}

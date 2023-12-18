@@ -105,6 +105,11 @@ public class MemberController {
 		return "member/findId";
 	}
 	
+	@GetMapping("tsuika")
+	public String t() {
+		return "";
+	}
+	
 } // controller
 
 
