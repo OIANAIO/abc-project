@@ -15,13 +15,6 @@ public class TeamServiceImpl implements TeamService{
 	TeamDAO dao;
 
 	@Override
-	public int selectId(String username) {
-		int result = dao.selectId(username);
-		
-		return result;
-	}
-
-	@Override
 	public void makeTeam(Team team) {
 		dao.makeTeam(team);
 	}
@@ -29,8 +22,14 @@ public class TeamServiceImpl implements TeamService{
 
 	@Override
 	public ArrayList<Team> getTeamListFilterID(int userid) {
-		// TODO Auto-generated method stub
 		return dao.getTeamListFilterID(userid);
+	}
+
+	@Override
+	public ArrayList<Team> teamList(int memberid) {
+		ArrayList<Team> teamList = dao.teamList(memberid);
+		
+		return teamList;
 	}
 	
 } // service

@@ -5,43 +5,86 @@
 <title>TEAM</title>
 <script>
 	function validCheck(){
-		let name = document.querySelector('#memberid');
-		let password = document.querySelector('#memberpw');
-		let email = document.querySelector('#email');
-		let phone = document.querySelector('#phone');
+		let team_icon = document.querySelector('#team_icon');
+		let team_name = document.querySelector('#team_name');
+		let team_description = document.querySelector('#team_description');
 		
-		if(name.value.length < 6){
-			alert('6글자 이상 입력');
+		if(team_description.value.length < 1){
+			alert('팀 설명을 입력하세요.');
 			return false;
 		}
 		
-		if(password.value.length < 10){
-			alert('10글자 이상 입력');
+		if(team_name.value.length < 1){
+			alert('팀 이름을 입력하세요.');
 			return false;
 		}
-		
-		if(email.value.length == 0){
-			alert('이메일 필수 입력');
-			return false;
-		}
-		
-		if(phone.value.length == 0){
-			alert('연락처 필수 입력');
-			return false;
-		}
-		
+			
 		return true;
 	}
+	
+	function uploadAndPreview() {
+        var fileInput = document.getElementById('team_icon');
+        var preview = document.getElementById('preview');
+
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+            // 파일을 서버에 업로드
+            uploadFile(file);
+        } else {
+            preview.src = "#";
+        }
+	}
+
+	function uploadFile(file) {
+        var formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('File uploaded:', data.imageUrl);
+            // 여기에서 서버에서 전달한 이미지 URL을 사용하여 추가적인 작업을 수행할 수 있습니다.
+        })
+        .catch(error => {
+            console.error('Error uploading file:', error);
+        });
+	}
+
+	function setExternalImage() {
+        var imageUrl = 'https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w170-h170-rw';
+        var preview = document.getElementById('preview');
+        preview.src = imageUrl;
+    }
+    
+    window.onload = function() {
+        setExternalImage();
+	};
+
 </script>
 </head>
 <body>
-	<form th:action="@{/team/makeTeam}" method="post" onsubmit="return validCheck();">
+	<form th:action="@{/team/makeTeam}" method="post" enctype="multipart/form-data" onsubmit="return validCheck();">
 		<table>
 			<tr>
+				
 				<th>팀 엠블럼</th>
-				<td>
-					<input type="text" name ="team_icon" id ="team_icon">
-				</td>
+	            <td>
+	               <input type="file" name="upload" id="team_icon" onchange="uploadAndPreview()">
+	                <br>
+	                <img id="preview" src="#" style="max-width: 80px; max-height: 80px;">
+	            </td>
+				
 			</tr>
 			<tr>
 				<th>팀명</th>
