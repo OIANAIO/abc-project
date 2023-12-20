@@ -27,6 +27,14 @@
 			<th>팀장</th>
 			<th>랭크</th>
 		</tr>
+		<tr th:each="team : ${teamList}">
+			<td></td>
+			<td>
+				<a th:text="${team.team_name}" id="team_name"></a>
+			</td>
+			<td th:text="${team.leader_id}"></td>
+			<td></td>
+		</tr>
 	</table>
 </body>
 </html>

@@ -12,7 +12,7 @@ public class Team {
 	int id;
 	int leader_id;
 	String team_icon;
-	String originalicon;
+	String original_icon;
 	String team_description;
 	String team_name;
 	

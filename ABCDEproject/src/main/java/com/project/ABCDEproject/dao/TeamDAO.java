@@ -9,11 +9,11 @@ import com.project.ABCDEproject.vo.Team;
 @Mapper
 public interface TeamDAO {
 
-	int selectId(String username);
-
 	void makeTeam(Team team);
 
 	ArrayList<Team> getTeamListFilterID(int userid);
+
+	ArrayList<Team> teamList(int memberid);
 	
 	
 }
