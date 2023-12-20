@@ -11,6 +11,9 @@
 			matching_team_seq.nextval, #{resolver_id},#{team_id},#{state},#{shoes_count},#{vest_count},#{ball_count}
 		)
 	</insert>
+	<select id="getMatchingTeamList" parameterType="int" resultType="MatchingTeam">
+		select * from matching_team where resolver_id=#{user_id}
+	</select>
 </mapper>
 
 

@@ -1,5 +1,7 @@
 package com.project.ABCDEproject.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ public class MatchingServiceImpl implements MatchingService{
 	public void createMatchingTeam(MatchingTeam mt) {
 		// TODO Auto-generated method stub
 		dao.createMatchingTeam(mt);
+	}
+
+	@Override
+	public ArrayList<MatchingTeam> getMatchingTeamList(int user_id) {
+		// TODO Auto-generated method stub
+		return dao.getMatchingTeamList(user_id);
 	}
 	
 } // service

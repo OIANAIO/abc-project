@@ -22,4 +22,6 @@ public class MatchingTeam{
 	int shoes_count;
 	int vest_count;
 	int ball_count;
+	int avg_point;
+	int opponent;
 }

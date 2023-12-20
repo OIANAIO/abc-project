@@ -40,6 +40,9 @@ public class Member implements UserDetails{
 		return this.memberid;
 	}
 	
+	public int getUserID() {
+		return this.id;
+	}
 	
 	@Override
 	public boolean isAccountNonExpired() {
