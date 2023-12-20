@@ -3,9 +3,12 @@ package com.project.ABCDEproject.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,7 +31,6 @@ public class RecruitmentController {
 			, String type
 			, String searchWord) {
 		
-		// DB의 spring5_board 테이블의 전 데이터를 가져오기
 		ArrayList<Recruitment> boardList = service.selectList(type, searchWord);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("type", type);
@@ -36,5 +38,18 @@ public class RecruitmentController {
 		
 		return "recruitment/recruitmentList";
 	}
+	@GetMapping("write")
+	public String write() {
+		return "recruitment/write";
+	}
+	@PostMapping("write")
+	public String writeForm(Recruitment Recruitment, @AuthenticationPrincipal UserDetails user) {
+		
+		Recruitment.setMemberid(user.getUsername());
+		log.debug("FFFFFFFFFFFFF{}",Recruitment);
+		int result = service.writeBoard(Recruitment);
+
+		return "redirect:/recruitment/recruitmentList";
+	}
 	
-} // controller
+}

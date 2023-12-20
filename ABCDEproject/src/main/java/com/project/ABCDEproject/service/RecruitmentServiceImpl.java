@@ -30,5 +30,11 @@ public class RecruitmentServiceImpl implements RecruitmentService{
 		map.put("searchWord", searchWord);
 		return map;
 	}
+
+	@Override
+	public int writeBoard(Recruitment recruitment) {
+		int result = dao.writeBoard(recruitment);
+		return result;
+	}
 	
 }

@@ -5,6 +5,32 @@
 <title>RECRUITMENT</title>
 </head>
 <body>
-	<h1>팀원모집</h1>
+	<h1 style="text-align: center;">팀원모집 게시판</h1>
+	<table>
+		<tr>
+			<td class="white" colspan="3"></td>
+			<td class="white">
+				<a th:href="@{/recruitment/write}">글쓰기</a>
+				<a th:href="@{/}">홈</a>
+			</td>
+		</tr>
+		<tr>
+			<th>글번호</th>
+			<th>작성자</th>
+			<th style="width:230px;">제목</th>
+			<th>조회수</th>
+			<th style="width:150px;">작성일</th>
+		</tr>
+		<tr th:each="recruitment : ${boardList}">
+			<td th:text="${recruitment.id}"></td>
+			<td th:text="${recruitment.writer_id}"></td>
+			<td>
+			<a th:href="@{/recruitment/read(id=${recruitment.id})}"
+				th:text="${recruitment.title}"></a>
+			</td>
+			<td th:text="${recruitment.hits}"></td>
+			<td th:text="${recruitment.write_date}"></td>
+		</tr>
+		</table>
 </body>
 </html>

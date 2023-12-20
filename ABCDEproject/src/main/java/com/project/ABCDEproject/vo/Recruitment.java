@@ -9,9 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Recruitment {
 
-	int ID;				
-	int WRITER_ID;	
-	String TITLE;	
-	String CONTENT;	
-	String WRITE_DATE;		
+	int id;				
+	String writer_id;	
+	String title;	
+	String content;	
+	int hits;
+	String write_date;
+	public void setMemberid(String username) {
+		this.writer_id = username;
+	}		
 }

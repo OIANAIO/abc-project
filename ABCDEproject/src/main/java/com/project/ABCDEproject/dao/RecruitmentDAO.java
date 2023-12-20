@@ -11,5 +11,7 @@ import com.project.ABCDEproject.vo.Recruitment;
 public interface RecruitmentDAO {
 
 	ArrayList<Recruitment> selectList(HashMap<String, String> map);
+
+	int writeBoard(Recruitment recruitment);
 	
 }

@@ -5,6 +5,40 @@
 <mapper namespace="com.project.ABCDEproject.dao.RecruitmentDAO">
 	<select id="selectList" parameterType="map" resultType="Recruitment">
 		select * from RECRUITMENT_POST
-		
+		<if test="type != null and searchWord != null">
+			<where>
+				<if test="type == 'title'">
+					upper(title) LIKE '%'|| upper(#{searchWord}) || '%'
+				</if>
+				<if test="type == 'content'">
+					upper(content) LIKE '%'|| upper(#{searchWord}) || '%'
+				</if>
+				<if test="type == 'writer_id'">
+					writer_id like '%' || #{searchWord} || '%'
+				</if>
+				<if test="type == 'all'">
+					upper(title) like '%' || upper(#{searchWord}) || '%'
+					or upper(content) like '%' || upper(#{searchWord}) || '%'
+					or write_id like '%' || #{searchWord} || '%'
+				</if>
+			</where>
+		</if>
 	</select>
+	<insert id="writeBoard" parameterType="Recruitment">
+		insert into RECRUITMENT_POST
+		(
+			id
+			, writer_id
+			, title
+			, content
+			, hits
+		) values (
+			RECRUITMENT_POST_SEQ.nextval
+			, #{writer_id}
+			, #{title}
+			, #{content}
+			, #{hits}
+		)
+	</insert>
+	
 </mapper>

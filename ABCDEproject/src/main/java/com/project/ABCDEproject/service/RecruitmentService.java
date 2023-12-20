@@ -8,4 +8,6 @@ public interface RecruitmentService {
 
 	ArrayList<Recruitment> selectList(String type, String searchWord);
 
+	int writeBoard(Recruitment recruitment);
+
 }
