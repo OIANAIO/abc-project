@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.ABCDEproject.dao.RegionDAO">
+<select id="getRegionList" resultType="Region">
+select * from region
+</select>
+<insert id="createMatchingRegion" parameterType="MatchingRegion">
+insert into matching_region(id, matching_team_id,region_id)
+values(matching_region_seq.nextval,#{matching_team_id},#{region_id})
+</insert>
+</mapper>
+
+
+

@@ -20,6 +20,9 @@
 				team_seq.nextval, #{leader_id}, #{team_description}, #{team_name}
 			)
 	</insert>
+	<select id="getTeamListFilterID" parameterType="int" resultType="Team">
+		select * from team where leader_id=#{userid}
+	</select>
 </mapper>
 
 
