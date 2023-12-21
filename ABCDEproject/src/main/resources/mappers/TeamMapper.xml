@@ -30,6 +30,12 @@
 		where
 			leader_id = #{memberid}
 	</select>
+	<select id="getTeamLeader" parameterType="int" resultType="Team">
+		select * from team where id=#{team_id}
+	</select>
+	<select id="getTeamMemberList" parameterType="int" resultType="TeamMember">
+		select * from team_member where team_id=#{team_id}
+	</select>
 </mapper>
 
 

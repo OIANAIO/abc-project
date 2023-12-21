@@ -19,5 +19,7 @@ public interface MemberService {
 	String selectId(HashMap<String, String> map);
 
 	int getId(String username);
+
+	int getPoint(int id);
 	
 }

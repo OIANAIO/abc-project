@@ -61,6 +61,13 @@
 		where
 			memberid = #{username}
 	</select>
+	
+	<select id="getPoint" parameterType="int" resultType="int">
+		select point
+		from member
+		where
+			id = #{id}
+	</select>
 </mapper>
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.ABCDEproject.dao.TeamDAO;
 import com.project.ABCDEproject.vo.Team;
+import com.project.ABCDEproject.vo.TeamMember;
 
 @Service
 public class TeamServiceImpl implements TeamService{
@@ -30,6 +31,20 @@ public class TeamServiceImpl implements TeamService{
 		ArrayList<Team> teamList = dao.teamList(memberid);
 		
 		return teamList;
+	}
+
+
+	@Override
+	public Team getTeamLeader(int team_id) {
+		// TODO Auto-generated method stub
+		return dao.getTeamLeader(team_id);
+	}
+
+
+	@Override
+	public ArrayList<TeamMember> getTeamMemberList(int team_id) {
+		// TODO Auto-generated method stub
+		return dao.getTeamMemberList(team_id);
 	}
 	
 } // service

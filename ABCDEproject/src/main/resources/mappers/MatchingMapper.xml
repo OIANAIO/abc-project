@@ -5,10 +5,10 @@
 <mapper namespace="com.project.ABCDEproject.dao.MatchingDAO">
 	<insert id="createMatchingTeam" parameterType="MatchingTeam" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 		insert into Matching_Team(
-			id,resolver_id,team_id,state,shoes_count,vest_count,ball_count
+			id,resolver_id,team_id,state,shoes_count,vest_count,ball_count,avg_point
 		)
 		values(
-			matching_team_seq.nextval, #{resolver_id},#{team_id},#{state},#{shoes_count},#{vest_count},#{ball_count}
+			matching_team_seq.nextval, #{resolver_id},#{team_id},#{state},#{shoes_count},#{vest_count},#{ball_count},#{avg_point}
 		)
 	</insert>
 	<select id="getMatchingTeamList" parameterType="int" resultType="MatchingTeam">

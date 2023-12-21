@@ -22,6 +22,8 @@ public interface MemberDAO {
 	String selectId(HashMap<String, String> map);
 
 	int getId(String username);
+
+	int getPoint(int id);
 	
 	
 } // DAO
