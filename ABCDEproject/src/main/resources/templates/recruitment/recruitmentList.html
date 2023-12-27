@@ -21,7 +21,7 @@
 			<th>조회수</th>
 			<th style="width:150px;">작성일</th>
 		</tr>
-		<tr th:each="recruitment : ${boardList}">
+		<tr th:each="recruitment : ${recruitmentList}">
 			<td th:text="${recruitment.id}"></td>
 			<td th:text="${recruitment.writer_id}"></td>
 			<td>

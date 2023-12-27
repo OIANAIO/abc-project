@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Recruitment {
+public class Reply {
 
 	int id;				
-	String writer_id;	
-	String title;	
-	String content;	
-	int hits;
+	int post_id;  
+	String writer_id; 
+	String content; 
 	String write_date;
-	
+	public void setReplytext(String replytext) {
+		// TODO Auto-generated method stub
+		
+	} 
 }

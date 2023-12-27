@@ -24,7 +24,7 @@
 			</where>
 		</if>
 	</select>
-	<insert id="writeBoard" parameterType="Recruitment">
+	<insert id="writerecruitment" parameterType="Recruitment">
 		insert into RECRUITMENT_POST
 		(
 			id
@@ -40,5 +40,26 @@
 			, #{hits}
 		)
 	</insert>
+	<select id="readRecruitment" parameterType="int" resultType="Recruitment">
+		select * from RECRUITMENT_POST where id = #{id}
+	</select>
+	<update id="updateRecruitment" parameterType="Recruitment">
+		update
+			RECRUITMENT_POST
+		set
+			title = #{title}
+			,content = #{content}
+		where
+			id = #{id}
+			and writer_id = #{writer_id}
+	</update>
+	<update id="updateHits" parameterType="int">
+		update 
+			RECRUITMENT_POST 
+		set 
+			hits = hits + 1
+		where 
+			id = #{id}
+	</update>
 	
 </mapper>
