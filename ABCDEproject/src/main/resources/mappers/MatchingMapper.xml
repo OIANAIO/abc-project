@@ -5,15 +5,55 @@
 <mapper namespace="com.project.ABCDEproject.dao.MatchingDAO">
 	<insert id="createMatchingTeam" parameterType="MatchingTeam" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 		insert into Matching_Team(
-			id,resolver_id,team_id,state,shoes_count,vest_count,ball_count,avg_point
+			id,resolver_id,team_id,state,shoes_count,vest_count,ball_count,avg_point, schedule_id
 		)
 		values(
-			matching_team_seq.nextval, #{resolver_id},#{team_id},#{state},#{shoes_count},#{vest_count},#{ball_count},#{avg_point}
+			matching_team_seq.nextval, #{resolver_id},#{team_id},#{state},#{shoes_count},#{vest_count},#{ball_count},#{avg_point},#{schedule_id}
 		)
 	</insert>
+	<update id="deleteMatching" parameterType="int">
+		UPDATE matching_team
+		SET
+		state=4
+		where id=#{matchingreqeustid}
+	</update>
+	<update id="paymentSuccess" parameterType="int">
+		UPDATE matching_team
+		SET
+		state=2
+		where id=#{matchingreqeustid}
+	</update>
+	<update id="matchingSuccess" parameterType="int">
+		UPDATE matching_team
+		SET
+		state=3
+		where id=#{matchingrequestid}
+	</update>
+	<select id="getMatchingTeam" parameterType="int" resultType="MatchingTeam">
+		select * from matching_team where id=#{opponent}
+	</select>
+	<select id="getOpponent" parameterType="int" resultType="int">
+		select opponent from matching_team where id=#{matchingreqeustid}
+	</select>
 	<select id="getMatchingTeamList" parameterType="int" resultType="MatchingTeam">
 		select * from matching_team where resolver_id=#{user_id}
 	</select>
+	<select id="getMatchingTeamListByRegion" parameterType="Region" resultType="MatchingTeam">
+		select a.*, b.region_id
+		from matching_team a
+		left outer join matching_region b
+		on a.id = b.matching_team_id
+		where b.region_id=#{id} AND a.state=0
+	</select>
+	<update id="setMatchingTeam" parameterType="MatchingTeam">
+		UPDATE matching_team
+		SET
+		state=#{state}
+		<if test="opponent!=0">
+		,opponent=#{opponent}
+		</if>
+		where id=#{id}
+	</update>
 </mapper>
 
 

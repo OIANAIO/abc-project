@@ -10,4 +10,14 @@ public interface MatchingService {
 
 	ArrayList<MatchingTeam> getMatchingTeamList(int user_id);
 
+	void deleteMatching(int matchingreqeustid);
+
+	int getOpponent(int matchingreqeustid);
+
+	void paymentSuccess(int matchingreqeustid);
+
+	MatchingTeam getMatchingTeam(int opponent);
+
+	void matchingSuccess(int matchingrequestid);
+
 }

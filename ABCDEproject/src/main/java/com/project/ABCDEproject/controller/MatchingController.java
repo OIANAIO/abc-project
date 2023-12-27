@@ -10,14 +10,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.ABCDEproject.service.MatchingService;
 import com.project.ABCDEproject.service.MemberService;
 import com.project.ABCDEproject.service.RegionService;
+import com.project.ABCDEproject.service.ScheduleService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.vo.MatchingRegion;
 import com.project.ABCDEproject.vo.MatchingTeam;
 import com.project.ABCDEproject.vo.Region;
+import com.project.ABCDEproject.vo.Schedule;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamMember;
 
@@ -40,6 +43,9 @@ public class MatchingController {
 	@Autowired
 	TeamService ts;
 	
+	@Autowired
+	ScheduleService ss;
+	
 	
 	@GetMapping("requestMatching")
 	public String requestMatching(Model model, @AuthenticationPrincipal UserDetails user) {;
@@ -50,19 +56,24 @@ public class MatchingController {
 		ArrayList<Team> tl=ts.getTeamListFilterID(userid);
 		model.addAttribute("TeamList",tl);
 		
+		ArrayList<Schedule> sl=ss.getScheduleList();
+		model.addAttribute("ScheduleList",sl);
 		return "matching/requestMatching";
 	}
 	
 	@PostMapping("requestMatching")
 	public String stackMatching(@AuthenticationPrincipal UserDetails user,
 			String teamSelect, String checkRegionArray,
-			boolean shoesTF, int shoesCount,boolean vestTF, int vestCount,boolean ballTF, int ballCount) {
+			boolean shoesTF, int shoesCount,boolean vestTF, int vestCount,boolean ballTF, int ballCount, int schedule_id) {
+		
+		System.out.println(schedule_id);
 		
 		int userid=mb.getId(user.getUsername());
 		MatchingTeam mt=new MatchingTeam();
 		mt.setResolver_id(userid);
 		mt.setState(0);
 		mt.setTeam_id(Integer.parseInt(teamSelect));
+		mt.setSchedule_id(schedule_id);
 		System.out.println(mt.getTeam_id());
 		
 		ArrayList<Integer> id_list=new ArrayList<Integer>();
@@ -83,7 +94,6 @@ public class MatchingController {
 		
 		
 		System.out.println(avg_list);
-		System.out.println("test");
 		System.out.println(calculateAverage(avg_list));
 		mt.setAvg_point(calculateAverage(avg_list));
 				
@@ -143,4 +153,35 @@ public class MatchingController {
         // 평균 계산
         return sum / list.size();
     }
+	
+	@GetMapping("delete")
+	public String deleteMatching(@RequestParam(value="matchingrequestid", defaultValue="0") int matchingreqeustid) {
+		if(matchingreqeustid!=0)
+		{
+			try {
+				int opponentId=ms.getOpponent(matchingreqeustid);
+				ms.deleteMatching(opponentId);
+			}
+			catch(Exception e) {
+				
+			}
+			ms.deleteMatching(matchingreqeustid);
+		}
+		
+		return "redirect:/myPage/myPage";
+	}
+	
+	@GetMapping("payment")
+	public String payment(@RequestParam(value="matchingrequestid", defaultValue="0") int matchingrequestid) {
+		
+		ms.paymentSuccess(matchingrequestid);
+		int opponent=ms.getOpponent(matchingrequestid);
+		MatchingTeam mt=ms.getMatchingTeam(opponent);
+		if(mt.getState()==2)
+		{
+			ms.matchingSuccess(matchingrequestid);
+			ms.matchingSuccess(opponent);
+		}
+		return "redirect:/myPage/myPage";
+	}
 } // controller
