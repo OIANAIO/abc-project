@@ -22,4 +22,6 @@ public interface MemberService {
 
 	int getPoint(int id);
 	
+	String getMemberid(int id);
+	
 }

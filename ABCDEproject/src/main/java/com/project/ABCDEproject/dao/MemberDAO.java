@@ -24,6 +24,8 @@ public interface MemberDAO {
 	int getId(String username);
 
 	int getPoint(int id);
+
+	String getMemberid(int id);
 	
 	
 } // DAO

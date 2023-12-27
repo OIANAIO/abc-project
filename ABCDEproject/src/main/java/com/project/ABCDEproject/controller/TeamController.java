@@ -41,6 +41,9 @@ public class TeamController {
 	public String teamList(@AuthenticationPrincipal UserDetails user, Model model) {
 		int memberid = ms.getId(user.getUsername());
 		ArrayList<Team> teamList = service.teamList(memberid);
+		for(Team i: teamList) {
+			i.setLeader_memberid(ms.getMemberid(memberid));
+		}
 		model.addAttribute("teamList", teamList);
 		
 		return "team/teamList";
@@ -72,8 +75,8 @@ public class TeamController {
 		ArrayList<Integer> teamMemberId = service.getTeamMemberIdList(teamId);
 		
 		try {
-		    ArrayList<Member> teamMember = service.getTeamMember(teamMemberId);
-		    model.addAttribute("teamMember", teamMember);
+			ArrayList<Member> teamMember = service.getTeamMember(teamMemberId);
+			model.addAttribute("teamMember", teamMember);
 		} catch (Exception e) {
 		}
 		
