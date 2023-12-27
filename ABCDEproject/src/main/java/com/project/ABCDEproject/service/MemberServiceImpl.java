@@ -63,8 +63,13 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int getPoint(int id) {
-		// TODO Auto-generated method stub
 		return dao.getPoint(id);
+	}
+
+	@Override
+	public String getMemberid(int id) {
+		String Memberid = dao.getMemberid(id);
+		return Memberid;
 	}
 	
 } // service

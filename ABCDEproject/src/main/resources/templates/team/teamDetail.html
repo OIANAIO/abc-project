@@ -75,16 +75,16 @@
 		
 		<table class="table">
 			<tr>
-				<th>아이디</th>
 				<th>프사</th>
+				<th>아이디</th>
 				<th>포인트</th>
-				<th>소속팀</th>
+				<th>전화번호</th>
 			</tr>
 			<tr th:each="tm : ${teamMember}">
+				<th><img th:src="@{'/img/' + ${tm.thumbnail}}" style="max-width: 50px; max-height: 50px;"></th>
 				<th th:text="${tm.memberid}"></th>
-				<th ></th>
 				<th th:text="${tm.point}"></th>
-				<th ></th>
+				<th th:text="${tm.phone}"></th>
 			</tr>
 		</table>
 	</div>

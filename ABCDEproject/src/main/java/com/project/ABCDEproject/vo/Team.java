@@ -16,4 +16,6 @@ public class Team {
 	String team_description;
 	String team_name;
 	
+	String leader_memberid;
+	
 }
