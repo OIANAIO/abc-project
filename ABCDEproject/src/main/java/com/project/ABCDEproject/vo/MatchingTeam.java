@@ -24,4 +24,5 @@ public class MatchingTeam{
 	int ball_count;
 	int avg_point;
 	int opponent;
+	int schedule_id;
 }

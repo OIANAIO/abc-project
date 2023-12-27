@@ -50,6 +50,34 @@ function check(){
 		<div class="col ">
 		<form id="form" method="post" th:action="@{/matching/requestMatching}" onsubmit="return check()">
 			<div class="mb-3">
+				<div class="h4">스케줄 선택</div>
+				<div class="row">
+					<div class="col-8">
+					<div class="card" style="height:500px; overflow-y: scroll; padding:20px">
+						<div class="card mb-2" th:each="schedule:${ScheduleList}">
+						  <div class="card-body" style="padding:0px 0px 0px 10px;">
+						    <div class="row d-flex align-items-center">
+						    	<div class="col" style="overflow:hidden; height:100px; padding:0px; margin:0px">
+						    		<img th:src="@{/img/main.jpg}" style="width:200px;">
+						    	</div>
+						    	<div class="col">
+						    		<p th:text="${schedule.game_date}"></p>
+						    		<p th:text="${schedule.start_time+' 부터 '+schedule.end_time+' 까지 '}"></p>
+						    	</div>
+						    	<div class="col-auto">
+						    		<input class="form-check-input team" name="schedule_id" type="radio" th:value="${schedule.id}">
+									<label class="form-check-label"></label>
+						    	</div>
+						    </div>
+						  </div>
+						</div>
+						
+						
+					</div>
+					</div>
+				</div>
+			</div>
+			<div class="mb-3">
 				<div class="h4">참가 팀 선택</div>
 			  	<div class="row">
 			  		<div class="col-4" th:each="team : ${TeamList}">
