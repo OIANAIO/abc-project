@@ -3,10 +3,31 @@
 <head>
 <meta charset="EUC-KR">
 <title>팀원 모집 글쓰기</title>
+<script>
+		//글수정폼 확인
+		function validation() {
+			let title = document.getElementById('title');
+			let contents = document.getElementById('content');
+			console.log(title)
+			if (title.value.length < 5) {
+				alert("제목을 입력하세요.");
+				title.focus();
+				title.select();
+				return false;
+			}
+			if (contents.value.length < 5) {
+				alert("내용을 입력하세요.");
+				contents.focus();
+				contents.select();
+				return false;
+			}
+			return true;
+		}
+	</script>
 </head>
 <body>
 	<h1 style="text-align: center;">팀원모집 글쓰기</h1>
-	<form th:action="@{/recruitment/write}" method="post">
+	<form th:action="@{/recruitment/write}" method="post"onsubmit="return validation();">
 		<table>
 			<tr>
 				<th>제목</th>

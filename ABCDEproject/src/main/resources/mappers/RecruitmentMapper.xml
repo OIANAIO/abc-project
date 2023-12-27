@@ -61,5 +61,8 @@
 		where 
 			id = #{id}
 	</update>
-	
+	<delete id="deleteBoard" parameterType="int">
+		delete RECRUITMENT_POST
+		where id like #{id}
+	</delete>
 </mapper>

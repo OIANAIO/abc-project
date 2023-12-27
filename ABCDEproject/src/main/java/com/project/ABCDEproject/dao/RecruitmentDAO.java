@@ -23,4 +23,6 @@ public interface RecruitmentDAO {
 
 	int updateRecruitment(Recruitment recruitment);
 
+	void deleteBoard(int id);
+
 }

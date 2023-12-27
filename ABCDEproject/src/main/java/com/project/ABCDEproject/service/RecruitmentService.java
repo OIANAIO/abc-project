@@ -14,4 +14,6 @@ public interface RecruitmentService {
 	int writeRecruitment(Recruitment recruitment);
 
 	int updaterecruitment(Recruitment recruitment);
+
+	void deleteBoard(int id);
 }

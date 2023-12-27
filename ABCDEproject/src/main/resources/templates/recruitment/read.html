@@ -4,7 +4,25 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>글 읽기</title>
-
+<script>
+		function deleteFunc(id) {
+			if (confirm('삭제하시겠습니까?')) {
+				location.href = 'delete?id=' + id;
+			}
+		}
+		//글수정폼 확인
+		function validation() {
+			let reply = document.getElementById('reply');
+			console.log(reply)
+			if (reply.value.length < 5) {
+				alert("5글자 이상으로 입력해주세요.");
+				reply.focus();
+				reply.select();
+				return false;
+			}
+			return true;
+		}
+	</script>
 </head>
 
 <body>
@@ -12,6 +30,9 @@
 		<h1>글읽기</h1>
 	</header>
 	<table>
+		<td class="white">
+				<h2><a th:href="@{/}">HOME</a></h2>
+			</td>
 			<tr>
 				<th>글번호</th>
 				<td style="width: 80px;" th:text="${recruitment.id}"></td>
@@ -41,10 +62,10 @@
 			<a th:href="|javascript:deleteFunc(${recruitment.id})|">삭제</a>
 		</div>
 	<section>
-		<form th:action="@{/reply/create}" method="post">
+		<form th:action="@{/reply/create}" method="post" onsubmit="return validation();">
 			리플내용
 			<input type="hidden" name="post_id" th:value="${recruitment.id}">
-			<input type="text" name="content" style="width: 500px;">
+			<input type="text" id="reply" name="content" style="width: 500px;">
 			<input type="submit" value="확인">
 		</form>
 		<table class="reply">

@@ -11,16 +11,15 @@ import com.project.ABCDEproject.vo.Reply;
 import com.project.ABCDEproject.vo.Recruitment;
 
 @Service
-public class RecruitmentServiceImpl implements RecruitmentService{
-	
+public class RecruitmentServiceImpl implements RecruitmentService {
+
 	@Autowired
 	RecruitmentDAO dao;
 
 	@Override
 	public ArrayList<Recruitment> selectList(String type, String searchWord) {
 		HashMap<String, String> map = getMap(type, searchWord);
-		
-		
+
 		ArrayList<Recruitment> result = dao.selectList(map);
 		return result;
 	}
@@ -31,11 +30,13 @@ public class RecruitmentServiceImpl implements RecruitmentService{
 		map.put("searchWord", searchWord);
 		return map;
 	}
+
 	@Override
 	public int writeRecruitment(Recruitment recruitment) {
 		int result = dao.writerecruitment(recruitment);
 		return result;
 	}
+
 	@Override
 	public Recruitment readRecruitment(int id) {
 		dao.updateHits(id);
@@ -49,6 +50,10 @@ public class RecruitmentServiceImpl implements RecruitmentService{
 		return result;
 	}
 
+	@Override
+	public void deleteBoard(int id) {
+		dao.deleteBoard(id);
 
-	
+	}
+
 }
