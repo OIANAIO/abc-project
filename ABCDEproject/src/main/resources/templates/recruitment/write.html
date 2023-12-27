@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf.org">
+<head>
+<meta charset="EUC-KR">
+<title>팀원 모집 글쓰기</title>
+</head>
+<body>
+	<h1 style="text-align: center;">팀원모집 글쓰기</h1>
+	<form th:action="@{/recruitment/write}" method="post">
+		<table>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="title" id="title" style="width:398px;">
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea name="content" id="content"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="white" style="text-align:center;">
+					<input type="submit" value="저장">
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
