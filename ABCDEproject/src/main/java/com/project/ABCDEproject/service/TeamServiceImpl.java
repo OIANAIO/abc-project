@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.ABCDEproject.dao.TeamDAO;
+import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamMember;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class TeamServiceImpl implements TeamService{
 	
 	@Autowired
@@ -36,15 +40,38 @@ public class TeamServiceImpl implements TeamService{
 
 	@Override
 	public Team getTeamLeader(int team_id) {
-		// TODO Auto-generated method stub
 		return dao.getTeamLeader(team_id);
 	}
 
 
 	@Override
 	public ArrayList<TeamMember> getTeamMemberList(int team_id) {
-		// TODO Auto-generated method stub
 		return dao.getTeamMemberList(team_id);
 	}
+
+
+	@Override
+	public Team selectTeam(int teamId) {
+		Team team = dao.selectTeam(teamId);
+		return team;
+	}
+
+
+	@Override
+	public ArrayList<Integer> getTeamMemberIdList(int teamId) {
+		ArrayList<Integer> teamMemberIdList = dao.getTeamMemberIdList(teamId);
+		return teamMemberIdList;
+	}
+
+
+	@Override
+	public ArrayList<Member> getTeamMember(ArrayList<Integer> teamMemberId) {
+		ArrayList<Member> teamMember = dao.getTeamMember(teamMemberId);
+		return teamMember;
+	}
+
+
+
+
 	
 } // service

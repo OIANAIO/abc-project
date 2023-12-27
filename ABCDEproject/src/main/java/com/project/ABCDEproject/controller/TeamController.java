@@ -11,12 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.ABCDEproject.service.MemberService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.util.FileService;
+import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
+import com.project.ABCDEproject.vo.TeamMember;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,6 +63,21 @@ public class TeamController {
 		service.makeTeam(team);
 		
 		return "redirect:/team/teamList";
+	}
+	
+	@GetMapping("detail")
+	public String detail(@RequestParam(name="teamId", defaultValue = "0") int teamId, Model model) {
+		Team team = service.selectTeam(teamId);
+		model.addAttribute("team", team);
+		ArrayList<Integer> teamMemberId = service.getTeamMemberIdList(teamId);
+		
+		try {
+		    ArrayList<Member> teamMember = service.getTeamMember(teamMemberId);
+		    model.addAttribute("teamMember", teamMember);
+		} catch (Exception e) {
+		}
+		
+		return "team/teamDetail";
 	}
 	
 	

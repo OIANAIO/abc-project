@@ -36,6 +36,23 @@
 	<select id="getTeamMemberList" parameterType="int" resultType="TeamMember">
 		select * from team_member where team_id=#{team_id}
 	</select>
+	<select id="selectTeam" parameterType="int" resultType="Team">
+		select * from team
+		where
+			id = #{teamId}
+	</select>
+	<select id="getTeamMemberIdList" parameterType="int" resultType="int">
+		select member_id from team_member
+		where
+			team_id = #{teamId}
+	</select>
+	<select id="getTeamMember" parameterType="List" resultType="Member">
+		select * from Member
+		WHERE id IN
+		    <foreach item="item" collection="list" open="(" separator="," close=")">
+		        #{item}
+		    </foreach>
+	</select>
 </mapper>
 
 

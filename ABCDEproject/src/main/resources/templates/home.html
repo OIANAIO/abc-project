@@ -5,12 +5,21 @@
 <title>HOME</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 <script>
-	
+	window.addEventListener('scroll', function () {
+        const header = document.querySelector('body');
+        const scrollPosition = window.scrollY;
+
+        // 배경 투명도 조절
+        const opacity = scrollPosition / 100; // 스크롤 위치에 따라 조절
+
+        header.style.backgroundColor = `rgba(0, 0, 0, ${Math.min(opacity, 1)})`;
+    });
 </script>
 </head>
 <body>

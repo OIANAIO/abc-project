@@ -3,8 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>LOGIN</title>
-<!--<link rel="stylesheet" th:href="@{/css/loginForm.css}">-->
 <meta name ="google-signin-client_id" content="143765637349-u9k5ic6heop5tt2pd4vkjp7tmak6f9na.apps.googleusercontent.com">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<style>
+	li:hover{
+		font-weight: bold;
+	}
+	body{
+		height: 100vh;
+		width: 100vw;
+		background-image: url('https://img.freepik.com/premium-photo/soccer-stadium-hd-quality-ultra-realistic-desktop-wallpaper_819052-1830.jpg?w=1060');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-attachment: fixed;
+		overflow: hidden;
+	}
+	body::before {
+	    content: '';
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background-color: rgba(0, 0, 0, 0.5);
+	    z-index: -1;
+	}
+</style>
+
 <script>
 //처음 실행하는 함수
 function init() {
@@ -44,28 +76,47 @@ function onSignInFailure(t){
 </script>
 <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script></head>
 <body>
-	<div>
-		<h2>로그인</h2>
-		<form th:action="@{/member/login}" method="post">
-			ID: <input type="text" name="memberid"> <br>
-			PW: <input type="password" name="memberpw"> <br>
-			<input type="submit" name="로그인">
-		</form>
-
-		<ul>
-			<li id="GgCustomLogin">
-				<a href="javascript:void(0)">
-					<span>Login with Google</span>
-				</a>
-			</li>
-		</ul>
-
-		<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입"></a></li>
-		<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인"></a></li>
-		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃"></a></li>
-		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|"></a></li>
-		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|"></a></li>
-		<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/findId}" th:text="|아이디 찾기|"></a></li>
+	
+	<div style="margin: 50px auto 0 auto; width: 25vw;">
+		
+		<div class="mb-3">
+			<table class="table">
+				<tr>
+					<th><h2 style="font-family: 'Rajdhani', sans-serif; text-align: center;">LOGIN</h2></th>
+				</tr>
+				<tr>
+					<td>
+						<form th:action="@{/member/login}" method="post">
+							<p>ID: <input type="text" name="memberid" class="form-control"></p>
+							<p>PW: <input type="password" name="memberpw" class="form-control"></p>
+							<input type="submit" name="로그인" th:value="로그인" class="form-control">
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<ul>
+							<li id="GgCustomLogin">
+								<a href="javascript:void(0)">
+									<span>Login with Google</span>
+								</a>
+							</li>
+						</ul>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입"></a></li>
+						<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인"></a></li>
+						<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃"></a></li>
+						<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|"></a></li>
+						<li sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|"></a></li>
+						<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/findId}" th:text="|아이디 찾기|"></a></li>
+					</th>
+				</tr>
+			</table>
+			
+		</div>
 	</div>
 	
 </body>

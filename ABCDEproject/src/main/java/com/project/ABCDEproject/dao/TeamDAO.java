@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamMember;
 
@@ -19,6 +20,12 @@ public interface TeamDAO {
 	Team getTeamLeader(int team_id);
 
 	ArrayList<TeamMember> getTeamMemberList(int team_id);
-	
+
+	Team selectTeam(int teamId);
+
+	ArrayList<Integer> getTeamMemberIdList(int teamId);
+
+	ArrayList<Member> getTeamMember(ArrayList<Integer> teamMemberId);
+
 	
 }
