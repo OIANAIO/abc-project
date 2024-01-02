@@ -25,11 +25,19 @@ public class MyPageController {
 	@Autowired
 	MyPageService service;
 	
+	@Autowired
+	MatchingService mats;
 	
+	@Autowired
+	MemberService mems;
 	
 	@GetMapping("myPage")
 	public String myPage(@AuthenticationPrincipal UserDetails user, Model model) {
 		
+		int userid=mems.getId(user.getUsername());
+		
+		ArrayList<MatchingTeam> list=mats.getMatchingTeamList(userid);
+		model.addAttribute("requestlist",list);
 		
 		return "myPage/myPage";
 	}
