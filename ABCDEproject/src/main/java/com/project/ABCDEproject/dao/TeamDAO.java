@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
+import com.project.ABCDEproject.vo.TeamInvite;
 import com.project.ABCDEproject.vo.TeamMember;
 
 @Mapper
@@ -26,6 +27,11 @@ public interface TeamDAO {
 	ArrayList<Integer> getTeamMemberIdList(int teamId);
 
 	ArrayList<Member> getTeamMember(ArrayList<Integer> teamMemberId);
+
+	void deleteMember(TeamMember tm);
+
+	void inviteMember(TeamInvite ti);
+
 
 	
 }

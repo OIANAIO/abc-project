@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.exceptions.ParserInitializationException;
 
 import com.project.ABCDEproject.service.MemberService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.util.FileService;
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
+import com.project.ABCDEproject.vo.TeamInvite;
 import com.project.ABCDEproject.vo.TeamMember;
 
 import lombok.extern.slf4j.Slf4j;
@@ -71,9 +74,9 @@ public class TeamController {
 	@GetMapping("detail")
 	public String detail(@RequestParam(name="teamId", defaultValue = "0") int teamId, Model model) {
 		Team team = service.selectTeam(teamId);
+		model.addAttribute("teamId", teamId);
 		model.addAttribute("team", team);
 		ArrayList<Integer> teamMemberId = service.getTeamMemberIdList(teamId);
-		
 		try {
 			ArrayList<Member> teamMember = service.getTeamMember(teamMemberId);
 			model.addAttribute("teamMember", teamMember);
@@ -81,6 +84,34 @@ public class TeamController {
 		}
 		
 		return "team/teamDetail";
+	}
+	
+	@GetMapping("deleteMember")
+	public String deleteMember(@RequestParam(name="teamId", defaultValue = "0") int teamId, @RequestParam(name="id", defaultValue = "0") int id) {
+		TeamMember tm = new TeamMember();
+		tm.setMember_id(id);
+		tm.setTeam_id(teamId);
+		service.deleteMember(tm);
+		
+		return "redirect:/team/detail?teamId=" + teamId;
+	}
+	
+	@PostMapping("addMember")
+	@ResponseBody
+	public ArrayList<Member> addMember(String addWord) {
+		ArrayList<Member> list = ms.searchAddMember(addWord);
+		
+		return list;
+	}
+	
+	@PostMapping("inviteMember")
+	@ResponseBody
+	public void inviteMember(String num, String teamId) {
+		TeamInvite ti = new TeamInvite();
+		ti.setAddressee_id(Integer.parseInt(num));
+		ti.setTeam_id(Integer.parseInt(teamId));
+		
+		service.inviteMember(ti);
 	}
 	
 	

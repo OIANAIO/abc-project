@@ -76,6 +76,12 @@
 			id = #{id}
 	</select>
 	
+	<select id="searchAddMember" parameterType="String" resultType="Member">
+		select * from member
+		where
+			upper(memberid) like '%' || upper (#{addWord}) || '%'
+	</select>
+	
 </mapper>
 
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
+import com.project.ABCDEproject.vo.TeamInvite;
 import com.project.ABCDEproject.vo.TeamMember;
 
 public interface TeamService {
@@ -24,6 +25,9 @@ public interface TeamService {
 
 	ArrayList<Member> getTeamMember(ArrayList<Integer> teamMemberId);
 
+	void deleteMember(TeamMember tm);
+
+	void inviteMember(TeamInvite ti);
 
 	
 	
