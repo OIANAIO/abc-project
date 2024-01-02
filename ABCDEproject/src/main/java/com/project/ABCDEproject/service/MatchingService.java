@@ -2,6 +2,7 @@ package com.project.ABCDEproject.service;
 
 import java.util.ArrayList;
 
+import com.project.ABCDEproject.vo.Match;
 import com.project.ABCDEproject.vo.MatchingTeam;
 
 public interface MatchingService {
@@ -19,5 +20,11 @@ public interface MatchingService {
 	MatchingTeam getMatchingTeam(int opponent);
 
 	void matchingSuccess(int matchingrequestid);
+
+	ArrayList<Match> getMatchListByState(int state);
+
+	Match getMatchByID(int matchid);
+
+	void setEndMatch(int matchid);
 
 }

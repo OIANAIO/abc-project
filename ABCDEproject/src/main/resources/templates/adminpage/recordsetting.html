@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>MATCHING</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+<h2>승패 관리</h2>
+<div class="row">
+<div class="accordion" id="accordionExample">
+  <div class="card" style="width: 80%;">
+  	<div class="card-header">
+  	<div class="row">
+  	<div class="col-2">
+  	신청번호
+  	</div>
+  	<div class="col-2">
+  	팀A
+  	</div>
+  	<div class="col-2">
+  	팀B
+  	</div>
+  	<div class="col-2">
+  	예약 스케줄
+  	</div>
+  	<div class="col-auto">
+  	버튼
+  	</div>
+  	</div>
+  	</div>
+  	<ul class="list-group list-group-flush">
+    <li th:each="Match:${MatchList}" class="list-group-item">
+	    <div class="row">
+	    <div class="col-2"><span th:text="${Match.id}"></span></div>
+	    
+	    <div class="col-2"><span th:text="${Match.matching_team_id_a}"></span></div>
+	    
+	    <div class="col-2"><span th:text="${Match.matching_team_id_a}"></span></div>
+	    
+	    <div class="col-2"><span th:text="${Match.schedule_id}"></span></div>
+	    
+	    <div class="col-auto text-start">
+		    <button class="btn btn-xs btn-primary" th:onclick="'location.href=\'' + @{/AdminPage/setwin(matchid=${Match.id},target=0)} + '\''">1팀 승리</button>
+		    <button class="btn btn-xs btn-danger" th:onclick="'location.href=\'' + @{/AdminPage/setwin(matchid=${Match.id},target=1)} + '\''">2팀 승리</button>
+		</div>
+	    
+		</div>
+    </li>
+  </ul>
+  
+  </div>
+</div>
+</div>
+</div>
+	
+</body>
+</html>

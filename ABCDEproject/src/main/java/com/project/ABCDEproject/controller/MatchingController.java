@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.ABCDEproject.service.MatchingService;
 import com.project.ABCDEproject.service.MemberService;
-import com.project.ABCDEproject.service.RegionService;
+import com.project.ABCDEproject.service.ReviewService;
 import com.project.ABCDEproject.service.ScheduleService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.vo.MatchingRegion;
 import com.project.ABCDEproject.vo.MatchingTeam;
-import com.project.ABCDEproject.vo.Region;
+import com.project.ABCDEproject.vo.ReviewRequest;
 import com.project.ABCDEproject.vo.Schedule;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamMember;
@@ -38,7 +38,7 @@ public class MatchingController {
 	MatchingService ms;
 	
 	@Autowired
-	RegionService rs;
+	ReviewService rs;
 	
 	@Autowired
 	TeamService ts;
@@ -50,8 +50,6 @@ public class MatchingController {
 	@GetMapping("requestMatching")
 	public String requestMatching(Model model, @AuthenticationPrincipal UserDetails user) {;
 		int userid=mb.getId(user.getUsername());
-		ArrayList<Region> rl=rs.getRegionList();
-		model.addAttribute("RegionList",rl);
 		
 		ArrayList<Team> tl=ts.getTeamListFilterID(userid);
 		model.addAttribute("TeamList",tl);
@@ -63,7 +61,7 @@ public class MatchingController {
 	
 	@PostMapping("requestMatching")
 	public String stackMatching(@AuthenticationPrincipal UserDetails user,
-			String teamSelect, String checkRegionArray,
+			String teamSelect,
 			boolean shoesTF, int shoesCount,boolean vestTF, int vestCount,boolean ballTF, int ballCount, int schedule_id) {
 		
 		System.out.println(schedule_id);
@@ -91,8 +89,7 @@ public class MatchingController {
 			avg_list.add(mb.getPoint(id));
 		}
 		
-		
-		
+
 		System.out.println(avg_list);
 		System.out.println(calculateAverage(avg_list));
 		mt.setAvg_point(calculateAverage(avg_list));
@@ -127,14 +124,7 @@ public class MatchingController {
 		
 		ms.createMatchingTeam(mt);
 		
-		String[] resultArray = checkRegionArray.split(",");
 		//선호지역 저장
-		for(String region:resultArray) {
-			MatchingRegion mr=new MatchingRegion();
-			mr.setMatching_team_id(mt.getId());
-			mr.setRegion_id(Integer.parseInt(region));
-			rs.createMatchingRegion(mr);
-		}
 
 		return "redirect:/";
 	}

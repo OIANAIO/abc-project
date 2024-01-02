@@ -36,15 +36,10 @@
 		select opponent from matching_team where id=#{matchingreqeustid}
 	</select>
 	<select id="getMatchingTeamList" parameterType="int" resultType="MatchingTeam">
-		select * from matching_team where resolver_id=#{user_id}
+		select * from matching_team where resolver_id=#{user_id} order by request_date DESC
 	</select>
-	<select id="getMatchingTeamListByRegion" parameterType="Region" resultType="MatchingTeam">
-		select a.*, b.region_id
-		from matching_team a
-		left outer join matching_region b
-		on a.id = b.matching_team_id
-		where b.region_id=#{id} AND a.state=0
-	</select>
+	<select id="getMatchingTeamListByNotMatching" resultType="MatchingTeam">
+		select * from matching_team where state=0 ORDER BY DBMS_RANDOM.VALUE	</select>
 	<update id="setMatchingTeam" parameterType="MatchingTeam">
 		UPDATE matching_team
 		SET
@@ -53,6 +48,22 @@
 		,opponent=#{opponent}
 		</if>
 		where id=#{id}
+	</update>
+	<select id="checkSchedule" parameterType="int" resultType="boolean">
+	SELECT CASE WHEN EXISTS (SELECT 1 FROM match WHERE schedule_id = #{schedule_id}) THEN 1 ELSE 0 END FROM DUAL
+	</select>
+	<insert id="addMatch" parameterType="Match">
+	insert into Match(id, matching_team_id_a,matching_team_id_b,schedule_id,state)
+	values(match_seq.nextval,#{matching_team_id_a},#{matching_team_id_b},#{schedule_id},#{state})
+	</insert>
+	<select id="getMatchListByState" parameterType="int" resultType="Match">
+	select * from match where state=#{state}
+	</select>
+	<select id="getMatchByID" parameterType="int">
+	select * from match where id=#{matchid}
+	</select>
+	<update id="setEndMatch" parameterType="int">
+	update match set state=2 where id=#{matchid}
 	</update>
 </mapper>
 

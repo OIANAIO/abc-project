@@ -3,7 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.ABCDEproject.dao.RecordDAO">
-	
+	<insert id="addRecord" parameterType="Record" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	insert into Record(id,winner_team_id, loser_team_id, match_id) values(record_seq.nextval,#{winner_team_id},#{loser_team_id},#{match_id})
+	</insert>
 </mapper>
 
 

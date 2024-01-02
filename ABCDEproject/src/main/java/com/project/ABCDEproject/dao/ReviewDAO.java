@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.ABCDEproject.vo.MatchingRegion;
-import com.project.ABCDEproject.vo.Region;
+import com.project.ABCDEproject.vo.ReviewRequest;
 
 @Mapper
-public interface RegionDAO {
+public interface ReviewDAO {
 
-	ArrayList<Region> getRegionList();
+	void sendReviewRequest(ReviewRequest request);
 
-	void createMatchingRegion(MatchingRegion mr);
 	
 }
