@@ -3,6 +3,7 @@ package com.project.ABCDEproject.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -12,10 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.ABCDEproject.service.replyService;
 import com.project.ABCDEproject.service.RecruitmentService;
-import com.project.ABCDEproject.vo.Reply;
+import com.project.ABCDEproject.service.replyService;
+import com.project.ABCDEproject.util.PageNavigator;
 import com.project.ABCDEproject.vo.Recruitment;
+import com.project.ABCDEproject.vo.Reply;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,17 +32,30 @@ public class RecruitmentController {
 	@Autowired
 	replyService Rservice;
 
+	@Value("${user.board.page}")
+	int countPerPage;
+	
+	@Value("${user.board.page}")
+	int pagePerGroup;
+	
 	@GetMapping("recruitmentList")
-	public String recruitmentList(Model model, @RequestParam(name = "page", defaultValue = "1") int page, String type,
-			String searchWord) {
-
-		ArrayList<Recruitment> recruitmentList = service.selectList(type, searchWord);
-		log.debug("ㅇㅇㅇㅇㅇㅇ{}", recruitmentList);
+	public String recruitmentList(Model model, @RequestParam(name = "page", defaultValue = "1") int page
+			, String type
+			, String searchWord) {
+		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+		
+		ArrayList<Recruitment> recruitmentList = service.selectList(navi, type, searchWord);
+		System.out.println(recruitmentList);
+//		log.debug("ㅇㅇㅇㅇㅇㅇ{}", recruitmentList);
+//		log.debug("페이지퍼:{}", pagePerGroup);
+//		log.debug("카운터:{}", countPerPage);
+		
+		model.addAttribute("navi", navi);
 		model.addAttribute("recruitmentList", recruitmentList);
 		model.addAttribute("type", type);
 		model.addAttribute("searchWord", searchWord);
-
-		return "recruitment/recruitmentList";
+		
+		return "/recruitment/recruitmentList";
 	}
 
 	@GetMapping("write")
