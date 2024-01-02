@@ -7,15 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Team {
+public class Review {
 
 	int id;
-	int leader_id;
-	String team_icon;
-	String original_icon;
-	String team_description;
-	String team_name;
-	
-	String leader_memberid;
-	
+	int writer_id;
+	int team_id;
+	String content;
+	int offensive;
+	int deffensive;
+	int manner;
 }

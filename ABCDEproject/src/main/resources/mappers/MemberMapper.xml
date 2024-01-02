@@ -68,6 +68,20 @@
 		where
 			id = #{id}
 	</select>
+	
+	<select id="getMemberid" parameterType="int" resultType="String">
+		select memberid
+		from member
+		where
+			id = #{id}
+	</select>
+	
+	<select id="searchAddMember" parameterType="String" resultType="Member">
+		select * from member
+		where
+			upper(memberid) like '%' || upper (#{addWord}) || '%'
+	</select>
+	
 </mapper>
 
 

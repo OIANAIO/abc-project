@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.project.ABCDEproject.dao.TeamDAO;
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
+import com.project.ABCDEproject.vo.TeamInvite;
 import com.project.ABCDEproject.vo.TeamMember;
 
 import lombok.extern.slf4j.Slf4j;
@@ -63,14 +64,22 @@ public class TeamServiceImpl implements TeamService{
 		return teamMemberIdList;
 	}
 
-
 	@Override
 	public ArrayList<Member> getTeamMember(ArrayList<Integer> teamMemberId) {
 		ArrayList<Member> teamMember = dao.getTeamMember(teamMemberId);
 		return teamMember;
 	}
 
+	@Override
+	public void deleteMember(TeamMember tm) {
+		dao.deleteMember(tm);
+	}
 
+
+	@Override
+	public void inviteMember(TeamInvite ti) {
+		dao.inviteMember(ti);
+	}
 
 
 	

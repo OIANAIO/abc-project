@@ -1,5 +1,6 @@
 package com.project.ABCDEproject.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.project.ABCDEproject.vo.Member;
@@ -21,5 +22,9 @@ public interface MemberService {
 	int getId(String username);
 
 	int getPoint(int id);
+	
+	String getMemberid(int id);
+
+	ArrayList<Member> searchAddMember(String addWord);
 	
 }

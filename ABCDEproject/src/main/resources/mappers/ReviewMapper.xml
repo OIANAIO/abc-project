@@ -2,11 +2,16 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
 <mapper namespace="com.project.ABCDEproject.dao.ReviewDAO">
 <insert id="sendReviewRequest" parameterType="ReviewRequest">
 insert into review_request(id, state, target_member_id,target_team_id)
 values(review_request_seq.nextval,#{state},#{target_member_id},#{target_team_id})
 </insert>
+=======
+<mapper namespace="com.project.ABCDEproject.dao.reviewDAO">
+	
+>>>>>>> origin/kakaka
 </mapper>
 
 

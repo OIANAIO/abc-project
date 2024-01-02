@@ -18,6 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     @Autowired
     private DataSource dataSource;
+    
+    private final CustomOAuth2UserService customOAuth2UserService = new CustomOAuth2UserService();
 
     //설정
     @Bean
@@ -46,7 +48,11 @@ public class WebSecurityConfig {
         .and()
         .cors()
         .and()
-        .httpBasic();
+        .httpBasic()
+        .and()
+        .oauth2Login() // OAuth 2 로그인 설정 진입점
+            .userInfoEndpoint() // OAuth 2 로그인 성공 이후 사용자 정보를 가져올 때의 설정
+                .userService(customOAuth2UserService);
 
         return http.build();
     }

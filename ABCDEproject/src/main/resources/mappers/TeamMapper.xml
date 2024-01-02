@@ -53,6 +53,27 @@
 		        #{item}
 		    </foreach>
 	</select>
+	<delete id="deleteMember" parameterType="TeamMember">
+		delete team_member
+		where
+			member_id = #{member_id} AND team_id = #{team_id}
+	</delete>
+	<insert id="inviteMember" parameterType="TeamInvite">
+		insert into team_invite
+		(
+			id,
+			team_id,
+			addressee_id,
+			answer
+		) values (
+			team_invite_seq.nextval,
+			#{team_id},
+			#{addressee_id},
+			0
+		)
+	</insert>
+	
+	
 </mapper>
 
 

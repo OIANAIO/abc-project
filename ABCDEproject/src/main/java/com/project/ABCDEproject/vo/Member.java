@@ -1,5 +1,6 @@
 package com.project.ABCDEproject.vo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -26,6 +27,8 @@ public class Member implements UserDetails{
 	String originalthumbnail;
 	int point;
 	String rolename;
+	
+	String teamList;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

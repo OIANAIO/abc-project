@@ -1,5 +1,6 @@
 package com.project.ABCDEproject.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -24,6 +25,10 @@ public interface MemberDAO {
 	int getId(String username);
 
 	int getPoint(int id);
+
+	String getMemberid(int id);
+
+	ArrayList<Member> searchAddMember(String addWord);
 	
 	
 } // DAO
