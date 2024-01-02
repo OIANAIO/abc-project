@@ -3,26 +3,29 @@
 <head>
 <meta charset="EUC-KR">
 <title>팀원 모집 글쓰기</title>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script>
 		//글수정폼 확인
 		function validation() {
 			let title = document.getElementById('title');
 			let contents = document.getElementById('content');
-			console.log(title)
+			console.log(title.value.length); 
+			console.log(contents.value.length); 
 			if (title.value.length < 5) {
 				alert("제목을 입력하세요.");
 				title.focus();
 				title.select();
 				return false;
 			}
-			if (contents.value.length < 5) {
-				alert("내용을 입력하세요.");
+		if(CKEDITOR.instances.contents.getData().length < 1){				
+			alert("내용을 입력하세요.");
 				contents.focus();
 				contents.select();
 				return false;
 			}
 			return true;
 		}
+
 	</script>
 </head>
 <body>
@@ -48,5 +51,12 @@
 			</tr>
 		</table>
 	</form>
+	<script>
+				CKEDITOR.replace("content", {
+      height: 500, // 에디터 높이를 500px로 설정
+   });
+	</script>
+	
+	
 </body>
 </html>

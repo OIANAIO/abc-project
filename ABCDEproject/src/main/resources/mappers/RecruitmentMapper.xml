@@ -3,7 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.ABCDEproject.dao.RecruitmentDAO">
-	<select id="selectList" parameterType="map" resultType="Recruitment">
+	<select id="selectList" parameterType="map"
+		resultType="Recruitment">
 		select * from RECRUITMENT_POST
 		<if test="type != null and searchWord != null">
 			<where>
@@ -18,48 +19,73 @@
 				</if>
 				<if test="type == 'all'">
 					upper(title) like '%' || upper(#{searchWord}) || '%'
+					or
+					upper(content) like '%' || upper(#{searchWord}) || '%'
+					or 
+					writer_id like '%' || #{searchWord} || '%'
+				</if>
+			</where>
+		</if>
+	</select>
+	<select id="countTotal" parameterType="map" resultType="int">
+		select count(*) from RECRUITMENT_POST
+		<if test="type != null and searchWord != null">
+			<where>
+				<if test="type == 'title'">
+					upper(title) like '%' || upper(#{searchWord}) || '%'
+				</if>
+				<if test="type == 'content'">
+					upper(content) like '%'|| upper(#{searchWord}) || '%'
+				</if>
+				<if test="type == 'writer_id'">
+					writer_id like '%' || #{searchWord} || '%'
+				</if>
+				<if test="type == 'all'">
+					upper(title) like '%' || upper(#{searchWord}) || '%'
 					or upper(content) like '%' || upper(#{searchWord}) || '%'
-					or write_id like '%' || #{searchWord} || '%'
+					or writer_id like '%' || #{searchWord} || '%'
 				</if>
 			</where>
 		</if>
 	</select>
 	<insert id="writerecruitment" parameterType="Recruitment">
-		insert into RECRUITMENT_POST
+		insert into
+		RECRUITMENT_POST
 		(
-			id
-			, writer_id
-			, title
-			, content
-			, hits
+		id
+		, writer_id
+		, title
+		, content
+		, hits
 		) values (
-			RECRUITMENT_POST_SEQ.nextval
-			, #{writer_id}
-			, #{title}
-			, #{content}
-			, #{hits}
+		RECRUITMENT_POST_SEQ.nextval
+		, #{writer_id}
+		, #{title}
+		, #{content}
+		, #{hits}
 		)
 	</insert>
-	<select id="readRecruitment" parameterType="int" resultType="Recruitment">
+	<select id="readRecruitment" parameterType="int"
+		resultType="Recruitment">
 		select * from RECRUITMENT_POST where id = #{id}
 	</select>
 	<update id="updateRecruitment" parameterType="Recruitment">
 		update
-			RECRUITMENT_POST
+		RECRUITMENT_POST
 		set
-			title = #{title}
-			,content = #{content}
+		title = #{title}
+		,content = #{content}
 		where
-			id = #{id}
-			and writer_id = #{writer_id}
+		id = #{id}
+		and writer_id = #{writer_id}
 	</update>
 	<update id="updateHits" parameterType="int">
-		update 
-			RECRUITMENT_POST 
-		set 
-			hits = hits + 1
-		where 
-			id = #{id}
+		update
+		RECRUITMENT_POST
+		set
+		hits = hits + 1
+		where
+		id = #{id}
 	</update>
 	<delete id="deleteBoard" parameterType="int">
 		delete RECRUITMENT_POST
