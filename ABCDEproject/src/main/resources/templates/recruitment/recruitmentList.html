@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RECRUITMENT</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>RECRUITMENT</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 	<script>
 		function pagingFormSubmit(currentPage) {
@@ -16,29 +18,50 @@
 		}
 	</script>
 </head>
+
 <body>
-<div>
-	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-color: black;">
-			<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
-				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
-				
+	<div>
+		<nav
+			style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-color: black;">
+			<ul
+				style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
+				<li style="margin: 0 10px;"><a
+						style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}"
+						th:text="|FOOTBALLPLANET|"></a></li>
+
 				<li style="margin: 0 10px;">
-				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/stadium/stadiumList}" th:text="stadium"></a></li>
-				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/matching/requestMatching}" th:text="matching"></a></li>
-				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/record/recordList}" th:text="schedule"></a></li>
-				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/team/teamList}" th:text="team"></a></li>
-				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
+				<li style="margin: 0 10px;"><a
+						style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;"
+						th:href="@{/stadium/stadiumList}" th:text="stadium"></a></li>
+				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a
+						style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;"
+						th:href="@{/matching/requestMatching}" th:text="matching"></a></li>
+				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a
+						style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;"
+						th:href="@{/record/recordList}" th:text="schedule"></a></li>
+				<li style="margin: 0 10px;"><a
+						style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;"
+						th:href="@{/team/teamList}" th:text="team"></a></li>
+				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a
+						style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;"
+						th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
 				</li>
-				
-				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
+
+				<li style="margin: 0 10px;"><a
+						style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;"
+						th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
 			</ul>
 		</nav>
-</div>
-<div style="padding-top:100px">
-</div>
+	</div>
+	<div style="padding-top:100px">
+	</div>
 	<h1 style="text-align: center;">팀원모집 게시판</h1>
 	<table class="table table-striped table-bordered">
+
 		<tr>
+			<div style="margin: 0 auto; text-align: center;"><img style="height: 500px; width:750px;"
+				src="https://d31wz4d3hgve8q.cloudfront.net/media/Eunpyeong_A_goal.jpg" alt="서울 은평 롯데몰 A구장"></div>
+			
 			<td class="white" colspan="3"></td>
 			<td class="white">
 				<a th:href="@{/recruitment/write}">글쓰기</a>
@@ -56,41 +79,43 @@
 			<td th:text="${recruitment.id}"></td>
 			<td th:text="${recruitment.writer_id}"></td>
 			<td>
-			<a th:href="@{/recruitment/read(id=${recruitment.id})}"
-				th:text="${recruitment.title}"></a>
+				<a th:href="@{/recruitment/read(id=${recruitment.id})}" th:text="${recruitment.title}"></a>
 			</td>
 			<td th:text="${recruitment.hits}"></td>
 			<td th:text="${recruitment.write_date}"></td>
 		</tr>
-		</table>
-		<section>
-		
-	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
-	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a>
+	</table>
+	<section style="text-align: center;">
 
-	<span th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
-		<th:block th:if="${counter == navi.currentPage}"><b></th:block>
-		<a th:text="${counter}" th:if="${counter != 0}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>
-		<th:block th:if="${counter == navi.currentPage}"></b></th:block>
-	</span>
+		<a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
+		<a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a>
 
-	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a>
-	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
-	<br><br>
+		<span th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
+			<th:block th:if="${counter == navi.currentPage}"><b></th:block>
+			<a th:text="${counter}" th:if="${counter != 0}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>
+			<th:block th:if="${counter == navi.currentPage}"></b></th:block>
+		</span>
 
-	<form id="pagingForm" method="get" th:action="@{/recruitment/recruitmentList}">
-		<input type="hidden" name="page" id="page">
-		<select id="type" name="type">
-			<option value="title" th:selected="${type} == 'title'">제목</option>
-			<option value="content" th:selected="${type} == 'content'">본문</option>
-			<option value="writer_id" th:selected="${type} == 'writer_id'">작성자ID</option>
-			<option value="all" th:selected="${type} == 'all'">전체</option>
-		</select>
-		<input type="text" name="searchWord">
-		<input type="button" onclick="pagingFormSubmit(1)" value="검색">
-	
-	</form>
+		<a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a>
+		<a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
+		<br><br>
+
+		<form id="pagingForm" method="get" th:action="@{/recruitment/recruitmentList}">
+			<input type="hidden" name="page" id="page">
+			<select id="type" name="type">
+				<option value="title" th:selected="${type} == 'title'">제목</option>
+				<option value="content" th:selected="${type} == 'content'">본문</option>
+				<option value="writer_id" th:selected="${type} == 'writer_id'">작성자ID</option>
+				<option value="all" th:selected="${type} == 'all'">전체</option>
+			</select>
+			<input type="text" name="searchWord">
+			<input type="button" onclick="pagingFormSubmit(1)" value="검색">
+
+		</form>
 	</section>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -31,9 +31,9 @@
 	<header>
 		<h1>글읽기</h1>
 	</header>
-	<table class="table table-sm">
+	<table class="table align-middle">
 		<td class="white">
-				<h2><a th:href="@{/}">HOME</a></h2>
+				<a class="btn btn-outline-primary" th:href="@{/}" role="button">HOME</a>
 			</td>
 			<tr>
 				<th>글번호</th>
@@ -60,8 +60,8 @@
 		</table>
 		
 		<div th:if="${#authentication.name == recruitment.writer_id}" style="text-align: center;">
-			<a th:href="@{/recruitment/update(id=${recruitment.id})}">수정</a>
-			<a th:href="|javascript:deleteFunc(${recruitment.id})|">삭제</a>
+			<a class="btn btn-outline-primary" th:href="@{/recruitment/update(id=${recruitment.id})}">수정</a>
+			<a class="btn btn-outline-primary" th:href="|javascript:deleteFunc(${recruitment.id})|">삭제</a>
 		</div>
 	<section>
 		<form th:action="@{/reply/create}" method="post" onsubmit="return validation();">
