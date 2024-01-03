@@ -67,6 +67,11 @@ public class TeamController {
 			team.setTeam_icon(savefile);
 		}
 		service.makeTeam(team);
+		int teamId = team.getId();
+		TeamMember tm = new TeamMember();
+		tm.setMember_id(id);
+		tm.setTeam_id(teamId);
+		service.addTeamMember(tm);
 		
 		return "redirect:/team/teamList";
 	}
@@ -112,6 +117,12 @@ public class TeamController {
 		ti.setTeam_id(Integer.parseInt(teamId));
 		
 		service.inviteMember(ti);
+	}
+	
+	@PostMapping("searchMember")
+	@ResponseBody
+	public void searchMember() {
+		
 	}
 	
 	

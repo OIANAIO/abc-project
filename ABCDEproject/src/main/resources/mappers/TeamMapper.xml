@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.ABCDEproject.dao.TeamDAO">
 	
-	<insert id="makeTeam" parameterType="Team">
+	<insert id="makeTeam" parameterType="Team" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 		insert into team
 			(
 				id, leader_id, team_description, team_name
@@ -100,6 +100,26 @@
 		where
 			addressee_id = #{member_id} AND team_id = #{team_id}
 	</delete>
+	
+	<select id="getTeamRankList" resultType="Team">
+      <![CDATA[
+      select *
+      from
+          (
+              select team_id, avg(point)
+              from
+              (
+                  select a.*, b.point
+                  from team_member a
+                  left outer join member b
+                  on a.member_id = b.id
+              )
+          group by team_id
+          order by avg(point)
+      )
+      WHERE ROWNUM <= 10
+      ]]>
+   </select>
 	
 </mapper>
 
