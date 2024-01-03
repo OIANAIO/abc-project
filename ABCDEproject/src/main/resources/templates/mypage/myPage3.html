@@ -19,22 +19,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 <script>
-	function invOK(button) {
-		let teamId = button.getAttribute('data-teamid');
-		
-		if (confirm('초대 요청을 수락하시겠습니까?')) {
-			location.href = 'invOK?teamId=' + teamId;
-		}
-	}
-	
-	function invNO(button) {
-		let teamId = button.getAttribute('data-teamid');
-		
-		if (confirm('초대 요청을 거부하시겠습니까?')) {
-			location.href = 'invNO?teamId=' + teamId;
-		}
-	}
-	
+
 </script>
 
 </head>
@@ -82,7 +67,7 @@
 
 	<div class="container">
 		<div class="row my-4">
-			<h3>팀 초대 요청 목록</h3>
+			<h3>내 정보</h3>
 			<div class="accordion" id="accordionExample">
 				<div class="card" style="width: 80%;">
 					<div class="card-header">
@@ -102,19 +87,16 @@
 						</div>
 					</div>
 					<ul class="list-group list-group-flush">
-						<!-- 중복 제거된 데이터만 출력 -->
-			            <li th:each="inv, iterStat : ${invList}" class="list-group-item"
-			                th:unless="${iterStat.index > 0 and invList[iterStat.index - 1].team_id == inv.team_id}">
-			                <div class="row">
-								<div class="col-2"><span th:text="${inv.id}"></span></div>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-2"><span></span></div>
 
-								<div class="col-2"><span th:text="${inv.team_name}"></span></div>
+								<div class="col-2"><span></span></div>
 
-								<div class="col-5"><span th:text="${inv.addressee_name}"></span></div>
+								<div class="col-5"><span></span></div>
 
 								<div class="col-3 text-start">
-									<button class="btn btn-primary" th:data-teamid="${inv.team_id}" onclick="invOK(this);">수락</button>
-									<button class="btn btn-secondary" th:data-teamid="${inv.team_id}" onclick="invNO(this);">거부</button>
+									
 								</div>
 
 							</div>

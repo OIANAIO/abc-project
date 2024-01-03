@@ -29,6 +29,14 @@ public interface TeamService {
 
 	void inviteMember(TeamInvite ti);
 
+	ArrayList<TeamInvite> getInvList(int id);
+
+	String getTeamName(int tiTeamId);
+
+	void addTeamMember(TeamMember tm);
+
+	void deleteInv(TeamMember tm);
+
 	
 	
 }
