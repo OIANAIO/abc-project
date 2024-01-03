@@ -19,6 +19,7 @@ import com.project.ABCDEproject.service.ReviewService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.vo.Match;
 import com.project.ABCDEproject.vo.MatchingTeam;
+import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Record;
 import com.project.ABCDEproject.vo.ReviewRequest;
 import com.project.ABCDEproject.vo.TeamMember;
@@ -35,6 +36,9 @@ public class AdminPageController {
 	
 	@Autowired
 	TeamService teamS;
+	
+	@Autowired
+	MemberService memS;
 	
 	@Autowired
 	ReviewService reviewS;
@@ -55,13 +59,63 @@ public class AdminPageController {
 		Match match=ms.getMatchByID(matchid);
 		Record record=new Record();
 		
+		ArrayList<Integer> list_a=teamS.getTeamMemberIdList(match.getMatching_team_id_a());
+		list_a.add(teamS.getTeamLeader(match.getMatching_team_id_a()).getId());
+		int sum_a=0;
+		for(int val:list_a)
+		{
+			Member member=memS.selectMember(memS.getMemberid(val));
+			sum_a+=member.getPoint();
+		}
+		int avg_a=sum_a/list_a.size();
+		
+		ArrayList<Integer> list_b=teamS.getTeamMemberIdList(match.getMatching_team_id_b());
+		list_b.add(teamS.getTeamLeader(match.getMatching_team_id_b()).getId());
+		int sum_b=0;
+		for(int val:list_b)
+		{
+			Member member=memS.selectMember(memS.getMemberid(val));
+			sum_b+=member.getPoint();
+		}
+		int avg_b=sum_a/list_b.size();
+		
+		float aP=1/(1+10^((avg_b-avg_a)/500));
+		float bP=1/(1+10^((avg_a-avg_b)/500));
+		
+		int addScoreA=(int)(50*(1-aP));
+		int addScoreB=(int)(50*(1-bP));
+		
 		if(target==0) {
 			record.setWinner_team_id(match.getMatching_team_id_a());
 			record.setLoser_team_id(match.getMatching_team_id_b());
+			for(int val:list_a)
+			{
+				Member member=memS.selectMember(memS.getMemberid(val));
+				member.setPoint(member.getPoint()+addScoreA);
+				memS.updateMember(member);
+			}
+			for(int val:list_b)
+			{
+				Member member=memS.selectMember(memS.getMemberid(val));
+				member.setPoint(member.getPoint()-addScoreA);
+				memS.updateMember(member);
+			}
 		}
 		else {
 			record.setWinner_team_id(match.getMatching_team_id_b());
 			record.setLoser_team_id(match.getMatching_team_id_a());
+			for(int val:list_b)
+			{
+				Member member=memS.selectMember(memS.getMemberid(val));
+				member.setPoint(member.getPoint()+addScoreB);
+				memS.updateMember(member);
+			}
+			for(int val:list_a)
+			{
+				Member member=memS.selectMember(memS.getMemberid(val));
+				member.setPoint(member.getPoint()-addScoreB);
+				memS.updateMember(member);
+			}
 		}
 		
 		record.setMatch_id(matchid);
@@ -72,7 +126,7 @@ public class AdminPageController {
 		
 		ReviewRequest request1=new ReviewRequest();
 		ReviewRequest request2=new ReviewRequest();
-		
+
 		request1.setState(0);
 		request1.setTarget_member_id(teamS.getTeamLeader(match.getMatching_team_id_a()).getId());
 		request1.setTarget_team_id(match.getMatching_team_id_a());
