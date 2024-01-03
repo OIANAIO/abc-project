@@ -72,7 +72,34 @@
 			0
 		)
 	</insert>
-	
+	<select id="getInvList" parameterType="int" resultType="TeamInvite">
+		select * from team_invite
+		where
+			addressee_id = #{id}
+		order by id desc
+	</select>
+	<select id="getTeamName" parameterType="int" resultType="String">
+		select team_name from team
+		where
+			id = #{tiTeamId}
+	</select>
+	<insert id="addTeamMember" parameterType="TeamMember">
+		insert into team_member
+		(
+			id,
+			team_id,
+			member_id
+		) values (
+			team_member_seq.nextval,
+			#{team_id},
+			#{member_id}
+		)
+	</insert>
+	<delete id="deleteInv" parameterType="TeamMember">
+		delete team_invite
+		where
+			addressee_id = #{member_id} AND team_id = #{team_id}
+	</delete>
 	
 </mapper>
 

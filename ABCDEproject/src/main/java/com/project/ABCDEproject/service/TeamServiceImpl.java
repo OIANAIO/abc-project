@@ -82,5 +82,33 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 
+	@Override
+	public ArrayList<TeamInvite> getInvList(int id) {
+		ArrayList<TeamInvite> invList = dao.getInvList(id);
+		
+		return invList;
+	}
+
+
+	@Override
+	public String getTeamName(int tiTeamId) {
+		String teamName = dao.getTeamName(tiTeamId);
+		
+		return teamName;
+	}
+
+
+	@Override
+	public void addTeamMember(TeamMember tm) {
+		dao.addTeamMember(tm);
+	}
+
+
+	@Override
+	public void deleteInv(TeamMember tm) {
+		dao.deleteInv(tm);
+	}
+
+
 	
 } // service

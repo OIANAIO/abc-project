@@ -14,4 +14,7 @@ public class TeamInvite {
 	int addressee_id;
 	int answer;
 	
+	String team_name;
+	String addressee_name;
+	
 }
