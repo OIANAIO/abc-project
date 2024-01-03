@@ -81,6 +81,17 @@
 		where
 			upper(memberid) like '%' || upper (#{addWord}) || '%'
 	</select>
+	<select id="getMemberRankList" resultType="Member">
+		<![CDATA[
+        SELECT *
+        FROM (
+            SELECT *
+            FROM member
+            ORDER BY point DESC
+        )
+        WHERE ROWNUM <= 10
+    ]]>
+	</select>
 	
 </mapper>
 

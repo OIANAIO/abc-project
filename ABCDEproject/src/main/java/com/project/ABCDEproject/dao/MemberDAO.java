@@ -29,6 +29,7 @@ public interface MemberDAO {
 	String getMemberid(int id);
 
 	ArrayList<Member> searchAddMember(String addWord);
-	
+
+	ArrayList<Member> getMemberRankList();
 	
 } // DAO

@@ -58,23 +58,19 @@
 			<table class="rank">
 				<tr class="rank">
 					<th>
-						랭크
+						등수
 					</th>
 					<th>
-						엠블럼
+						이름
 					</th>
 					<th>
-						팀명
-					</th>
-					<th>
-						팀장
+						점수
 					</th>
 				</tr>
-				<tr th:each="rowNumber : ${#numbers.sequence(1, 20)}" class="rank">
-	                <td th:text="${rowNumber}">랭크 번호</td>
-	                <td>엠블럼 내용</td>
-	                <td>팀명 내용</td>
-	                <td>팀장 내용</td>
+				<tr th:each="member, rowNumber : ${memberlist}" class="rank">
+	                <td th:text="${rowNumber.count}"></td>
+	                <td th:text="${member.memberid}"></td>
+	                <td th:text="${member.point}"></td>
 	            </tr>
 			</table>
 		</div>
@@ -101,7 +97,8 @@
 	    </div>
 	  </div>
 	</div>
-	
+	<div class="mb-5">
+	</div>
 </body>
 </html>
 

@@ -38,7 +38,7 @@ public class MatchingServiceImpl implements MatchingService {
 	}
 
 	// 매10분마다
-	@Scheduled(fixedDelay = 100000)
+	@Scheduled(fixedDelay = 1000000)
 	public void matching() {
 		// 매칭 팀 리스트를 뽑아옴
 		ArrayList<MatchingTeam> requestlist = dao.getMatchingTeamListByNotMatching();
