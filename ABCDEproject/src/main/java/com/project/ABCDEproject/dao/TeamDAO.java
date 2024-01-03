@@ -39,7 +39,8 @@ public interface TeamDAO {
 	void addTeamMember(TeamMember tm);
 
 	void deleteInv(TeamMember tm);
-
-
+	
+	ArrayList<Team> getTeamRankList();
+	
 	
 }
