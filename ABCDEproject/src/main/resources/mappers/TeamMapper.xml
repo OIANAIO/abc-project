@@ -96,14 +96,14 @@
 		)
 	</insert>
 	<delete id="deleteInv" parameterType="TeamMember">
-		delete team_invite
-		where
-			addressee_id = #{member_id} AND team_id = #{team_id}
+	delete team_invite
+	where
+	addressee_id = #{member_id} AND team_id = #{team_id}
 	</delete>
 	
 	<select id="getTeamRankList" resultType="Team">
       <![CDATA[
-      select *
+         select *
       from
           (
               select team_id, avg(point)
@@ -116,11 +116,45 @@
               )
           group by team_id
           order by avg(point)
-      )
+          ) a
+      left outer join team b on a.team_id = b.id
       WHERE ROWNUM <= 10
-      ]]>
-   </select>
-	
+	]]>
+	</select>
+	<delete id="deleteTeam" parameterType="int">
+		delete team
+		where
+			id = #{teamId}
+	</delete>
+	<delete id="deleteAllMember" parameterType="int">
+		delete team_member
+		where
+			team_id = #{teamId}
+	</delete>
+	<update id="updateTeam" parameterType="Team">
+		update team
+		set
+			team_name = #{team_name},
+			team_description = #{team_description}
+		where
+			id = #{id}
+	</update>
+	<select id="searchMem" parameterType="map" resultType="Member">
+	    SELECT *
+	    FROM
+	    	(
+		        SELECT m.*, tm.team_id
+		        FROM member m
+		        LEFT OUTER JOIN team_member tm
+		        ON m.id = tm.member_id
+			) subquery
+	    <if test="searchWord != null">
+	        <where>
+	            (UPPER(subquery.memberid) LIKE '%' || UPPER(#{searchWord}) || '%')
+	            AND (subquery.team_id = #{teamId})
+	        </where>
+	    </if>
+	</select>
 </mapper>
 
 

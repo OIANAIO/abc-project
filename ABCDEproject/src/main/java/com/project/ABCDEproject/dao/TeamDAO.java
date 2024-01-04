@@ -1,6 +1,7 @@
 package com.project.ABCDEproject.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -36,11 +37,19 @@ public interface TeamDAO {
 
 	String getTeamName(int tiTeamId);
 
-	void addTeamMember(TeamMember tm);
+	void addTeamMember(TeamMember TeamMember);
 
 	void deleteInv(TeamMember tm);
 	
 	ArrayList<Team> getTeamRankList();
+
+	void deleteTeam(int teamId);
+
+	void deleteAllMember(int teamId);
+
+	void updateTeam(Team team);
+
+	ArrayList<Member> searchMem(HashMap<String, Object> map);
 	
 	
 }

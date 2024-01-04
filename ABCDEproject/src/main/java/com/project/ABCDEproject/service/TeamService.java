@@ -37,6 +37,14 @@ public interface TeamService {
 
 	void deleteInv(TeamMember tm);
 
+	void deleteTeam(int teamId);
+
+	void deleteAllMember(int teamId);
+
+	void updateTeam(Team team);
+
+	ArrayList<Member> searchMem(int teamId, String searchWord);
+
 	
 	
 }

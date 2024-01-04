@@ -77,10 +77,12 @@ public class TeamController {
 	}
 	
 	@GetMapping("detail")
-	public String detail(@RequestParam(name="teamId", defaultValue = "0") int teamId, Model model) {
+	public String detail(@RequestParam(name="teamId", defaultValue = "0") int teamId, @AuthenticationPrincipal UserDetails user, Model model) {
+		String leaderName = user.getUsername();
 		Team team = service.selectTeam(teamId);
 		model.addAttribute("teamId", teamId);
 		model.addAttribute("team", team);
+		model.addAttribute("leaderName", leaderName);
 		ArrayList<Integer> teamMemberId = service.getTeamMemberIdList(teamId);
 		try {
 			ArrayList<Member> teamMember = service.getTeamMember(teamMemberId);
@@ -103,8 +105,13 @@ public class TeamController {
 	
 	@PostMapping("addMember")
 	@ResponseBody
-	public ArrayList<Member> addMember(String addWord) {
+	public ArrayList<Member> addMember(String addWord, @AuthenticationPrincipal UserDetails user) {
 		ArrayList<Member> list = ms.searchAddMember(addWord);
+		for(Member i: list) {
+			if(i.getMemberid().equals(user.getUsername())) {
+				list.remove(i);
+			}
+		}
 		
 		return list;
 	}
@@ -121,10 +128,57 @@ public class TeamController {
 	
 	@PostMapping("searchMember")
 	@ResponseBody
-	public void searchMember() {
-		
+	public ArrayList<Member> searchMember(String searchWord, int teamId) {
+		ArrayList<Member> list = service.searchMem(teamId, searchWord);
+		return list;
 	}
 	
+	@GetMapping("deleteTeam")
+	public String deleteTeam(@RequestParam(name="teamId", defaultValue = "0") int teamId, @AuthenticationPrincipal UserDetails user, Model model) {
+		service.deleteTeam(teamId);
+		service.deleteAllMember(teamId);
+		
+		int memberid = ms.getId(user.getUsername());
+		ArrayList<Team> teamList = service.teamList(memberid);
+		for(Team i: teamList) {
+			i.setLeader_memberid(ms.getMemberid(memberid));
+		}
+		model.addAttribute("teamList", teamList);
+		
+		return "redirect:/team/teamList";
+	}
+	
+	@GetMapping("updateTeam")
+	public String updateTeam(@RequestParam(name="teamId", defaultValue = "0") int teamId, Model model) {
+		Team team = service.selectTeam(teamId);
+		model.addAttribute("team", team);
+		model.addAttribute("teamId", teamId);
+		
+		return "team/updateTeam";
+	}
+	
+	@PostMapping("updateTeam")
+	public String updateTeam(@RequestParam(name="teamId", defaultValue = "0") int teamId, @AuthenticationPrincipal UserDetails user, Team Uteam, Model model) {
+		int id = ms.getId(user.getUsername());
+		Uteam.setLeader_id(id);
+		Uteam.setId(teamId);
+		
+		service.updateTeam(Uteam);
+		
+		String leaderName = user.getUsername();
+		Team team = service.selectTeam(teamId);
+		model.addAttribute("teamId", teamId);
+		model.addAttribute("team", team);
+		model.addAttribute("leaderName", leaderName);
+		ArrayList<Integer> teamMemberId = service.getTeamMemberIdList(teamId);
+		try {
+			ArrayList<Member> teamMember = service.getTeamMember(teamMemberId);
+			model.addAttribute("teamMember", teamMember);
+		} catch (Exception e) {
+		}
+		
+		return "redirect:/team/detail?teamId=" + teamId;
+	}
 	
 } // controller
 

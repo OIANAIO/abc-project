@@ -1,6 +1,7 @@
 package com.project.ABCDEproject.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,6 +108,34 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public void deleteInv(TeamMember tm) {
 		dao.deleteInv(tm);
+	}
+
+
+	@Override
+	public void deleteTeam(int teamId) {
+		dao.deleteTeam(teamId);
+	}
+
+
+	@Override
+	public void deleteAllMember(int teamId) {
+		dao.deleteAllMember(teamId);
+	}
+
+
+	@Override
+	public void updateTeam(Team team) {
+		dao.updateTeam(team);
+	}
+
+
+	@Override
+	public ArrayList<Member> searchMem(int teamId, String searchWord) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("searchWord", searchWord);
+		map.put("teamId", teamId);
+		ArrayList<Member> list = dao.searchMem(map);
+		return list;
 	}
 
 

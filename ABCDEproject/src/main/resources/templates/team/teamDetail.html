@@ -29,31 +29,32 @@
 <script>
 	
 	$(document).ready(function () {
-		
 		function fetchResults() {
 			// 선택된 옵션의 값과 입력된 검색어 값을 가져옴
-			var searchWord = $('input[name="searchWord"]').val();
+			let searchWord = $('input[name="searchWord"]').val();
+			let teamId = $('input[name="teamId"]').val();
 
 			console.log(searchWord);
-
 			$.ajax({
 				url: 'searchMember',
 				type: 'post',
-				data: { searchWord: searchWord },
+				data: { searchWord: searchWord, teamId : teamId },
 				success: function (list) {
+					console.log(list);
 					let str = '<tr>';
 
 					$(list).each(function (idx, member) {
 						str += '<tr>';
-						str += '<td style="width:110px; text-align:center;">' + member.memberid + '</td>';
-						str += '<td style="width:110px; text-align:center;">' + member.email + '</td>';
-						str += '<td style="width:110px; text-align:center;">' + member.phone + '</td>' + '<td style="width:100px; text-align:center;">' + '<input type="button" class="inviteBtn btn btn-success" name="' + member.id + ' ' + teamId + '" value="초대">' + '</td>';
-						str += '</tr>';
-
+						str += '<th><img src="/teamA/img/' + member.thumbnail + '" style="max-width: 50px; max-height: 50px;"></th>';
+						str += '<th>' + member.memberid + '</th>';
+						str += '<th>' + member.point + '</th>';
+						str += '<th>' + member.last_login + '</th>';
+						str += '<th><input type="button" value="퇴출" class="btn btn-danger"></th>'
+						
 					});
 				str += '</tr>';
-				$('#modalTable').html(str);
-				$('.inviteBtn').on('click', invMem);
+				$('#search').html();
+				$('#search').html(str);
                },
                error: function (error) {
                   console.error('Error:', error);
@@ -127,8 +128,20 @@
 		}
 	}
 	
+	function deleteTeam(button) {
+		let teamId = button.getAttribute('data-teamid');
+		
+		if (confirm('팀을 삭제하시겠습니까?')) {
+			location.href = 'deleteTeam?teamId=' + teamId;
+		}
+	}
 	
-   
+	function updateTeam(button) {
+		let teamId = button.getAttribute('data-teamid');
+		
+		location.href = 'updateTeam?teamId=' + teamId;
+	}
+	
 </script>
 </head>
 <body>
@@ -154,32 +167,33 @@
 	<div style="margin: 100px auto 0 auto; width: 70vw;">
 		<table class="table">
 			<tr>
-				<td>팀 이름</td>
-				<td th:text="${team.team_name}"></td>
-				<td>팀장</td>
-				<td th:text="${team.leader_id}"></td>
-				<td>
-					<button></button>
-					<button></button>
+				<th style="width: 25vw;">팀 이름</th>
+				<td th:text="${team.team_name}" style="width: 25vw;"></td>
+				<th style="width: 25vw;">팀장</th>
+				<td th:text="${leaderName}" style="width: 25vw;"></td>
+				<td style="width: 25vw; text-align: right;">
+					<button th:data-teamid="${teamId}" onclick="updateTeam(this);" class="btn btn-outline-secondary">팀 수정</button>
+					<button th:data-teamid="${teamId}" onclick="deleteTeam(this);" class="btn btn-outline-secondary">팀 삭제</button>
 				</td>
 			</tr>
 			<tr>
-				<td>팀 설명</td>
-				<td th:text="${team.team_description}" colspan="3"></td>
+				<th style="width: 25vw;">팀 설명</th>
+				<td th:text="${team.team_description}" colspan="3" style="width: 75vw;"></td>
 			</tr>
 		</table>
 		
 		<table>
-			<tr>
-				<td style="width: 50vw;">
-					<form id="search" method="get" th:action="@{/team/detail}">
+			<tr style="text-align: center;">
+				<td style="width: 40vw;">
+					<form method="get" th:action="@{/team/detail}">
 						<div class="input-group mb-3">
 						  <input type="text" name="searchWord" th:value="${searchWord}" class="form-control" aria-describedby="button-addon2" autocomplete="off" th:data-teamid="${teamId}" id="searchMember">
 						  <button class="btn btn-outline-secondary" type="submit" id="button-addon2">팀원 검색</button>
+						  <input type="hidden" th:value="${teamId}" name="teamId">
 						</div>
 					</form>
 				</td>
-				<td style="width: 50vw;">
+				<td style="width: 40vw;">
 					<form>
 						<div class="input-group mb-3">
 						  <input type="text" id="addWord" name="addWord" class="form-control" aria-describedby="button-addon2" autocomplete="off">
@@ -191,27 +205,31 @@
 		</table>
 		
 		<table class="table">
+			<thead>
 			<tr>
 				<th>프로필</th>
 				<th style="width: 30vw;">아이디</th>
 				<th>포인트</th>
 				<th>전화번호</th>
+				<th>최근 접속</th>
 				<th></th>
 			</tr>
-			<tr th:each="tm : ${teamMember}">
-				<div id="search">
-					<th><img th:src="@{'/img/' + ${tm.thumbnail}}" style="max-width: 50px; max-height: 50px;"></th>
-					<th th:text="${tm.memberid}"></th>
-					<th th:text="${tm.point}"></th>
-					<th th:text="${tm.phone}"></th>
-					<th>
-						<form>
-							<input type="hidden" th:id="${tm.id}" th:teamid="${teamId}">
-							<input type="button" th:data-id="${tm.id}" th:data-teamid="${teamId}" value="퇴출" class="btn btn-danger" onclick="deleteMember(this);">
-						</form>
-					</th>
-				</div>
-			</tr>
+			</thead>
+			<tbody id="search">
+				<tr th:each="tm : ${teamMember}" th:if="${tm.memberid != leaderName}">
+						<th><img th:src="@{'/img/' + ${tm.thumbnail}}" style="max-width: 50px; max-height: 50px;"></th>
+						<th th:text="${tm.memberid}"></th>
+						<th th:text="${tm.point}"></th>
+						<th th:text="${tm.phone}"></th>
+						<th th:text="${tm.last_login}"></th>
+						<th>
+							<form>
+								<input type="hidden" th:id="${tm.id}" th:teamid="${teamId}">
+								<input type="button" th:data-id="${tm.id}" th:data-teamid="${teamId}" value="퇴출" class="btn btn-danger" onclick="deleteMember(this);">
+							</form>
+						</th>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 	
