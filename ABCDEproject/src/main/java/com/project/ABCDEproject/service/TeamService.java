@@ -41,6 +41,15 @@ public interface TeamService {
 
 	MatchingTeam getTeamMatching(int matching_team_id);
 
+	void deleteTeam(int teamId);
+
+	void deleteAllMember(int teamId);
+
+	void updateTeam(Team team);
+
+	ArrayList<Member> searchMem(int teamId, String searchWord);
+
+
 	
 	
 }
