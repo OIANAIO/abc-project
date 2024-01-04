@@ -28,6 +28,7 @@
 <h1> 구장 목록 </h1>
 <div class="row row-cols-1 row-cols-md-3 g-4">
   <div th:each="stadium : ${list}" class="col">
+  <a th:href="@{/stadium/detail(stadiumid=${stadium.id})}" style="text-decoration-line:none;">
     <div class="card">
       <img src="https://www.gyeongju.go.kr/upload//board/board_1334/bod_262957//63882D47E967480FB1D44A1D354B0AD1.jpg" alt="...">
       <div class="card-body">
@@ -35,7 +36,9 @@
         <p class="card-text" th:text="${stadium.description}"></p>
       </div>
     </div>
+  </a>  
   </div>
+  
 </div>
 </div>
 </body>

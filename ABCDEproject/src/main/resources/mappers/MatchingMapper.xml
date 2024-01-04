@@ -14,7 +14,7 @@
 	<update id="deleteMatching" parameterType="int">
 		UPDATE matching_team
 		SET
-		state=4
+		state=5
 		where id=#{matchingreqeustid}
 	</update>
 	<update id="paymentSuccess" parameterType="int">
@@ -64,6 +64,12 @@
 	</select>
 	<update id="setEndMatch" parameterType="int">
 	update match set state=2 where id=#{matchid}
+	</update>
+	<select id="getTeamMatching" parameterType="int" resultType="MatchingTeam">
+	select * from matching_team where id=#{matching_team_id}
+	</select>
+	<update id="endMatchingTeam" parameterType="int">
+	update matching_team set state=4 where id=#{id}
 	</update>
 </mapper>
 

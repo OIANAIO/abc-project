@@ -7,4 +7,8 @@ import com.project.ABCDEproject.vo.ReviewRequest;
 
 public interface ReviewService {
 	void sendReviewRequest(ReviewRequest request);
+
+	ArrayList<ReviewRequest> getRequestByID(int userid);
+
+	ArrayList<Integer> getRequestMatchingTeamIDListByID(int userid);
 }

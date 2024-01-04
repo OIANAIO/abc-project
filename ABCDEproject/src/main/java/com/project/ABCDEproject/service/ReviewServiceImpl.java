@@ -17,4 +17,15 @@ public class ReviewServiceImpl implements ReviewService{
 	public void sendReviewRequest(ReviewRequest request) {
 		dao.sendReviewRequest(request);
 	}
+
+	@Override
+	public ArrayList<ReviewRequest> getRequestByID(int userid) {
+		return dao.getRequestByID(userid);
+	}
+
+
+	@Override
+	public ArrayList<Integer> getRequestMatchingTeamIDListByID(int userid) {
+		return dao.getRequestMatchingTeamIDListByID(userid);
+	}
 }

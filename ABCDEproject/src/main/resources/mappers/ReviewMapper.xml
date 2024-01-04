@@ -5,9 +5,15 @@
   
 <mapper namespace="com.project.ABCDEproject.dao.ReviewDAO">
 <insert id="sendReviewRequest" parameterType="ReviewRequest">
-insert into review_request(id, state, target_member_id,target_team_id)
-values(review_request_seq.nextval,#{state},#{target_member_id},#{target_team_id})
+insert into review_request(id, state, target_member_id,target_team_id,target_matching_team_id)
+values(review_request_seq.nextval,#{state},#{target_member_id},#{target_team_id},#{target_matching_team_id})
 </insert>
+<select id="getRequestByID" parameterType="int" resultType="ReviewRequest">
+select * from review_request where target_member_id=#{userid} AND state=0
+</select>
+<select id="getRequestMatchingTeamIDListByID" parameterType="int" resultType="int">
+select target_matching_team_id from review_request where target_member_id=#{userid} AND state=0
+</select>
 </mapper>
 
 

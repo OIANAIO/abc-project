@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.ABCDEproject.dao.TeamDAO;
+import com.project.ABCDEproject.vo.MatchingTeam;
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamInvite;
@@ -107,6 +108,12 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public void deleteInv(TeamMember tm) {
 		dao.deleteInv(tm);
+	}
+
+
+	@Override
+	public MatchingTeam getTeamMatching(int matching_team_id) {
+		return dao.getTeamMatching(matching_team_id);
 	}
 
 

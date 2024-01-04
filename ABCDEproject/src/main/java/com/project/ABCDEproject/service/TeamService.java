@@ -2,6 +2,8 @@ package com.project.ABCDEproject.service;
 
 import java.util.ArrayList;
 
+import com.project.ABCDEproject.vo.Match;
+import com.project.ABCDEproject.vo.MatchingTeam;
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamInvite;
@@ -36,6 +38,8 @@ public interface TeamService {
 	void addTeamMember(TeamMember tm);
 
 	void deleteInv(TeamMember tm);
+
+	MatchingTeam getTeamMatching(int matching_team_id);
 
 	
 	

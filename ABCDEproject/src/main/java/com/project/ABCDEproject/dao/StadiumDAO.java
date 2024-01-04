@@ -10,5 +10,11 @@ import com.project.ABCDEproject.vo.Stadium;
 public interface StadiumDAO {
 
 	ArrayList<Stadium> GetStadiumList();
+
+	Stadium getStadium(int stadiumid);
+
+	void createStadium(Stadium stadium);
+
+	Stadium getStadiumByScheduleID(int schedule_id);
 	
 }

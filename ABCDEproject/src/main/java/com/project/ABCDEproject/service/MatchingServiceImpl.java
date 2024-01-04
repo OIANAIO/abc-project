@@ -168,4 +168,10 @@ public class MatchingServiceImpl implements MatchingService {
 		dao.setEndMatch(matchid);
 		
 	}
+
+	@Override
+	public void endMatchingTeam(int id) {
+		dao.endMatchingTeam(id);
+		
+	}
 } // service

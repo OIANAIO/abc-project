@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.ABCDEproject.vo.MatchingTeam;
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamInvite;
@@ -41,6 +42,8 @@ public interface TeamDAO {
 	void deleteInv(TeamMember tm);
 	
 	ArrayList<Team> getTeamRankList();
+
+	MatchingTeam getTeamMatching(int matching_team_id);
 	
 	
 }

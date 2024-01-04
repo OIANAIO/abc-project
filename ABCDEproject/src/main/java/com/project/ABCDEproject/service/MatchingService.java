@@ -27,4 +27,6 @@ public interface MatchingService {
 
 	void setEndMatch(int matchid);
 
+	void endMatchingTeam(int id);
+
 }

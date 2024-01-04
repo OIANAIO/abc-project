@@ -30,8 +30,10 @@ public class HomeController {
 		ArrayList<Member> memberlist=service.getMemberRankList();
 		ArrayList<Team> teamlist=service.getTeamRankList();
 		
+		System.out.println(teamlist);
 		
 		model.addAttribute("memberlist",memberlist);
+		model.addAttribute("teamlist",teamlist);
 		return "home";
 	}
 	

@@ -51,7 +51,7 @@
 		</nav>
 	</div>
 	
-	<div class="main">
+	<div class="main mb-4">
 		<a class="text">Find Your</a><br>
 		<a class="text">Competitor!</a><br><br><br><br><br>
 		<div id="rankTable">
@@ -71,6 +71,27 @@
 	                <td th:text="${rowNumber.count}"></td>
 	                <td th:text="${member.memberid}"></td>
 	                <td th:text="${member.point}"></td>
+	            </tr>
+			</table>
+		</div>
+		<br>
+		<div id="rankTable">
+			<table class="rank">
+				<tr class="rank">
+					<th>
+						등수
+					</th>
+					<th>
+						아이콘
+					</th>
+					<th>
+						팀 이름
+					</th>
+				</tr>
+				<tr th:each="team, rowNumber : ${teamlist}" class="rank">
+	                <td th:text="${rowNumber.count}"></td>
+	                <td><img th:src="@{'/img/' + ${team.team_icon}}" style="max-width: 50px; max-height: 50px;"></td>
+	                <td th:text="${team.team_name}"></td>
 	            </tr>
 			</table>
 		</div>
