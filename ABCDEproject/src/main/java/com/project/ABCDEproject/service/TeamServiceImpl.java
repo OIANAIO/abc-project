@@ -114,9 +114,10 @@ public class TeamServiceImpl implements TeamService{
 
 	@Override
 
-	public MatchingTeam getTeamMatching(int matching_team_id) {
+	public MatchingTeam getTeamMatching(int matching_team_id)
+	{
 		return dao.getTeamMatching(matching_team_id);
-
+	}
 	public void deleteTeam(int teamId) {
 		dao.deleteTeam(teamId);
 	}
