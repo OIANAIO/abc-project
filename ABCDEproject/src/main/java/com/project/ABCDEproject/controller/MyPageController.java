@@ -19,6 +19,7 @@ import com.project.ABCDEproject.service.ReviewService;
 import com.project.ABCDEproject.service.StadiumService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.vo.MatchingTeam;
+import com.project.ABCDEproject.vo.Review;
 import com.project.ABCDEproject.vo.ReviewRequest;
 import com.project.ABCDEproject.vo.Stadium;
 import com.project.ABCDEproject.vo.TeamInvite;
@@ -54,8 +55,15 @@ public class MyPageController {
 	public int getStadium(@RequestParam(name="schedule_id")int schedule_id)
 	{
 		Stadium stadium= staS.getStadiumByScheduleID(schedule_id);
-		System.out.println(schedule_id);
 		return stadium.getId();
+	}
+	
+	@ResponseBody
+	@GetMapping("getReview")
+	public int getSReview(@RequestParam(name="matching_team_id")int matching_team_id)
+	{
+		ReviewRequest reviewRequest= revS.getReveiwByMatchingTeamID(matching_team_id);
+		return reviewRequest.getTarget_team_id();
 	}
 	
 	@GetMapping("myPage")

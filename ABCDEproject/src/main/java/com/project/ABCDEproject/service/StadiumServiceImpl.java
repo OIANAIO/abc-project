@@ -36,5 +36,10 @@ public class StadiumServiceImpl implements StadiumService{
 	public Stadium getStadiumByScheduleID(int schedule_id) {
 		return dao.getStadiumByScheduleID(schedule_id);
 	}
+
+	@Override
+	public ArrayList<Stadium> getStadiumListFilterID(int userid) {
+		return dao.getStadiumListFilterID(userid);
+	}
 	
 }

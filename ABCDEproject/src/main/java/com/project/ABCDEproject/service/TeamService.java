@@ -49,7 +49,6 @@ public interface TeamService {
 
 	ArrayList<Member> searchMem(int teamId, String searchWord);
 
+	Team getTeamByID(int teamid);
 
-	
-	
 }

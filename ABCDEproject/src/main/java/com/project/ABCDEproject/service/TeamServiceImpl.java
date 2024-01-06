@@ -144,5 +144,11 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 
+	@Override
+	public Team getTeamByID(int teamid) {
+		return dao.getTeamByID(teamid);
+	}
+
+
 	
 } // service

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>STADIUM</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</head>
+<body >
+<div class="container" >
+	<div class="row">
+		<div class="col-8 offset-md-2">
+		<form th:action="@{/schedule/create}" method="post" enctype="multipart/form-data" >
+			<div class="mb-3">
+				<div class="h4">스타디움 선택</div>
+			  	<div class="row">
+			  		<div class="col-4" th:each="stadium : ${stadiumList}">
+				  		<div class="form-check">
+							<input class="form-check-input team" name="stadium_id" type="radio" th:value="${stadium.id}">
+							<label class="form-check-label" th:text="${stadium.name}"></label>
+						</div>
+			  		</div>
+			  	</div>
+			</div>
+			<div class="mb-3">
+			  <label for="start_time" class="form-label">시작 시간</label>
+			  <input type="number" class="form-control" name="start_time" id="start_time" min="0" max="24">
+			</div>
+			<div class="mb-3">
+			  <label for="end_time" class="form-label">종료 시간</label>
+			  <input type="number" class="form-control" name="end_time" id="end_time" min="0" max="24">
+			</div>
+			<div class="mb-3">
+			  <label for="price" class="form-label">가격</label>
+			  <input type="number" class="form-control" name="price" id="price">
+			</div>
+			<div class="mb-3">
+			  <label for="game_date" class="form-label">날짜</label>
+			  <input type="date" class="form-control" name="game_date" id="game_date">
+			</div>
+			<div class="d-grid gap-2">
+			  <button class="btn btn-primary" type="submit">등록</button>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
+<script>
+  document.getElementById('game_date').min = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>

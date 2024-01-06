@@ -12,14 +12,14 @@
 	<insert id="createStadium" parameterType="Stadium">
 	insert into Stadium
 			(
-				id, name, description, rental_shoes,rental_vest,rental_ball,shoes_price
+				id,owner, name, description, rental_shoes,rental_vest,rental_ball,address
 				<if test="thumbnail != null and original_thumbnail != null">
 					, thumbnail, original_thumbnail
 				</if>
 			)
 		values
 			(
-				stadium_seq.nextval, #{name}, #{description}, #{rental_shoes},#{rental_vest},#{rental_ball},#{shoes_price}
+				stadium_seq.nextval,#{owner}, #{name}, #{description}, #{rental_shoes},#{rental_vest},#{rental_ball},#{address}
 				<if test="original_thumbnail != null and thumbnail != null">
 					, #{thumbnail}, #{original_thumbnail}
 				</if>
@@ -27,6 +27,9 @@
 	</insert>
 	<select id="getStadiumByScheduleID" resultType="Stadium" parameterType="int">
 	select s.* from Stadium s where id=(select stadium_id from schedule where id=#{schedule_id})
+	</select>
+	<select id="getStadiumListFilterID" parameterType="int" resultType="Stadium">
+	select * from Stadium where owner=#{userid}
 	</select>
 </mapper>
 

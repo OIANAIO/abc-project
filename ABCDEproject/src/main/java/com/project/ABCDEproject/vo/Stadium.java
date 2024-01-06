@@ -18,5 +18,5 @@ public class Stadium {
 	int rental_shoes;
 	int rental_vest;
 	int rental_ball;
-	int sheos_price;
+	String address;
 }

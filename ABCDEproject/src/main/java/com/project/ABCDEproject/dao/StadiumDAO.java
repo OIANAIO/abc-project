@@ -16,5 +16,7 @@ public interface StadiumDAO {
 	void createStadium(Stadium stadium);
 
 	Stadium getStadiumByScheduleID(int schedule_id);
+
+	ArrayList<Stadium> getStadiumListFilterID(int userid);
 	
 }

@@ -3,10 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.ABCDEproject.dao.ScheduleDAO">
-	<select id="getScheduleList" resultType="Schedule">
-	SELECT * FROM schedule
+	<select id="getScheduleList" resultType="StadiumSchedule">
+	select a.*, b.thumbnail, b.name from schedule a
+	left outer join stadium b
+	on a.stadium_id=b.id
 	WHERE game_date > sysdate
 	</select>
+	
+	<insert id="addSchedule" parameterType="Schedule">
+	insert into schedule(id, stadium_id, owner_id, start_time, end_time, price, game_date)
+	values(schedule_seq.nextval, #{stadium_id}, #{owner_id}, #{start_time}, #{end_time}, #{price}, #{game_date})
+	</insert>
 </mapper>
 
 
