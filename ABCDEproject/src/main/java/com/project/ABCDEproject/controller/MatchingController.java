@@ -21,6 +21,7 @@ import com.project.ABCDEproject.vo.MatchingRegion;
 import com.project.ABCDEproject.vo.MatchingTeam;
 import com.project.ABCDEproject.vo.ReviewRequest;
 import com.project.ABCDEproject.vo.Schedule;
+import com.project.ABCDEproject.vo.StadiumSchedule;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamMember;
 
@@ -54,7 +55,8 @@ public class MatchingController {
 		ArrayList<Team> tl=ts.getTeamListFilterID(userid);
 		model.addAttribute("TeamList",tl);
 		
-		ArrayList<Schedule> sl=ss.getScheduleList();
+		ArrayList<StadiumSchedule> sl=ss.getScheduleList();
+		System.out.println(sl);
 		model.addAttribute("ScheduleList",sl);
 		return "matching/requestMatching";
 	}

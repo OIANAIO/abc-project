@@ -5,8 +5,70 @@
 <title>STADIUM</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function selectAddress()
+	{
+		new daum.Postcode({
+	        oncomplete: function(data) {
+	            document.getElementById("address").value=data.address;
+	        }
+	    }).open();
+	}
+</script>
 </head>
-<body>
-
+<body >
+<div class="container" >
+	<div class="row">
+		<div class="col-8 offset-md-2">
+		<form th:action="@{/stadium/create}" method="post" enctype="multipart/form-data" >
+			<div class="mb-3">
+			  <label for="name" class="form-label">구장 이름</label>
+			  <input type="text" class="form-control" name="name" id="name">
+			</div>
+			<div class="mb-3">
+			  <label for="address" class="form-label">주소</label>
+			  <div class="row">
+			  	<div class="col-8">
+			  		<input type="text" class="form-control" name="address" id="address" readonly>
+			  	</div>
+			  	<div class="col-auto">
+			  		<button type="button" class="btn btn-primary" onclick="selectAddress()">주소검색</button>
+			  	</div>
+			  </div>
+			</div>
+			<div class="mb-3">
+			  <label for="description" class="form-label">구장 설명</label>
+			  <textarea class="form-control" name="description" id="description" rows="10"></textarea>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="1" name="rental_shoes" id="rental_shoes">
+			  <label class="form-check-label" for="rental_shoes">
+			    신발 대여 여부
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="1" name="rental_vest" id="rental_vest">
+			  <label class="form-check-label" for="rental_vest">
+			    조끼 대여 여부
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="1" name="rental_ball" id="rental_ball">
+			  <label class="form-check-label" for="rental_ball">
+			    공 대여 여부
+			  </label>
+			</div>
+			<div class="mb-3">
+				<label for="formFileLg" class="form-label">구장 사진</label>
+				<input class="form-control form-control-sx"  name="upload" id="fileInput"  type="file">
+			</div>
+			<div class="d-grid gap-2">
+			  <button class="btn btn-primary" type="submit">등록</button>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
 </body>
 </html>

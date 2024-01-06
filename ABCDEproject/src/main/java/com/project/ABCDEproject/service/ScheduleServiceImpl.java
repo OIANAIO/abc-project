@@ -9,6 +9,7 @@ import com.project.ABCDEproject.dao.HomeDAO;
 import com.project.ABCDEproject.dao.ScheduleDAO;
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Schedule;
+import com.project.ABCDEproject.vo.StadiumSchedule;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService{
@@ -17,9 +18,15 @@ public class ScheduleServiceImpl implements ScheduleService{
 	ScheduleDAO dao;
 
 	@Override
-	public ArrayList<Schedule> getScheduleList() {
+	public ArrayList<StadiumSchedule> getScheduleList() {
 		
 		return dao.getScheduleList();
+	}
+
+	@Override
+	public void addSchedule(Schedule schedule) {
+		dao.addSchedule(schedule);
+		
 	}
 
 	

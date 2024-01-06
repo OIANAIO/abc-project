@@ -69,7 +69,6 @@ public class StadiumController {
 			stadium.setThumbnail(savefile);
 		}
 		service.createStadium(stadium);
-		
 		return "redirect:/stadium/stadiumList";
 	}
 	

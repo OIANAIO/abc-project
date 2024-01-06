@@ -6,11 +6,14 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Schedule;
+import com.project.ABCDEproject.vo.StadiumSchedule;
 
 @Mapper
 public interface ScheduleDAO {
 
-	ArrayList<Schedule> getScheduleList();
+	ArrayList<StadiumSchedule> getScheduleList();
+
+	void addSchedule(Schedule schedule);
 
 	
 } // DAO

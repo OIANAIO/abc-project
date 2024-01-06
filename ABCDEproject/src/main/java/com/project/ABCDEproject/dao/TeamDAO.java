@@ -54,6 +54,8 @@ public interface TeamDAO {
 
 	ArrayList<Member> searchMem(HashMap<String, Object> map);
 
+	Team getTeamByID(int teamid);
+
 	
 	
 }

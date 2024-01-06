@@ -155,6 +155,9 @@
 	        </where>
 	    </if>
 	</select>
+	<select id="getTeamByID" parameterType="int" resultType="Team">
+		select * from team where id=#{teamid}
+	</select>
 </mapper>
 
 

@@ -75,9 +75,10 @@ function check(){
 						  <div class="card-body" style="padding:0px 0px 0px 10px;">
 						    <div class="row d-flex align-items-center">
 						    	<div class="col" style="overflow:hidden; height:100px; padding:0px; margin:0px">
-						    		<img th:src="@{/img/title-remove.png}" style="width:200px;">
+						    		<img class="img-fluid" th:src="@{'/img/' + ${schedule.thumbnail}}">
 						    	</div>
 						    	<div class="col">
+						    		<p th:text="${schedule.name}"></p>
 						    		<p th:text="${schedule.game_date}"></p>
 						    		<p th:text="${schedule.start_time+' 부터 '+schedule.end_time+' 까지 '}"></p>
 						    	</div>

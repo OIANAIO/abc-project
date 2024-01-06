@@ -7,18 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
-
+public class StadiumSchedule {
 	int id;
-	int writer_id;
-	int team_id;
-	String content;
-	int offensive;
-	int defensive;
-	int manner;
-	int strength;
-	int dribble;
-	int speed;
-	int pass;
-	int shot;
+	int stadium_id;
+	int owner_id;
+	int start_time;
+	int end_time;
+	int price;
+	String name;
+	String thumbnail;
+	String game_date;
 }

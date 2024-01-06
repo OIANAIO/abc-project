@@ -31,7 +31,22 @@ function moveStadiumDetail(num){
     .catch(err=>{
       console.log(err);
     })
-
+	
+  }
+  
+function moveReviewCreate(num){
+    let url = '[[@{/myPage/getReview}]]';
+        // Get 비동기 쿼리스트링 전송
+    fetch(url + "?matching_team_id="+num)
+    .then(res=>{
+      res.text().then(function(text){
+        window.location.href="[[@{/review/create}]]?team_id="+text+"&matching_team="+num;
+      })
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+	
   }
 </script>
 
@@ -111,7 +126,7 @@ function moveStadiumDetail(num){
 										<span th:case="2">결제 완료(상대방이 결제할 때까지 기다려주세요.)</span>
 										<span th:case="3">성사됨 <button th:onclick="'moveStadiumDetail(' + ${request.schedule_id} + ')'" class="btn btn-xs btn-success"> 경기장
 												정보</button></span>
-										<span th:case="4">경기종료 <th:block th:if="${#arrays.contains(reviewRequestIDList,request.id)}"><button class="btn btn-xs btn-primary">리뷰하기</button></th:block></span>		
+										<span th:case="4">경기종료 <th:block th:if="${#arrays.contains(reviewRequestIDList,request.id)}"><button class="btn btn-xs btn-primary" th:onclick="'moveReviewCreate(' + ${request.id} + ')'">리뷰하기</button></th:block></span>		
 										<span th:case="5">취소됨 </span>
 									</th:block>
 								</div>
