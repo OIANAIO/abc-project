@@ -143,17 +143,20 @@
 	    SELECT *
 	    FROM
 	    	(
-		        SELECT m.*, tm.team_id
-		        FROM member m
-		        LEFT OUTER JOIN team_member tm
-		        ON m.id = tm.member_id
+		        select m.*, tm.team_id, t.leader_id
+				FROM member m
+				LEFT OUTER JOIN team_member tm ON m.id = tm.member_id
+				LEFT OUTER JOIN team t ON tm.team_id = t.id
 			) subquery
-	    <if test="searchWord != null">
 	        <where>
-	            (UPPER(subquery.memberid) LIKE '%' || UPPER(#{searchWord}) || '%')
-	            AND (subquery.team_id = #{teamId})
+	        	subquery.id IS NOT NULL AND subquery.leader_id IS NOT NULL
+			    AND subquery.id != subquery.leader_id
+	        	<if test="searchWord != null or searchWord != ''">
+	        	AND (UPPER(subquery.memberid) LIKE '%' || UPPER(#{searchWord}) || '%')
+		        AND (subquery.team_id = #{teamId})
+		        </if>
 	        </where>
-	    </if>
+	    
 	</select>
 </mapper>
 

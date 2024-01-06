@@ -79,5 +79,41 @@ public class MemberServiceImpl implements MemberService{
 		
 		return searchAddMemberList;
 	}
+
+	@Override
+	public Member getMember(String username) {
+		Member mem = dao.getMember(username);
+		return mem;
+	}
+
+	@Override
+	public String getThumb(String username) {
+		String thumb = dao.getThumb(username);
+		
+		return thumb;
+	}
+
+	@Override
+	public ArrayList<String> memberidSearchList(String memberid) {
+		ArrayList<String> idSearchList = dao.memberidSearchList(memberid);
+		
+		return idSearchList;
+	}
+
+	@Override
+	public ArrayList<String> emailSearchList(String email) {
+		ArrayList<String> emailSearchList = dao.emailSearchList(email);
+		
+		return emailSearchList;
+	}
+
+	@Override
+	public ArrayList<String> phoneSearchList(String phone) {
+		ArrayList<String> phoneSearchList = dao.phoneSearchList(phone);
+		
+		return phoneSearchList;
+	}
+	
+	
 	
 } // service

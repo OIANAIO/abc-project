@@ -128,8 +128,9 @@ public class TeamController {
 	
 	@PostMapping("searchMember")
 	@ResponseBody
-	public ArrayList<Member> searchMember(String searchWord, int teamId) {
+	public ArrayList<Member> searchMember(String searchWord, int teamId, @AuthenticationPrincipal UserDetails user) {
 		ArrayList<Member> list = service.searchMem(teamId, searchWord);
+		
 		return list;
 	}
 	

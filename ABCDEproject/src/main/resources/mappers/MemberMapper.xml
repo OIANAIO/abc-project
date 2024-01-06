@@ -92,7 +92,31 @@
         WHERE ROWNUM <= 10
     ]]>
 	</select>
-	
+	<select id="getMember" parameterType="String" resultType="Member">
+		select * from member
+		where
+			memberid = #{username}
+	</select>
+	<select id="getThumb" parameterType="String" resultType="String">
+		select thumbnail from member
+		where
+			memberid = #{username}
+	</select>
+	<select id="memberidSearchList" parameterType="String" resultType="String">
+		select memberid from member
+		where
+			memberid LIKE #{memberid}
+	</select>
+	<select id="emailSearchList" parameterType="String" resultType="String">
+		select email from member
+		where
+			email LIKE #{email}
+	</select>
+	<select id="phoneSearchList" parameterType="String" resultType="String">
+		select phone from member
+		where
+			phone LIKE #{phone}
+	</select>
 </mapper>
 
 

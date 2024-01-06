@@ -185,13 +185,11 @@
 		<table>
 			<tr style="text-align: center;">
 				<td style="width: 40vw;">
-					<form method="get" th:action="@{/team/detail}">
-						<div class="input-group mb-3">
-						  <input type="text" name="searchWord" th:value="${searchWord}" class="form-control" aria-describedby="button-addon2" autocomplete="off" th:data-teamid="${teamId}" id="searchMember">
-						  <button class="btn btn-outline-secondary" type="submit" id="button-addon2">팀원 검색</button>
-						  <input type="hidden" th:value="${teamId}" name="teamId">
-						</div>
-					</form>
+					<div class="input-group mb-3">
+					  <input type="text" name="searchWord" th:value="${searchWord}" class="form-control" aria-describedby="button-addon2" autocomplete="off" th:data-teamid="${teamId}" id="searchMember">
+					  <button class="btn btn-outline-secondary" type="button" id="button-addon2">팀원 검색</button>
+					  <input type="hidden" th:value="${teamId}" name="teamId">
+					</div>
 				</td>
 				<td style="width: 40vw;">
 					<form>

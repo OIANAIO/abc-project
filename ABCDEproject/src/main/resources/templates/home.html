@@ -38,10 +38,10 @@
 				
 				<li>
 				<li><a th:href="@{stadium/stadiumList}" th:text="stadium"></a></li>
-				<li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a th:href="@{matching/requestMatching}" th:text="matching"></a></li>
+				<li><a th:href="@{matching/requestMatching}" th:text="matching"></a></li>
 				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{record/recordList}" th:text="schedule"></a></li>
 				<li><a th:href="@{team/teamList}" th:text="team"></a></li>
-				<li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a th:href="@{recruitment/recruitmentList}" th:text="recruitment"></a></li>
+				<li><a th:href="@{recruitment/recruitmentList}" th:text="recruitment"></a></li>
 				</li>
 				
 				<li>
@@ -51,64 +51,74 @@
 		</nav>
 	</div>
 	
-	<div class="main mb-4">
-		<a class="text">Find Your</a><br>
-		<a class="text">Competitor!</a><br><br><br><br><br>
-		<div id="rankTable">
-			<table class="rank">
-				<tr class="rank">
-					<th>
-						등수
-					</th>
-					<th>
-						이름
-					</th>
-					<th>
-						점수
-					</th>
-				</tr>
-				<tr th:each="member, rowNumber : ${memberlist}" class="rank">
-	                <td th:text="${rowNumber.count}"></td>
-	                <td th:text="${member.memberid}"></td>
-	                <td th:text="${member.point}"></td>
-	            </tr>
-			</table>
+		<div class="main mb-4">
+			<a class="text">Find Your</a><br>
+			<a class="text">Competitor!</a><br><br><br><br><br>
+			<div id="rankTable">
+				<table class="rank">
+					<tr class="rank">
+						<th>
+							등수
+						</th>
+						<th>
+							이름
+						</th>
+						<th>
+							점수
+						</th>
+					</tr>
+					<tr th:each="member, rowNumber : ${memberlist}" class="rank">
+		                <td th:text="${rowNumber.count}"></td>
+		                <td th:text="${member.memberid}"></td>
+		                <td th:text="${member.point}"></td>
+		            </tr>
+				</table>
+			</div>
+			<br>
+			<div id="rankTable">
+				<table class="rank">
+					<tr class="rank">
+						<th>
+							등수
+						</th>
+						<th>
+							아이콘
+						</th>
+						<th>
+							팀 이름
+						</th>
+					</tr>
+					<tr th:each="team, rowNumber : ${teamlist}" class="rank">
+		                <td th:text="${rowNumber.count}"></td>
+		                <td><img th:src="@{/img/${team.team_icon}}" style="max-width: 50px; max-height: 50px;"></td>
+		                <td th:text="${team != null ? team.team_name : ''}"></td>
+		            </tr>
+				</table>
+			</div>
 		</div>
-		<br>
-		<div id="rankTable">
-			<table class="rank">
-				<tr class="rank">
-					<th>
-						등수
-					</th>
-					<th>
-						아이콘
-					</th>
-					<th>
-						팀 이름
-					</th>
-				</tr>
-				<tr th:each="team, rowNumber : ${teamlist}" class="rank">
-	                <td th:text="${rowNumber.count}"></td>
-	                <td><img th:src="@{'/img/' + ${team.team_icon}}" style="max-width: 50px; max-height: 50px;"></td>
-	                <td th:text="${team.team_name}"></td>
-	            </tr>
-			</table>
-		</div>
-	</div>
 	
-	<!--<div class="slider">
-		<div class="slide"></div>
-		<div class="slide"></div>
-		<div class="slide"></div>
-	</div>-->
-	
+	<!--오프캔버스-->
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 	  <div class="offcanvas-header">
-	    <h5 class="offcanvas-title" id="offcanvasExampleLabel">MY PAGE</h5>
+	    <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
 	  </div>
 	  <div class="offcanvas-body">
-	    <div>
+	    <div style="text-align: center;">
+			<div class="col-auto" sec:authorize="not isAuthenticated()">
+				<div style="border-radius: 50%; width: 80px; height: 80px; overflow: hidden; margin: 0 auto;">
+					<img th:src="@{/img/gibon.jpg}" style="width: 100%; height: 100%; display: block;">
+				</div>
+				<br>
+				<span style="font-family: Gowun Batang, 'Gowun Batang'; color: darkgrey; font-weight: bold;">로그인 후 이용해주세요</span>
+			</div>
+			<div class="col-auto" sec:authorize="isAuthenticated()">
+				<div style="border-radius: 50%; width: 80px; height: 80px; overflow: hidden; margin: 0 auto;">
+					<img img th:src="@{'/img/' + ${userTh}}" style="width: 100%; height: 100%; display: block;">
+				</div>
+				<br>
+				<span style="font-family: Gowun Batang, 'Gowun Batang'; font-weight: bold;" th:text="|환영합니다, ${#authentication.principal.username}님|"></span>
+			</div>
+			<br>
 			<a th:href="@{myPage/myPage}" th:text="|MY PAGE|" style="color: black; font-weight: bold;"></a>
 			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
 			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
