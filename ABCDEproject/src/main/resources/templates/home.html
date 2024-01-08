@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <title>HOME</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rubik+Lines&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rock+Salt&family=Rubik+Lines&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
@@ -51,12 +52,16 @@
 		</nav>
 	</div>
 	
-		<div class="main mb-4">
-			<a class="text">Find Your</a><br>
-			<a class="text">Competitor!</a><br><br><br><br><br>
+		<div style="padding-top: 130px; margin: 0 auto;">
+			<div style="margin: 0 auto; text-align: center;">
+				<p class="text">Find Your</p>
+				<p class="text">Competitor!</p>
+		</div>
+			
+		<div style="display: flex; justify-content: center; padding-top: 250px;">
 			<div id="rankTable">
 				<table class="rank">
-					<tr class="rank">
+					<tr>
 						<th>
 							등수
 						</th>
@@ -67,17 +72,17 @@
 							점수
 						</th>
 					</tr>
-					<tr th:each="member, rowNumber : ${memberlist}" class="rank">
+					<tr th:each="member, rowNumber : ${memberlist}">
 		                <td th:text="${rowNumber.count}"></td>
 		                <td th:text="${member.memberid}"></td>
 		                <td th:text="${member.point}"></td>
 		            </tr>
 				</table>
 			</div>
-			<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div id="rankTable">
 				<table class="rank">
-					<tr class="rank">
+					<tr>
 						<th>
 							등수
 						</th>
@@ -88,9 +93,9 @@
 							팀 이름
 						</th>
 					</tr>
-					<tr th:each="team, rowNumber : ${teamlist}" class="rank">
+					<tr th:each="team, rowNumber : ${teamlist}">
 		                <td th:text="${rowNumber.count}"></td>
-		                <td><img th:src="@{/img/${team.team_icon}}" style="max-width: 50px; max-height: 50px;"></td>
+		                <td><img th:src="@{'/img/' + ${team.team_icon}}" style="max-width: 50px; max-height: 50px;"></td>
 		                <td th:text="${team != null ? team.team_name : ''}"></td>
 		            </tr>
 				</table>

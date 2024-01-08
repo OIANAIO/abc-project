@@ -32,6 +32,13 @@
 	function makeTeam() {
 		location.href = 'makeTeam?';
 	}
+	
+	function detail(button){
+		let teamId = button.getAttribute('data-teamid');
+		
+		location.href = 'detail?teamId=' + teamId;
+	}
+	
 </script>
 <body>
 	
@@ -54,7 +61,7 @@
 	</div>
 	
 	<div style="margin: 100px auto 0 auto; width: 70vw;">
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover">
 			<tr>
 				<td>전체&nbsp;<span></span></td>
 				<td colspan="3"></td>
@@ -66,7 +73,7 @@
 				<th></th>
 				<th colspan="2">팀명</th>
 				<th>팀장</th>
-				<th>랭크</th>
+				<th></th>
 			</tr>
 			<tr th:each="team : ${teamList}">
 				<td>
@@ -75,10 +82,10 @@
 					</div>
 				</td>
 				<td colspan="2">
-					<a th:href="@{/team/detail(teamId=${team.id})}" th:text="${team.team_name}" id="team_name" style="text-decoration: none; color: black;"></a>
+					<a th:href="@{/team/info(teamId=${team.id})}" th:text="${team.team_name}" id="team_name" style="text-decoration: none; color: black;"></a>
 				</td>
 				<td th:text="${team.leader_memberid}"></td>
-				<td></td>
+				<td><button class="btn btn-secondary" onclick="detail(this);" th:data-teamid="${team.id}">팀원 관리</button></td>
 			</tr>
 			
 		</table>

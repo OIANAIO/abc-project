@@ -181,6 +181,13 @@ public class TeamController {
 		return "redirect:/team/detail?teamId=" + teamId;
 	}
 	
+	@GetMapping("info")
+	public String info(@RequestParam(name="teamId", defaultValue = "0") int teamId, @AuthenticationPrincipal UserDetails user, Model model) {
+		
+		
+		return "team/teamInfo";
+	}
+	
 } // controller
 
 
