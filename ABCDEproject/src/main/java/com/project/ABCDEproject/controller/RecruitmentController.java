@@ -80,11 +80,10 @@ public class RecruitmentController {
 
 	@PostMapping("write")
 	public String writeForm(Recruitment recruitment, @AuthenticationPrincipal UserDetails user) {
-
 		recruitment.setWriter_id(user.getUsername());
 		log.debug("FFFFFFFFFFFFF{}", recruitment);
 		int result = service.writeRecruitment(recruitment);
-
+		
 		return "redirect:/recruitment/recruitmentList";
 	}
 
@@ -93,6 +92,8 @@ public class RecruitmentController {
 		Recruitment recruitment = service.readRecruitment(id);
 		model.addAttribute("recruitment", recruitment);
 
+		log.debug("컨텐츠 {}",recruitment.getContent() );
+		
 		ArrayList<Reply> replyList = Rservice.RecruitmentList(id);
 		log.debug("리플아이디 {}", id);
 
