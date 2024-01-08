@@ -31,15 +31,28 @@
 </head>
 
 <body>
-	<header>
-		<h1>글읽기</h1>
-	</header>
+	<div>
+	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-color: black;">
+		<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
+			
+			<li style="margin: 0 10px;">
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/stadium/stadiumList}" th:text="stadium"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/matching/requestMatching}" th:text="matching"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/record/recordList}" th:text="schedule"></a></li>
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/team/teamList}" th:text="team"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
+			</li>
+			
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
+		</ul>
+	</nav>
+</div><br><br><br><br>
 	<table class="table table-striped">
 
-		<td class="white">
-			<a class="btn btn-outline-primary" th:href="@{/}" role="button">HOME</a>
-		</td>
+		
 		<tr>
+			<th></th>
 			<th>글번호</th>
 			<td style="width: 80px;" th:text="${recruitment.id}"></td>
 			<th>조회수</th>
@@ -85,8 +98,7 @@
 				<td class="content" th:text="${reply.content}"></td>
 				<td class="write_date" th:text="${reply.write_date}"></td>
 
-
-				<td><a th:href="@{/reply/delete(id=${reply.id})}">X</a></td>
+				<td><a a th:if="${#authentication.name == reply.writer_id}" th:href="@{/reply/delete(id=${reply.id})}"><button type="button" class="btn btn-outline-secondary">삭제</button></a></td>
 
 			</tr>
 		</table>
