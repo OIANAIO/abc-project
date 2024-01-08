@@ -39,4 +39,6 @@ public interface MatchingDAO {
 
 	void setEndMatch(int matchid);
 
+	void endMatchingTeam(int id);
+
 }

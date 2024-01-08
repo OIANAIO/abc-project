@@ -59,8 +59,11 @@ public class AdminPageController {
 		Match match=ms.getMatchByID(matchid);
 		Record record=new Record();
 		
-		ArrayList<Integer> list_a=teamS.getTeamMemberIdList(match.getMatching_team_id_a());
-		list_a.add(teamS.getTeamLeader(match.getMatching_team_id_a()).getId());
+		MatchingTeam team_a=teamS.getTeamMatching(match.getMatching_team_id_a());
+		MatchingTeam team_b=teamS.getTeamMatching(match.getMatching_team_id_b());
+		
+		ArrayList<Integer> list_a=teamS.getTeamMemberIdList(team_a.getTeam_id());
+		list_a.add(team_a.getResolver_id());
 		int sum_a=0;
 		for(int val:list_a)
 		{
@@ -69,8 +72,8 @@ public class AdminPageController {
 		}
 		int avg_a=sum_a/list_a.size();
 		
-		ArrayList<Integer> list_b=teamS.getTeamMemberIdList(match.getMatching_team_id_b());
-		list_b.add(teamS.getTeamLeader(match.getMatching_team_id_b()).getId());
+		ArrayList<Integer> list_b=teamS.getTeamMemberIdList(team_b.getTeam_id());
+		list_b.add(team_b.getResolver_id());
 		int sum_b=0;
 		for(int val:list_b)
 		{
@@ -86,35 +89,42 @@ public class AdminPageController {
 		int addScoreB=(int)(50*(1-bP));
 		
 		if(target==0) {
-			record.setWinner_team_id(match.getMatching_team_id_a());
-			record.setLoser_team_id(match.getMatching_team_id_b());
+			record.setWinner_team_id(team_a.getTeam_id());
+			record.setLoser_team_id(team_b.getTeam_id());
 			for(int val:list_a)
 			{
 				Member member=memS.selectMember(memS.getMemberid(val));
+				System.out.println(member);
 				member.setPoint(member.getPoint()+addScoreA);
 				memS.updateMember(member);
+				
 			}
 			for(int val:list_b)
 			{
+				
 				Member member=memS.selectMember(memS.getMemberid(val));
+				System.out.println(member);
 				member.setPoint(member.getPoint()-addScoreA);
 				memS.updateMember(member);
 			}
 		}
 		else {
-			record.setWinner_team_id(match.getMatching_team_id_b());
-			record.setLoser_team_id(match.getMatching_team_id_a());
+			record.setWinner_team_id(team_b.getTeam_id());
+			record.setLoser_team_id(team_a.getTeam_id());
 			for(int val:list_b)
 			{
 				Member member=memS.selectMember(memS.getMemberid(val));
-				member.setPoint(member.getPoint()+addScoreB);
+				System.out.println(member);
 				memS.updateMember(member);
+				member.setPoint(member.getPoint()+addScoreB);	
 			}
 			for(int val:list_a)
 			{
 				Member member=memS.selectMember(memS.getMemberid(val));
+				System.out.println(member);
 				member.setPoint(member.getPoint()-addScoreB);
 				memS.updateMember(member);
+				
 			}
 		}
 		
@@ -126,14 +136,19 @@ public class AdminPageController {
 		
 		ReviewRequest request1=new ReviewRequest();
 		ReviewRequest request2=new ReviewRequest();
-
+		
+		ms.endMatchingTeam(team_a.getId());
+		ms.endMatchingTeam(team_b.getId());
+		
 		request1.setState(0);
-		request1.setTarget_member_id(teamS.getTeamLeader(match.getMatching_team_id_a()).getId());
-		request1.setTarget_team_id(match.getMatching_team_id_a());
+		request1.setTarget_member_id(team_a.getResolver_id());
+		request1.setTarget_team_id(team_a.getOpponent());
+		request1.setTarget_matching_team_id(team_a.getId());
 		
 		request2.setState(0);
-		request2.setTarget_member_id(teamS.getTeamLeader(match.getMatching_team_id_b()).getId());
-		request2.setTarget_team_id(match.getMatching_team_id_b());
+		request2.setTarget_member_id(team_b.getResolver_id());
+		request2.setTarget_team_id(team_b.getOpponent());
+		request2.setTarget_matching_team_id(team_b.getId());
 		
 		reviewS.sendReviewRequest(request1);
 		reviewS.sendReviewRequest(request2);

@@ -20,5 +20,26 @@ public class StadiumServiceImpl implements StadiumService{
 		
 		return dao.GetStadiumList();
 	}
+
+	@Override
+	public Stadium getStadium(int stadiumid) {
+		return dao.getStadium(stadiumid);
+	}
+
+	@Override
+	public void createStadium(Stadium stadium) {
+		dao.createStadium(stadium);
+		
+	}
+
+	@Override
+	public Stadium getStadiumByScheduleID(int schedule_id) {
+		return dao.getStadiumByScheduleID(schedule_id);
+	}
+
+	@Override
+	public ArrayList<Stadium> getStadiumListFilterID(int userid) {
+		return dao.getStadiumListFilterID(userid);
+	}
 	
 }

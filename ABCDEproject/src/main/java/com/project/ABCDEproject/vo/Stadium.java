@@ -11,11 +11,12 @@ public class Stadium {
 
 	int id;
 	String name;
-	int type;
+	int owner;
 	String thumbnail;
+	String original_thumbnail;
 	String description;
 	int rental_shoes;
 	int rental_vest;
 	int rental_ball;
-	int sheos_price;
+	String address;
 }

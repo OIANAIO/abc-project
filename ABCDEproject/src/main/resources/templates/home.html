@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <title>HOME</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rubik+Lines&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rock+Salt&family=Rubik+Lines&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
@@ -38,10 +39,10 @@
 				
 				<li>
 				<li><a th:href="@{stadium/stadiumList}" th:text="stadium"></a></li>
-				<li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a th:href="@{matching/requestMatching}" th:text="matching"></a></li>
+				<li><a th:href="@{matching/requestMatching}" th:text="matching"></a></li>
 				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{record/recordList}" th:text="schedule"></a></li>
 				<li><a th:href="@{team/teamList}" th:text="team"></a></li>
-				<li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a th:href="@{recruitment/recruitmentList}" th:text="recruitment"></a></li>
+				<li><a th:href="@{recruitment/recruitmentList}" th:text="recruitment"></a></li>
 				</li>
 				
 				<li>
@@ -51,47 +52,78 @@
 		</nav>
 	</div>
 	
-	<div class="main">
-		<a class="text">Find Your</a><br>
-		<a class="text">Competitor!</a><br><br><br><br><br>
-		<div id="rankTable">
-			<table class="rank">
-				<tr class="rank">
-					<th>
-						랭크
-					</th>
-					<th>
-						엠블럼
-					</th>
-					<th>
-						팀명
-					</th>
-					<th>
-						팀장
-					</th>
-				</tr>
-				<tr th:each="rowNumber : ${#numbers.sequence(1, 20)}" class="rank">
-	                <td th:text="${rowNumber}">랭크 번호</td>
-	                <td>엠블럼 내용</td>
-	                <td>팀명 내용</td>
-	                <td>팀장 내용</td>
-	            </tr>
-			</table>
+		<div style="padding-top: 130px; margin: 0 auto;">
+			<div style="margin: 0 auto; text-align: center;">
+				<p class="text">Find Your</p>
+				<p class="text">Competitor!</p>
 		</div>
-	</div>
+			
+		<div style="display: flex; justify-content: center; padding-top: 250px;">
+			<div id="rankTable">
+				<table class="rank">
+					<tr>
+						<th>
+							등수
+						</th>
+						<th>
+							이름
+						</th>
+						<th>
+							점수
+						</th>
+					</tr>
+					<tr th:each="member, rowNumber : ${memberlist}">
+		                <td th:text="${rowNumber.count}"></td>
+		                <td th:text="${member.memberid}"></td>
+		                <td th:text="${member.point}"></td>
+		            </tr>
+				</table>
+			</div>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div id="rankTable">
+				<table class="rank">
+					<tr>
+						<th>
+							등수
+						</th>
+						<th>
+							아이콘
+						</th>
+						<th>
+							팀 이름
+						</th>
+					</tr>
+					<tr th:each="team, rowNumber : ${teamlist}">
+		                <td th:text="${rowNumber.count}"></td>
+		                <td><img th:src="@{'/img/' + ${team.team_icon}}" style="max-width: 50px; max-height: 50px;"></td>
+		                <td th:text="${team != null ? team.team_name : ''}"></td>
+		            </tr>
+				</table>
+			</div>
+		</div>
 	
-	<!--<div class="slider">
-		<div class="slide"></div>
-		<div class="slide"></div>
-		<div class="slide"></div>
-	</div>-->
-	
+	<!--오프캔버스-->
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 	  <div class="offcanvas-header">
-	    <h5 class="offcanvas-title" id="offcanvasExampleLabel">MY PAGE</h5>
+	    <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
 	  </div>
 	  <div class="offcanvas-body">
-	    <div>
+	    <div style="text-align: center;">
+			<div class="col-auto" sec:authorize="not isAuthenticated()">
+				<div style="border-radius: 50%; width: 80px; height: 80px; overflow: hidden; margin: 0 auto;">
+					<img th:src="@{/img/gibon.jpg}" style="width: 100%; height: 100%; display: block;">
+				</div>
+				<br>
+				<span style="font-family: Gowun Batang, 'Gowun Batang'; color: darkgrey; font-weight: bold;">로그인 후 이용해주세요</span>
+			</div>
+			<div class="col-auto" sec:authorize="isAuthenticated()">
+				<div style="border-radius: 50%; width: 80px; height: 80px; overflow: hidden; margin: 0 auto;">
+					<img img th:src="@{'/img/' + ${userTh}}" style="width: 100%; height: 100%; display: block;">
+				</div>
+				<br>
+				<span style="font-family: Gowun Batang, 'Gowun Batang'; font-weight: bold;" th:text="|환영합니다, ${#authentication.principal.username}님|"></span>
+			</div>
+			<br>
 			<a th:href="@{myPage/myPage}" th:text="|MY PAGE|" style="color: black; font-weight: bold;"></a>
 			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
 			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
@@ -101,7 +133,8 @@
 	    </div>
 	  </div>
 	</div>
-	
+	<div class="mb-5">
+	</div>
 </body>
 </html>
 

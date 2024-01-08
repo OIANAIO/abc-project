@@ -10,12 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.ABCDEproject.service.MatchingService;
 import com.project.ABCDEproject.service.MemberService;
 import com.project.ABCDEproject.service.MyPageService;
+import com.project.ABCDEproject.service.ReviewService;
+import com.project.ABCDEproject.service.StadiumService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.vo.MatchingTeam;
+import com.project.ABCDEproject.vo.Review;
+import com.project.ABCDEproject.vo.ReviewRequest;
+import com.project.ABCDEproject.vo.Stadium;
 import com.project.ABCDEproject.vo.TeamInvite;
 import com.project.ABCDEproject.vo.TeamMember;
 
@@ -38,14 +44,37 @@ public class MyPageController {
 	@Autowired
 	TeamService ts;
 	
+	@Autowired
+	ReviewService revS;
+	
+	@Autowired
+	StadiumService staS;
+	
+	@ResponseBody
+	@GetMapping("getStadium")
+	public int getStadium(@RequestParam(name="schedule_id")int schedule_id)
+	{
+		Stadium stadium= staS.getStadiumByScheduleID(schedule_id);
+		return stadium.getId();
+	}
+	
+	@ResponseBody
+	@GetMapping("getReview")
+	public int getSReview(@RequestParam(name="matching_team_id")int matching_team_id)
+	{
+		ReviewRequest reviewRequest= revS.getReveiwByMatchingTeamID(matching_team_id);
+		return reviewRequest.getTarget_team_id();
+	}
+	
 	@GetMapping("myPage")
 	public String myPage(@AuthenticationPrincipal UserDetails user, Model model) {
 		
 		int userid=mems.getId(user.getUsername());
 		
+		ArrayList<Integer> requestList=revS.getRequestMatchingTeamIDListByID(userid);
 		ArrayList<MatchingTeam> list=mats.getMatchingTeamList(userid);
+		model.addAttribute("reviewRequestIDList",requestList);
 		model.addAttribute("requestlist",list);
-		
 		return "myPage/myPage";
 	}
 	

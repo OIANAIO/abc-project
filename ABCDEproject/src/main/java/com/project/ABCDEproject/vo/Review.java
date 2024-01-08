@@ -14,6 +14,11 @@ public class Review {
 	int team_id;
 	String content;
 	int offensive;
-	int deffensive;
+	int defensive;
 	int manner;
+	int strength;
+	int dribble;
+	int speed;
+	int pass;
+	int shot;
 }

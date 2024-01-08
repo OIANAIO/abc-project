@@ -13,4 +13,5 @@ public class ReviewRequest {
 	int state;
 	int target_member_id;
 	int target_team_id;
+	int target_matching_team_id;
 }

@@ -1,5 +1,6 @@
 package com.project.ABCDEproject.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.ABCDEproject.service.MemberService;
@@ -109,6 +111,63 @@ public class MemberController {
 		int id = service.getId(user.getUsername());
 		
 		return "";
+	}
+	
+	@PostMapping("memberidCheck")
+	@ResponseBody
+	public String memberidCheck(String memberid) {
+		String msg = "";
+		ArrayList<String> idSearchList = service.memberidSearchList(memberid);
+		
+		if(memberid.length() < 6) {
+			msg = "6글자 이상으로 입력하세요";
+		} else {
+			if(idSearchList.size() == 0) {
+				msg = "사용할 수 있는 아이디입니다";
+			} else {
+				msg = "중복된 아이디입니다";
+			}
+		}
+		
+		return msg;
+	}
+	
+	@PostMapping("emailCheck")
+	@ResponseBody
+	public String emailCheck(String email) {
+		String msg = "";
+		ArrayList<String> emailSearchList = service.emailSearchList(email);
+		
+		if(email.length() < 1) {
+			msg = "이메일을 입력하세요";
+		} else {
+			if(emailSearchList.size() == 0) {
+				msg = "사용할 수 있는 이메일입니다";
+			} else {
+				msg = "중복된 이메일입니다";
+			}
+		}
+		
+		return msg;
+	}
+	
+	@PostMapping("phoneCheck")
+	@ResponseBody
+	public String phoneCheck(String phone) {
+		String msg = "";
+		ArrayList<String> phoneSearchList = service.phoneSearchList(phone);
+		
+		if(phone.length() < 1) {
+			msg = "전화번호를 입력하세요";
+		} else {
+			if(phoneSearchList.size() == 0) {
+				msg = "사용할 수 있는 전화번호입니다";
+			} else {
+				msg = "중복된 전화번호입니다";
+			}
+		}
+		
+		return msg;
 	}
 	
 } // controller

@@ -29,6 +29,17 @@ public interface MemberDAO {
 	String getMemberid(int id);
 
 	ArrayList<Member> searchAddMember(String addWord);
-	
+
+	ArrayList<Member> getMemberRankList();
+
+	Member getMember(String username);
+
+	String getThumb(String username);
+
+	ArrayList<String> memberidSearchList(String memberid);
+
+	ArrayList<String> emailSearchList(String email);
+
+	ArrayList<String> phoneSearchList(String phone);
 	
 } // DAO
