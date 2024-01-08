@@ -3,10 +3,13 @@
 
 <head>
 	<meta charset="EUC-KR">
-	 <meta name="viewport">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<title>글 읽기</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<script>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script>
 		function deleteFunc(id) {
 			if (confirm('삭제하시겠습니까?')) {
 				location.href = 'delete?id=' + id;
@@ -31,60 +34,66 @@
 	<header>
 		<h1>글읽기</h1>
 	</header>
-	<table class="table align-middle">
+	<table class="table table-striped">
+
 		<td class="white">
-				<a class="btn btn-outline-primary" th:href="@{/}" role="button">HOME</a>
+			<a class="btn btn-outline-primary" th:href="@{/}" role="button">HOME</a>
+		</td>
+		<tr>
+			<th>글번호</th>
+			<td style="width: 80px;" th:text="${recruitment.id}"></td>
+			<th>조회수</th>
+			<td style="width: 50px;" th:text="${recruitment.hits}"></td>
+			<th>작성일</th>
+			<td style="width: 150px;" th:text="${recruitment.write_date}"></td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td colspan="3" th:text="${recruitment.title}"></td>
+			<th>작성자</th>
+			<td th:text="${recruitment.writer_id}"></td>
+		</tr>
+		<tr>
+			<th colspan="6">내용</th>
+		</tr>
+		<tr>
+			<td colspan="6" style="height: 250px;">
+				<pre th:utext="${recruitment.content}"></pre>
 			</td>
-			<tr>
-				<th>글번호</th>
-				<td style="width: 80px;" th:text="${recruitment.id}"></td>
-				<th>조회수</th>
-				<td style="width: 50px;" th:text="${recruitment.hits}"></td>
-				<th>작성일</th>
-				<td style="width: 150px;" th:text="${recruitment.write_date}"></td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td colspan="3" th:text="${recruitment.title}"></td>
-				<th>작성자</th>
-				<td th:text="${recruitment.writer_id}"></td>
-			</tr>
-			<tr>
-				<th colspan="6">내용</th>
-			</tr>
-			<tr>
-				<td colspan="6" style="height: 250px;">
-					<pre th:text="${recruitment.content}"></pre>
-				</td>
-			</tr>
-		</table>
-		
-		<div th:if="${#authentication.name == recruitment.writer_id}" style="text-align: center;">
-			<a class="btn btn-outline-primary" th:href="@{/recruitment/update(id=${recruitment.id})}">수정</a>
-			<a class="btn btn-outline-primary" th:href="|javascript:deleteFunc(${recruitment.id})|">삭제</a>
-		</div>
+		</tr>
+	</table>
+
+	<div th:if="${#authentication.name == recruitment.writer_id}" style="text-align: center;">
+		<a class="btn btn-outline-primary" th:href="@{/recruitment/update(id=${recruitment.id})}">수정</a>
+		<a class="btn btn-outline-primary" th:href="|javascript:deleteFunc(${recruitment.id})|">삭제</a>
+	</div>
 	<section>
-		<form th:action="@{/reply/create}" method="post" onsubmit="return validation();">
-			리플내용
-			<input type="hidden" name="post_id" th:value="${recruitment.id}">
-			<input type="text" id="reply" name="content" style="width: 500px;">
-			<input type="submit"  class="btn btn-outline-secondary" value="확인">
+		<form th:action="@{/reply/create}" method="post" onsubmit="return validation();"><br>
+			<span class="d-flex justify-content-center">리플내용<input type="hidden" name="post_id"
+					th:value="${recruitment.id}">
+				<input class="form-control" type="text" id="reply" name="content" aria-label="default input example"
+					style="width: 400px;">
+					
+				<input type="submit" class="btn btn-outline-secondary" value="확인">
+			</span>
 		</form>
-		<table class="reply">
+		<table class="table table-striped">
 			<tr th:each="reply : ${replyList}">
 				<th>작성자</th>
 				<td class="writer_id" th:text="${reply.writer_id}"></td>
 				<th>내용</th>
 				<td class="content" th:text="${reply.content}"></td>
 				<td class="write_date" th:text="${reply.write_date}"></td>
-				
-						
-						<td><a th:href="@{/reply/delete(id=${reply.id})}">X</a></td>
-				
+
+
+				<td><a th:href="@{/reply/delete(id=${reply.id})}">X</a></td>
+
 			</tr>
 		</table>
 	</section>
-	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
 
 </body>
 

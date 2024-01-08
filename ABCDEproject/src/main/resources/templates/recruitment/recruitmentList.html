@@ -56,16 +56,17 @@
 	<div style="padding-top:100px">
 	</div>
 	<h1 style="text-align: center;">팀원모집 게시판</h1>
-	<table class="table table-striped table-bordered">
+	<table class="table table-striped">
+
 
 		<tr>
 			<div style="margin: 0 auto; text-align: center;"><img style="height: 500px; width:750px;"
-				src="https://d31wz4d3hgve8q.cloudfront.net/media/Eunpyeong_A_goal.jpg" alt="서울 은평 롯데몰 A구장"></div>
-			
+					src="https://d31wz4d3hgve8q.cloudfront.net/media/Eunpyeong_A_goal.jpg" alt="서울 은평 롯데몰 A구장"></div>
+
 			<td class="white" colspan="3"></td>
 			<td class="white">
-				<a th:href="@{/recruitment/write}">글쓰기</a>
-				<a th:href="@{/}">홈</a>
+				<a class="btn btn-outline-primary" th:href="@{/recruitment/write}">글쓰기</a>
+				<a class="btn btn-outline-primary" th:href="@{/}">홈</a>
 			</td>
 		</tr>
 		<tr>
@@ -99,18 +100,18 @@
 		<a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a>
 		<a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
 		<br><br>
-
+		
 		<form id="pagingForm" method="get" th:action="@{/recruitment/recruitmentList}">
-			<input type="hidden" name="page" id="page">
-			<select id="type" name="type">
-				<option value="title" th:selected="${type} == 'title'">제목</option>
-				<option value="content" th:selected="${type} == 'content'">본문</option>
-				<option value="writer_id" th:selected="${type} == 'writer_id'">작성자ID</option>
-				<option value="all" th:selected="${type} == 'all'">전체</option>
-			</select>
-			<input type="text" name="searchWord">
-			<input type="button" onclick="pagingFormSubmit(1)" value="검색">
-
+			<input class="form-control form-control-lg" type="hidden" name="page" id="page">
+			<span class="d-flex justify-content-center"> <select id="type" name="type">
+					<option value="title" th:selected="${type} == 'title'">제목</option>
+					<option value="content" th:selected="${type} == 'content'">본문</option>
+					<option value="writer_id" th:selected="${type} == 'writer_id'">작성자ID</option>
+					<option value="all" th:selected="${type} == 'all'">전체</option>
+				</select>
+				<input class="form-control" type="text" name="searchWord" aria-label="default input example" style="width: 400px;">
+				<input type="button" onclick="pagingFormSubmit(1)" class="btn btn-outline-secondary" value="검색">
+			</span>
 		</form>
 	</section>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Recruitment {
 
-	int id;				
-	String writer_id;	
-	String title;	
-	String content;	
+	int id;
+	String writer_id;
+	String title;
+	String content;
 	int hits;
 	String write_date;
-	
-}
+	}
