@@ -150,5 +150,13 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 
+	@Override
+	public ArrayList<Integer> getLeaderIdList() {
+		ArrayList<Integer> leaderIdList = dao.getLeaderList();
+		
+		return leaderIdList;
+	}
+
+
 	
 } // service

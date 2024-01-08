@@ -56,6 +56,8 @@ public interface TeamDAO {
 
 	Team getTeamByID(int teamid);
 
+	ArrayList<Integer> getLeaderList();
+
 	
 	
 }

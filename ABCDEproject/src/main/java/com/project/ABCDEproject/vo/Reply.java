@@ -15,7 +15,6 @@ public class Reply {
 	String content; 
 	String write_date;
 	public void setReplytext(String replytext) {
-		// TODO Auto-generated method stub
 		
 	} 
 }

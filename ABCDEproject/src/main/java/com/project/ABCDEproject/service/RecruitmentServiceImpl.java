@@ -22,9 +22,8 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 	
 	@Override
 	public ArrayList<Recruitment> selectList(PageNavigator navi, String type, String searchWord) {
-HashMap<String, String> map = getMap(type, searchWord);
+		HashMap<String, String> map = getMap(type, searchWord);
 		RowBounds rb = new RowBounds(navi.getCurrentPage(), navi.getCountPerPage());
-		
 		
 		ArrayList<Recruitment> result = dao.selectList(map, rb);
 		return result;

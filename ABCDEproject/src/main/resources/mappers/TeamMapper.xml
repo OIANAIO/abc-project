@@ -161,6 +161,9 @@
 	<select id="getTeamByID" parameterType="int" resultType="Team">
 		select * from team where id=#{teamid}
 	</select>
+	<select id="getLeaderList" resultType="Integer">
+		select leader_id from team
+	</select>
 </mapper>
 
 

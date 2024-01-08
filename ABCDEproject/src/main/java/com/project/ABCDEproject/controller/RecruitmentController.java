@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.ABCDEproject.service.MemberService;
 import com.project.ABCDEproject.service.RecruitmentService;
+import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.service.replyService;
 import com.project.ABCDEproject.util.PageNavigator;
 import com.project.ABCDEproject.vo.Recruitment;
 import com.project.ABCDEproject.vo.Reply;
+import com.project.ABCDEproject.vo.Team;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +34,12 @@ public class RecruitmentController {
 
 	@Autowired
 	replyService Rservice;
+	
+	@Autowired
+	TeamService ts;
+	
+	@Autowired
+	MemberService ms;
 
 	@Value("${user.board.page}")
 	int countPerPage;
@@ -39,21 +48,27 @@ public class RecruitmentController {
 	int pagePerGroup;
 	
 	@GetMapping("recruitmentList")
-	public String recruitmentList(Model model, @RequestParam(name = "page", defaultValue = "1") int page
-			, String type
-			, String searchWord) {
+	public String recruitmentList(Model model, @RequestParam(name = "page", defaultValue = "1") int page, String type, String searchWord, @AuthenticationPrincipal UserDetails user) {
 		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
-		
 		ArrayList<Recruitment> recruitmentList = service.selectList(navi, type, searchWord);
-		System.out.println(recruitmentList);
 //		log.debug("ㅇㅇㅇㅇㅇㅇ{}", recruitmentList);
 //		log.debug("페이지퍼:{}", pagePerGroup);
 //		log.debug("카운터:{}", countPerPage);
+		
+		ArrayList<Integer> leaderIdList = ts.getLeaderIdList();
+		int memberId = ms.getId(user.getUsername());
+		boolean result = false;
+		for(int i: leaderIdList) {
+			if(i == memberId) {
+				result = true;
+			}
+		}
 		
 		model.addAttribute("navi", navi);
 		model.addAttribute("recruitmentList", recruitmentList);
 		model.addAttribute("type", type);
 		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("result", result);
 		
 		return "/recruitment/recruitmentList";
 	}

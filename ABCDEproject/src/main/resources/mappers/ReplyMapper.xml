@@ -6,26 +6,26 @@
 <mapper namespace="com.project.ABCDEproject.dao.replyDAO">
 	<!-- 리플 저장 -->
 	<insert id="createreply" parameterType="Reply">
-		insert into RECRUITMENT_Reply (
+		insert into recruitment_reply (
 				 id
 				 ,post_id
 				, writer_id
 				, content
 		)
 		values (
-				RECRUITMENT_COMMENT_SEQ.nextval
+				recruitment_comment_seq.nextval
 				,#{post_id}
 				, #{writer_id}
 				, #{content}
 		)
 	</insert>
 <select id= "selectReplyAll" parameterType="int" resultType="Reply">
-	select * from RECRUITMENT_Reply where post_id = #{id}
+	select * from recruitment_reply where post_id = #{id}
 </select>
 <select id= "selectReplyid" parameterType="int" resultType="Reply">
-	select * from RECRUITMENT_Reply where id = #{id}
+	select * from recruitment_reply where id = #{id}
 </select>
 <delete id= "deleteReply" parameterType="int">
-	delete from RECRUITMENT_Reply where id = #{id}
+	delete from recruitment_reply where id = #{id}
 </delete>
 </mapper>
