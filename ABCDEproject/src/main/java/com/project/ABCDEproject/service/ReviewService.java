@@ -18,4 +18,7 @@ public interface ReviewService {
 	void addReview(Review review);
 
 	void processReviewRequestByMatchingTeamID(int matching_team_id);
+
+	Review getAVGReview(int teamId);
+
 }

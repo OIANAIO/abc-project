@@ -66,7 +66,6 @@ public class MatchingController {
 			String teamSelect,
 			boolean shoesTF, int shoesCount,boolean vestTF, int vestCount,boolean ballTF, int ballCount, int schedule_id) {
 		
-		System.out.println(schedule_id);
 		
 		int userid=mb.getId(user.getUsername());
 		MatchingTeam mt=new MatchingTeam();

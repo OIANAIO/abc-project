@@ -98,8 +98,8 @@ public class MatchingServiceImpl implements MatchingService {
 					}
 					
 					Match match=new Match();
-					match.setMatching_team_id_a(request.getTeam_id());
-					match.setMatching_team_id_b(targetRequest.getTeam_id());
+					match.setMatching_team_id_a(request.getId());
+					match.setMatching_team_id_b(targetRequest.getId());
 					match.setSchedule_id(request.getSchedule_id());
 					match.setState(0);
 					dao.addMatch(match);

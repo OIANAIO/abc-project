@@ -98,10 +98,10 @@ function moveReviewCreate(num){
 							<div class="col-2">
 								팀이름
 							</div>
-							<div class="col-5">
+							<div class="col-4">
 								신청일
 							</div>
-							<div class="col-3">
+							<div class="col-4">
 								상태
 							</div>
 						</div>
@@ -113,9 +113,9 @@ function moveReviewCreate(num){
 
 								<div class="col-2"><span th:text="${request.team_id}"></span></div>
 
-								<div class="col-5"><span th:text="${request.request_date}"></span></div>
+								<div class="col-4"><span th:text="${request.request_date}"></span></div>
 
-								<div class="col-3 text-start">
+								<div class="col-4 text-start">
 									<th:block th:switch="${request.state}">
 										<span th:case="0">매칭중 <button class="btn btn-xs btn-danger"
 												th:onclick="'location.href=\'' + @{/matching/delete(matchingrequestid=${request.id})} + '\''">매칭취소</button></span>

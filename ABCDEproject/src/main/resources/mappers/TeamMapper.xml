@@ -161,6 +161,9 @@
 	<select id="getTeamByID" parameterType="int" resultType="Team">
 		select * from team where id=#{teamid}
 	</select>
+	<select id="getTeamMatching" parameterType="int" resultType="MatchingTeam">
+		select * from matching_team where id=#{matching_team_id}
+	</select>
 </mapper>
 
 

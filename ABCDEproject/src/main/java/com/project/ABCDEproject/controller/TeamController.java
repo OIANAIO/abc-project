@@ -17,9 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.exceptions.ParserInitializationException;
 
 import com.project.ABCDEproject.service.MemberService;
+import com.project.ABCDEproject.service.RecordService;
+import com.project.ABCDEproject.service.ReviewService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.util.FileService;
 import com.project.ABCDEproject.vo.Member;
+import com.project.ABCDEproject.vo.Record;
+import com.project.ABCDEproject.vo.Review;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamInvite;
 import com.project.ABCDEproject.vo.TeamMember;
@@ -39,6 +43,12 @@ public class TeamController {
 	
 	@Autowired
 	MemberService ms;
+	
+	@Autowired
+	ReviewService revS;
+	
+	@Autowired
+	RecordService recS;
 	
 	@GetMapping("teamList")
 	public String teamList(@AuthenticationPrincipal UserDetails user, Model model) {
@@ -182,9 +192,27 @@ public class TeamController {
 	}
 	
 	@GetMapping("info")
-	public String info(@RequestParam(name="teamId", defaultValue = "0") int teamId, @AuthenticationPrincipal UserDetails user, Model model) {
+	public String info(Model model, @RequestParam(name="teamId", defaultValue = "0") int teamId, @AuthenticationPrincipal UserDetails user) {
+		
+		Review review=revS.getAVGReview(teamId);
+		Team team=service.getTeamByID(teamId);
+		System.out.println(team);
+		Record result=recS.getResultById(teamId);
+		System.out.println(result);
+		ArrayList<Record> recordList=recS.getListById(teamId);
+		System.out.println(recordList);
+		if(review==null)
+		{
+			review=new Review();
+			review.setTeam_id(0);
+		}
 		
 		
+		
+		model.addAttribute("review",review);
+		model.addAttribute("team",team);
+		model.addAttribute("recordList",recordList);
+		model.addAttribute("result",result);
 		return "team/teamInfo";
 	}
 	

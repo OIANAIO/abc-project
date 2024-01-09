@@ -62,6 +62,7 @@ public class AdminPageController {
 		MatchingTeam team_a=teamS.getTeamMatching(match.getMatching_team_id_a());
 		MatchingTeam team_b=teamS.getTeamMatching(match.getMatching_team_id_b());
 		
+		System.out.println(team_a);
 		ArrayList<Integer> list_a=teamS.getTeamMemberIdList(team_a.getTeam_id());
 		list_a.add(team_a.getResolver_id());
 		int sum_a=0;
@@ -142,12 +143,12 @@ public class AdminPageController {
 		
 		request1.setState(0);
 		request1.setTarget_member_id(team_a.getResolver_id());
-		request1.setTarget_team_id(team_a.getOpponent());
+		request1.setTarget_team_id(ms.getMatchingTeam(team_a.getOpponent()).getTeam_id());
 		request1.setTarget_matching_team_id(team_a.getId());
 		
 		request2.setState(0);
 		request2.setTarget_member_id(team_b.getResolver_id());
-		request2.setTarget_team_id(team_b.getOpponent());
+		request2.setTarget_team_id(ms.getMatchingTeam(team_b.getOpponent()).getTeam_id());
 		request2.setTarget_matching_team_id(team_b.getId());
 		
 		reviewS.sendReviewRequest(request1);

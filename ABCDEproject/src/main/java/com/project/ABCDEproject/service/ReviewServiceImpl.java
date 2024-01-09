@@ -45,4 +45,10 @@ public class ReviewServiceImpl implements ReviewService{
 	public void processReviewRequestByMatchingTeamID(int matching_team_id) {
 		dao.processReviewRequestByMatchingTeamID(matching_team_id);
 	}
+
+	@Override
+	public Review getAVGReview(int teamId) {
+		return dao.getAVGReview(teamId);
+	}
+
 }

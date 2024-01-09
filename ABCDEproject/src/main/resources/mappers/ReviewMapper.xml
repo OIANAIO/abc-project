@@ -24,6 +24,12 @@ values(review_seq.nextval, #{writer_id}, #{team_id}, #{content}, #{offensive}, #
 <update id="processReviewRequestByMatchingTeamID" parameterType="int">
 update review_request set state=1 where target_matching_team_id=#{matching_team_id}
 </update>
+<select id="getAVGReview" parameterType="int" resultType="Review">
+select r.team_id team_id, avg(r.offensive) offensive,avg(r.defensive) defensive,avg(r.manner) manner,avg(r.strength) strength, avg(r.dribble) dribble,avg(r.speed) speed, avg(r.pass) pass,avg(r.shot) shot
+from team_review r
+where team_id=#{teamId}
+group by r.team_id
+</select>
 </mapper>
 
 

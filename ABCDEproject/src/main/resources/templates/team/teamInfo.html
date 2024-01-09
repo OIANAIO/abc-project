@@ -1,10 +1,219 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>TEAM</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 </head>
-<body>
-	<h1>팀 페이지</h1>
+<body class="bg-secondary-subtle">
+	<div class="container">
+		<div class="row mt-4 d-flex justify-content-between">
+			<div class="col-auto bg-white p-2 text-center">
+				<h3 class="fw-bold">팀 분석</h3>
+				<canvas id="octagonCanvas" width="500" height="500"></canvas>
+			</div>
+			<div class="col-6">
+				<div class="row bg-white mb-4 p-2 h-50">
+					<img th:src="@{'/img/' + ${team.team_icon}}" width="100" height="100">
+					<h3 class="fw-bold" th:text="${team.team_name}"></h3>
+					<h4 th:text="${team.team_description}"></h4>
+				</div>
+				<div class="row bg-white p-2 h-25">
+					<div class="col-6">
+						<h3 class="fw-bold">승률</h3>
+						<h4 class="fw-bold" id="percen"></h4>
+					</div>
+					<div class="col-6">
+						<h3 class="fw-bold">전적</h3>
+						<p class="d-inline fs-4 text-primary fw-bold" th:text="${result.wincount}+'승'"></p>
+						<p class="d-inline fs-4 text-danger fw-bold" th:text="${result.losecount}+'패'"></p>
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col bg-white p-4">
+			<h3 class="fw-bold">최근 전적</h3>
+				<div class="card mb-4" th:each="record:${recordList}">
+					<th:block th:if="${record.winner_team_id}==${team.id}">
+					  <div class="card-header bg-primary text-white fw-bold" >
+					  	승리
+					  </div>
+					  <div class="card-body" style="background-color:#cfe2ff">
+					    <blockquote class="blockquote mb-0">
+					      <p><th:block th:text="${record.winner_team_name}+'  vs  '+ ${record.loser_team_name}"></th:block></p>
+					      <footer class="blockquote-footer" th:text="${#strings.substring(record.match_date, 0,11)}"></footer>
+					    </blockquote>
+					  </div>
+				  	</th:block>
+				  	<th:block th:if="${record.loser_team_id}==${team.id}">
+					  <div class="card-header bg-danger text-white fw-bold">
+					  	패배
+					  </div>
+					  <div class="card-body" style="background-color:#f8d7da">
+					    <blockquote class="blockquote mb-0">
+					      <p><th:block th:text="${record.loser_team_name}+'  vs  '+ ${record.winner_team_name}"></th:block></p>
+					      <footer class="blockquote-footer" th:text="${#strings.substring(record.match_date, 0,11)}"></footer>
+					    </blockquote>
+					  </div>
+				  	</th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	<script th:inline="javascript">
+    /* Thymeleaf에서 계산된 결과를 JavaScript 변수에 저장 */
+	    var winPercentage = /*[[${result.wincount} / ${result.wincount + result.losecount} * 100]]*/0;
+	    /* JavaScript에서 소수점 이하 두 자리까지 제한 */
+	    var formattedPercentage = winPercentage.toFixed(2);
+	
+	    /* HTML에 결과 출력 */
+	    document.getElementById("percen").innerHTML = formattedPercentage+'%';
+	</script>
+	
+	
+	
+	<script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            // Canvas 요소와 2D 컨텍스트 가져오기
+            var canvas = document.getElementById("octagonCanvas");
+            var context = canvas.getContext("2d");
+			
+            // 8각형을 그리는 함수
+            function drawOctagon(x, y, sideLength, num) {
+                context.beginPath();
+
+                // 각 꼭짓점에 출력할 글자
+                if(num===0)
+                {
+                	var labels = ["공격", "수비", "매너", "체력", "드리블", "스피드", "패스", "슛팅"];
+                }
+                
+				
+                context.textAlign = "center";
+                context.textBaseline = "middle";
+                
+                for (var i = 0; i < 8; i++) {
+                    var angle = (i * 2 * Math.PI) / 8;
+                    var pointX = x + sideLength * Math.cos(angle);
+                    var pointY = y + sideLength * Math.sin(angle);
+					if(num===0)
+					{
+						// 글자를 원의 바깥으로 위치 조정
+	                    var textOffset = 25; // 조정할 거리
+	                    var textX = pointX + textOffset * Math.cos(angle);
+	                    var textY = pointY + textOffset * Math.sin(angle);
+						
+	                    // 꼭짓점에 글자 출력
+	                    context.fillText(labels[i], textX, textY);	
+					}
+
+                    if (i === 0) {
+                        context.moveTo(pointX, pointY);
+                    } else {
+                        context.lineTo(pointX, pointY);
+                    }
+                }
+
+                context.closePath();
+                context.stroke();
+            }
+            
+            function drawOctagonReview(x, y, sideLength) {
+                context.beginPath();
+                var labels = ["[[${review.offensive}]]", "[[${review.defensive}]]", "[[${review.manner}]]", "[[${review.strength}]]", "[[${review.dribble}]]", "[[${review.speed}]]", "[[${review.pass}]]", "[[${review.shot}]]"];
+				
+                for (var i = 0; i < 8; i++) {
+                    var angle = (i * 2 * Math.PI) / 8;
+					if("[[${review.team_id}]]"==="0")
+					{
+						var textOffset = 0; // 조정할 거리
+					}
+					else
+					{
+						var textOffset = labels[i]*40; // 조정할 거리
+					}
+					
+					if("[[${review.team_id}]]"==="0")
+					{
+						var pointX = x + sideLength * Math.cos(angle);
+	                    var pointY = y + sideLength * Math.sin(angle);
+					}
+					else
+					{
+						var pointX = x+textOffset * Math.cos(angle);
+		                var pointY = y+ textOffset * Math.sin(angle);
+					}
+	                
+					
+
+                    if (i === 0) {
+                        context.moveTo(pointX, pointY);
+                    } else {
+                        context.lineTo(pointX, pointY);
+                    }
+                }
+                
+                
+                if("[[${review.team_id}]]"==="0")
+                	{
+                	context.strokeStyle="rgb(255,0,0)";
+                	}
+                else
+                	{
+                	context.strokeStyle="rgb(121,159,196)";
+                	}
+                context.closePath();
+                context.stroke();
+                
+                if("[[${review.team_id}]]"==="0")
+				{
+                	context.fillStyle = "rgba(255,0,0,0.5)"; // 내부를 빨간색으로 채움
+                    context.fill();
+                    context.font = "20px Arial";
+                    context.fillStyle = "#ffffff";
+                    context.fillText("평가가 없습니다.", x, y);	
+				}
+				else
+				{
+					
+					context.fillStyle = "rgba(121, 159, 196, 0.5)"; // 내부를 빨간색으로 채움
+	                context.fill();
+				}
+                
+            }
+
+            // Canvas에 8각형 그리기
+            var centerX = canvas.width / 2;
+            var centerY = canvas.height / 2;
+			
+            // 글자 스타일 설정
+            context.font = "14px Arial";
+            context.fillStyle = "#000";
+            context.strokeStyle="rgb(168,173,169)"	
+            drawOctagon(centerX, centerY, 200, 0);
+            context.strokeStyle="rgb(212,218,230)"
+            drawOctagon(centerX, centerY, 160, 1);
+            drawOctagon(centerX, centerY, 120, 1);
+            drawOctagon(centerX, centerY, 80, 1);
+            drawOctagon(centerX, centerY, 40, 1);
+            
+            drawOctagonReview(centerX, centerY, 200);
+        });
+    </script>
+    
 </body>
 </html>

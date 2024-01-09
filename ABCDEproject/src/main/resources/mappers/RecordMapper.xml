@@ -6,6 +6,28 @@
 	<insert id="addRecord" parameterType="Record" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 	insert into Record(id,winner_team_id, loser_team_id, match_id) values(record_seq.nextval,#{winner_team_id},#{loser_team_id},#{match_id})
 	</insert>
+	<select id="getListById" parameterType="int" resultType="Record">
+	select r.*, t1.team_name as winner_team_name, t2.team_name as loser_team_name, s.game_date as match_date 
+			from record r
+			left outer join team t1
+			on r.winner_team_id=t1.id
+			left outer join team t2
+			on r.loser_team_id=t2.id
+			left outer join match m
+			on r.match_id=m.id
+			left outer join schedule s
+			on m.schedule_id=s.id
+			where winner_team_id=#{teamId} OR loser_team_id=#{teamId}
+	</select>
+	<select id="getResultById" parameterType="int" resultType="Record">
+	SELECT
+    SUM(CASE WHEN winner_team_id = #{teamId} THEN 1 ELSE 0 END) AS wincount,
+    SUM(CASE WHEN loser_team_id = #{teamId} THEN 1 ELSE 0 END) AS losecount
+	FROM
+	    record
+	WHERE
+	    winner_team_id = #{teamId} OR loser_team_id = #{teamId}	
+	</select>
 </mapper>
 
 
