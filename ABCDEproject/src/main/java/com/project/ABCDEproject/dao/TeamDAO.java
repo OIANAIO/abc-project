@@ -58,6 +58,10 @@ public interface TeamDAO {
 
 	ArrayList<Integer> getLeaderList();
 
+	ArrayList<String> getMyTeam(int memberid);
+
+	int getTeamId(String selectedTeam);
+
 	
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.ABCDEproject.service.MemberService;
 import com.project.ABCDEproject.service.RecruitmentService;
@@ -21,6 +22,7 @@ import com.project.ABCDEproject.util.PageNavigator;
 import com.project.ABCDEproject.vo.Recruitment;
 import com.project.ABCDEproject.vo.Reply;
 import com.project.ABCDEproject.vo.Team;
+import com.project.ABCDEproject.vo.TeamInvite;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -74,15 +76,21 @@ public class RecruitmentController {
 	}
 
 	@GetMapping("write")
-	public String write() {
+	public String write(@AuthenticationPrincipal UserDetails user, Model model) {
+		int memberid = ms.getId(user.getUsername());
+		ArrayList<String> myTeamList = ts.getMyTeam(memberid);
+		
+		model.addAttribute("myTeamList", myTeamList);
+		
 		return "recruitment/write";
 	}
 
 	@PostMapping("write")
-	public String writeForm(Recruitment recruitment, @AuthenticationPrincipal UserDetails user) {
+	public String writeForm(Recruitment recruitment, @AuthenticationPrincipal UserDetails user, @RequestParam("selectTeam") String selectedTeam) {
 		recruitment.setWriter_id(user.getUsername());
-		log.debug("FFFFFFFFFFFFF{}", recruitment);
 		int result = service.writeRecruitment(recruitment);
+		int teamId = ts.getTeamID(selectedTeam);
+		service.updateTeam(recruitment.getWriter_id(), recruitment.getTitle(), teamId);
 		
 		return "redirect:/recruitment/recruitmentList";
 	}
@@ -138,4 +146,16 @@ public class RecruitmentController {
 		}
 		return "redirect:/recruitment/recruitmentList";
 	}
-}
+	
+	@PostMapping("inviteMember")
+	@ResponseBody
+	public void inviteMember(String memberid, int teamId) {
+		TeamInvite ti = new TeamInvite();
+		int addresseeId = ms.getId(memberid);
+		ti.setAddressee_id(addresseeId);
+		ti.setTeam_id(teamId);
+		
+		ts.inviteMember(ti);
+	}
+	
+} // controller

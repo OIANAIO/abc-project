@@ -1,38 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org">
-
 <head>
-	<meta charset="EUC-KR">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="EUC-KR">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>글 읽기</title>
+<title>글 읽기</title>
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script>
-		function deleteFunc(id) {
-			if (confirm('삭제하시겠습니까?')) {
-				location.href = 'delete?id=' + id;
-			}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rubik+Lines&display=swap" rel="stylesheet">
+
+<script th:src="@{/js/jquery-3.6.0.js}"></script>
+<style>
+	a:hover{
+		font-weight: bold;
+	}
+	
+	th{
+		text-align: center;
+		font-family: 'Gowun Batang', Gowun Batang;
+	}
+	
+	td, span{
+		font-family: 'Gowun Batang', Gowun Batang;
+	}
+	
+	pre{
+		font-family: 'Gowun Batang', Gowun Batang;
+	}
+	
+</style>
+<script>
+	function invMem(button) {
+		let memberid = button.getAttribute('data-memberid');
+	    let teamId = button.getAttribute('data-teamId');
+	    console.log(memberid, teamId);
+	    
+	    $.ajax({
+	        url: 'inviteMember',
+	        type: 'post',
+	        context: this,
+	        data: { 'memberid': memberid, 'teamId': teamId },
+	        success: function () {
+				$(this).removeClass("btn-success").addClass("btn-light").val('수락 대기');
+	        },
+	        error: function (e) {
+	            alert(JSON.stringify(e));
+	        }
+	    });
+	}
+	
+	function deleteFunc(id) {
+		if (confirm('삭제하시겠습니까?')) {
+			location.href = 'delete?id=' + id;
 		}
-		//글수정폼 확인
-		function validation() {
-			let reply = document.getElementById('reply');
-			console.log(reply)
-			if (reply.value.length < 5) {
-				alert("5글자 이상으로 입력해주세요.");
-				reply.focus();
-				reply.select();
-				return false;
-			}
-			return true;
+	}
+	//글수정폼 확인
+	function validation() {
+		let reply = document.getElementById('reply');
+		console.log(reply)
+		if (reply.value.length < 5) {
+			alert("5글자 이상 입력해주세요.");
+			reply.focus();
+			reply.select();
+			return false;
 		}
-	</script>
+		return true;
+	}
+</script>
 </head>
 
 <body>
 	<div>
-	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-color: black;">
+	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url(/teamA/img/haikei.png);">
 		<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
 			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
 			
@@ -47,66 +87,73 @@
 			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
 		</ul>
 	</nav>
-</div><br><br><br><br>
-	<table class="table table-striped">
-
-		
+</div>
+<div style="padding-top:100px; margin:0 auto; width: 60vw;">
+	<table class="table table-bordered">
 		<tr>
-			<th></th>
-			<th>글번호</th>
-			<td style="width: 80px;" th:text="${recruitment.id}"></td>
-			<th>조회수</th>
-			<td style="width: 50px;" th:text="${recruitment.hits}"></td>
-			<th>작성일</th>
-			<td style="width: 150px;" th:text="${recruitment.write_date}"></td>
-		</tr>
-		<tr>
-			<th>제목</th>
-			<td colspan="3" th:text="${recruitment.title}"></td>
-			<th>작성자</th>
+			<th style="width: 5vw;">작성자</th>
 			<td th:text="${recruitment.writer_id}"></td>
+			<th>팀</th>
+			<td style="text-align: center; width: 17vw;">
+				<span>hhh</span>&nbsp;&nbsp;
+				<a class="btn btn-outline-info btn-sm" th:href="@{/team/info(teamId=${recruitment.team_id})}" style="width: 6vw;">팀 정보</a>
+			</td>
+			<th style="width: 5vw;">조회수</th>
+			<td th:text="${recruitment.hits}" style="width: 5vw;"></td>
+			<th style="width: 5vw;">작성일</th>
+			<td style="width: 12vw;" th:text="${recruitment.write_date}"></td>
 		</tr>
 		<tr>
-			<th colspan="6">내용</th>
+			<th style="width: 5vw;">제목</th>
+			<td colspan="7" th:text="${recruitment.title}"></td>
 		</tr>
 		<tr>
-			<td colspan="6" style="height: 250px;">
+			<td colspan="10" style="height: 250px;">
 				<pre th:utext="${recruitment.content}"></pre>
 			</td>
 		</tr>
 	</table>
+</div>
 
-	<div th:if="${#authentication.name == recruitment.writer_id}" style="text-align: center;">
-		<a class="btn btn-outline-primary" th:href="@{/recruitment/update(id=${recruitment.id})}">수정</a>
-		<a class="btn btn-outline-primary" th:href="|javascript:deleteFunc(${recruitment.id})|">삭제</a>
-	</div>
-	<section>
+<div th:if="${#authentication.name == recruitment.writer_id}" style="text-align: center; font-family: 'Gowun Batang', Gowun Batang;">
+	<a class="btn btn-outline-secondary" th:href="@{/recruitment/update(id=${recruitment.id})}" style="width: 6vw;">수정</a>&nbsp;&nbsp;&nbsp;
+	<a class="btn btn-outline-danger" th:href="|javascript:deleteFunc(${recruitment.id})|" style="width: 6vw;">삭제</a>
+</div>
+
+<section>
+	<div style="width: 60vw; margin: 0 auto;">
 		<form th:action="@{/reply/create}" method="post" onsubmit="return validation();"><br>
-			<span class="d-flex justify-content-center">리플내용<input type="hidden" name="post_id"
-					th:value="${recruitment.id}">
-				<input class="form-control" type="text" id="reply" name="content" aria-label="default input example"
-					style="width: 400px;">
-					
-				<input type="submit" class="btn btn-outline-secondary" value="확인">
+			<span class="d-flex justify-content-center">
+				<span style="width: 10vw; text-align: center; line-height: 40px; height: 40px;">댓글 작성</span>&nbsp;&nbsp;
+				<input type="hidden" name="post_id" th:value="${recruitment.id}">
+				<input class="form-control" type="text" id="reply" name="content" aria-label="default input example" style="width: 60vw;">&nbsp;&nbsp;
+				<input type="submit" class="btn btn-outline-secondary" value="확인" style="font-family: 'Gowun Batang', Gowun Batang; width: 10vw;">
 			</span>
 		</form>
-		<table class="table table-striped">
+	</div><br><br>
+	<div style="width: 60vw; margin: 0 auto;">
+		<table class="table table-hover">
 			<tr th:each="reply : ${replyList}">
-				<th>작성자</th>
+				<th style="width: 5vw;">작성자</th>
 				<td class="writer_id" th:text="${reply.writer_id}"></td>
-				<th>내용</th>
-				<td class="content" th:text="${reply.content}"></td>
+				<th style="width: 5vw;">내용</th>
+				<td class="content" th:text="${reply.content}" style="width: 26vw;"></td>
 				<td class="write_date" th:text="${reply.write_date}"></td>
-
-				<td><a a th:if="${#authentication.name == reply.writer_id}" th:href="@{/reply/delete(id=${reply.id})}"><button type="button" class="btn btn-outline-secondary">삭제</button></a></td>
-
+				<td style="text-align: right;">
+					<a th:if="${#authentication.name == reply.writer_id}" th:href="@{/reply/delete(id=${reply.id})}">
+						<button type="button" class="btn btn-outline-secondary" style="width: 6vw;">삭제</button>
+					</a>
+					<a th:if="${#authentication.name != reply.writer_id && #authentication.name == recruitment.writer_id}">
+						<input type="button" th:data-memberid="${reply.writer_id}" th:data-teamId="${recruitment.team_id}" class="inviteBtn btn btn-success" style="width: 6vw;" onclick="invMem(this);" value="초대">
+					</a>
+				</td>
 			</tr>
 		</table>
-	</section>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
+	</div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
 </body>
-
 </html>
+

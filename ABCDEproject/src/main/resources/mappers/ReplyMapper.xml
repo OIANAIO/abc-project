@@ -13,7 +13,7 @@
 				, content
 		)
 		values (
-				recruitment_comment_seq.nextval
+				recruitment_reply_seq.nextval
 				,#{post_id}
 				, #{writer_id}
 				, #{content}

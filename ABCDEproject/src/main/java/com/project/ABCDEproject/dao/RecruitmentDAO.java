@@ -30,4 +30,6 @@ public interface RecruitmentDAO {
 
 	ArrayList<Recruitment> search(Map<String, String> map);
 
+	void updateTeam(HashMap<String, Object> map);
+
 }

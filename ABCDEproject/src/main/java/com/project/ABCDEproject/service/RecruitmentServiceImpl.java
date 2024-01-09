@@ -79,6 +79,16 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 		ArrayList<Recruitment> recruitmentList = dao.search(map);
 		return recruitmentList;
 	}
+
+	
+	@Override
+	public void updateTeam(String writer_id, String title, int teamId) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("teamId", teamId);
+		map.put("title", title);
+		map.put("writer_id", writer_id);
+		dao.updateTeam(map);
+	}
 	
 	
 

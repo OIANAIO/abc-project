@@ -15,4 +15,6 @@ public class Recruitment {
 	String content;
 	int hits;
 	String write_date;
-	}
+	int team_id;
+	
+}

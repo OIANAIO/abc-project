@@ -18,6 +18,14 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+<style>
+	a:hover{
+		font-weight: bold;
+	}
+	div {
+		font-family: 'Gowun Batang', Gowun Batang;
+	}
+</style>
 <script>
 
 </script>
@@ -27,7 +35,7 @@
 <body>
 
 	<div>
-		<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-color: black;">
+		<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url(/teamA/img/haikei.png);">
 			<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
 				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
 				
@@ -44,70 +52,65 @@
 		</nav>
 	</div>
 
-	<div class="container" style="margin: 100px auto 0 auto; width: 70vw;">
-		<div class="row">
-
-		</div>
-		<div class="row justify-content-end">
-			<div class="col-auto"><a th:text="|${#authentication.principal.username}님의 MY PAGE|"
-					style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
-			</div>
-			<div class="col-auto"><a th:href="@{/myPage/myPage}" th:text="|매칭 현황|"
-					style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
-			</div>
-			<div class="col-auto"><a th:href="@{/myPage/myPage2}" th:text="|팀 초대 요청|"
-					style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
-			</div>
-			<div class="col-auto"><a th:href="@{/myPage/myPage3}" th:text="|내 정보|"
-					style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
-			</div>
-		</div>
-	</div>
-	<hr>
-
+<div style="display: flex; justify-content: center; padding-top: 100px;">
 	<div class="container">
 		<div class="row my-4">
-			<h3>내 정보</h3>
+			<h3 class="front">내 정보</h3><br><br>
 			<div class="accordion" id="accordionExample">
-				<div class="card" style="width: 80%;">
+				<div class="card" style="width: 78%;">
 					<div class="card-header">
-						<div class="row">
-							<div class="col-2">
-								신청번호
-							</div>
-							<div class="col-2">
-								팀 이름
-							</div>
-							<div class="col-5">
-								수신자
-							</div>
-							<div class="col-3">
-								상태
-							</div>
-						</div>
+						<table>
+							<tr>
+								<td>
+									<div style="width: 10vw;">
+										<img class="img-thumbnail" th:src="@{'/img/' + ${member.thumbnail}}">
+									</div>
+								</td>
+								<td>
+									<table>
+										<tr>
+											<td th:text="${member.memberid}"></td>
+										</tr>
+										<tr>
+											<td th:text="${member.email}"></td>
+										</tr>
+										<tr>
+											<td th:text="${member.phone}"></td>
+										</tr>
+										<tr>
+											<td th:text="${member.last_login}"></td>
+										</tr>
+										<tr>
+											<td th:text="${member.point}"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
 					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<div class="row">
-								<div class="col-2"><span></span></div>
-
-								<div class="col-2"><span></span></div>
-
-								<div class="col-5"><span></span></div>
-
-								<div class="col-3 text-start">
-									
-								</div>
-
-							</div>
-						</li>
-					</ul>
 				</div>
 
 			</div>
 		</div>
 	</div>
-
+	
+	<div style="margin: 72px auto 0 auto; width: 15vw; margin-left: -23vw;" class="card">
+		<div class="card-header">
+    		<a th:text="|${#authentication.principal.username}님의 MY PAGE|"	style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+  		</div>
+  		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<a th:href="@{/myPage/myPage}" th:text="|매칭 현황|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+			</li>
+			<li class="list-group-item">
+				<a th:href="@{/myPage/myPage2}" th:text="|팀 초대 요청|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+			</li>
+			<li class="list-group-item">
+				<a th:href="@{/myPage/myPage3}" th:text="|내 정보|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+			</li>
+		</ul>
+	</div>
+</div>
 	
 	<!--오프캔버스-->
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -116,12 +119,11 @@
 	  </div>
 	  <div class="offcanvas-body">
 	    <div>
-			<a th:href="@{myPage/myPage}" th:text="|MY PAGE|" style="color: black; font-weight: bold;"></a>
-			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
 	    </div>
 	  </div>
 	</div>

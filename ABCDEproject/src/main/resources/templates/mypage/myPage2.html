@@ -18,6 +18,16 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+<style>
+	a:hover{
+		font-weight: bold;
+	}
+	div {
+		font-family: 'Gowun Batang', Gowun Batang;
+	}
+	
+</style>
+
 <script>
 	function invOK(button) {
 		let teamId = button.getAttribute('data-teamid');
@@ -42,7 +52,7 @@
 <body>
 
 	<div>
-		<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-color: black;">
+		<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url(/teamA/img/haikei.png);">
 			<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
 				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
 				
@@ -59,32 +69,13 @@
 		</nav>
 	</div>
 
-	<div class="container" style="margin: 100px auto 0 auto; width: 70vw;">
-		<div class="row">
-
-		</div>
-		<div class="row justify-content-end">
-			<div class="col-auto"><a th:text="|${#authentication.principal.username}님의 MY PAGE|"
-					style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
-			</div>
-			<div class="col-auto"><a th:href="@{/myPage/myPage}" th:text="|매칭 현황|"
-					style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
-			</div>
-			<div class="col-auto"><a th:href="@{/myPage/myPage2}" th:text="|팀 초대 요청|"
-					style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
-			</div>
-			<div class="col-auto"><a th:href="@{/myPage/myPage3}" th:text="|내 정보|"
-					style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
-			</div>
-		</div>
-	</div>
-	<hr>
-
+<div style="display: flex; justify-content: center; padding-top: 100px;">
 	<div class="container">
 		<div class="row my-4">
-			<h3>팀 초대 요청 목록</h3>
+			<h3 class="front">팀 초대 요청 목록</h3>
+			<br><br>
 			<div class="accordion" id="accordionExample">
-				<div class="card" style="width: 80%;">
+				<div class="card" style="width: 78%;">
 					<div class="card-header">
 						<div class="row">
 							<div class="col-2">
@@ -125,7 +116,24 @@
 			</div>
 		</div>
 	</div>
-
+	
+	<div style="margin: 72px auto 0 auto; width: 15vw; margin-left: -23vw;" class="card">
+		<div class="card-header">
+    		<a th:text="|${#authentication.principal.username}님의 MY PAGE|"	style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+  		</div>
+  		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<a th:href="@{/myPage/myPage}" th:text="|매칭 현황|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+			</li>
+			<li class="list-group-item">
+				<a th:href="@{/myPage/myPage2}" th:text="|팀 초대 요청|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+			</li>
+			<li class="list-group-item">
+				<a th:href="@{/myPage/myPage3}" th:text="|내 정보|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+			</li>
+		</ul>
+	</div>
+</div>
 	
 	<!--오프캔버스-->
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">

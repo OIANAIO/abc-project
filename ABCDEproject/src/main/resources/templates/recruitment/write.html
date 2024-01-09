@@ -48,32 +48,38 @@
 </head>
 
 <body>
-	<div class="container">
-		<h1 class="text-center">팀원모집 글쓰기</h1>
-		<form th:action="@{/recruitment/write}" method="post" onsubmit="return validation();"
-			enctype="multipart/form-data">
-			<div class="mb-3">
-				<label for="title" class="form-label">제목</label>
-				<input class="form-control" name="title" id="title" style="width:398px;" type="text" required>
-			</div>
-			<div class="mb-3">
-				<label for="content" class="form-label">내용</label>
-				<textarea name="content" id="content" required></textarea>
-			</div>
-			<div class="text-center">
-				<button type="submit" class="btn btn-outline-secondary">저장</button>
-			</div>
-		</form>
+	<div style="width: 60vw; margin: 0 auto;">
+		<div class="container">
+			<form th:action="@{/recruitment/write}" method="post" onsubmit="return validation();" enctype="multipart/form-data">
+				<div class="mb-3">
+					<div class="input-group">
+						<span class="input-group-text" id="basic-addon3">제목</span>
+						<input type="text" class="form-control" name="title" id="basic-url" aria-describedby="basic-addon3 basic-addon4" required>&nbsp;
+						<div>
+							<select id="selectTeam" name="selectTeam" class="form-select" aria-label="Default select example">
+								<option th:each="item : ${myTeamList}" th:value="${item}" th:text="${item}"></option>
+						    </select>
+					    </div>
+					</div>
+				</div>
+				<div class="mb-3">
+					<textarea name="content" id="content" required></textarea>
+				</div>
+				<div class="text-center">
+					<button type="submit" class="btn btn-outline-secondary">저장</button>
+				</div>
+			</form>
+		</div>
 	</div>
-	<script>
-		CKEDITOR.replace("content", {
-			height: 500,
-			// 기타 CKEditor 관련 설정 추가 가능
-		});
-	</script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
-</body>
+	
+<script>
+	CKEDITOR.replace("content", {
+		height: 500,
+		// 기타 CKEditor 관련 설정 추가 가능
+	});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
+</body>
 </html>
+

@@ -19,6 +19,7 @@ import com.project.ABCDEproject.service.ReviewService;
 import com.project.ABCDEproject.service.StadiumService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.vo.MatchingTeam;
+import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Review;
 import com.project.ABCDEproject.vo.ReviewRequest;
 import com.project.ABCDEproject.vo.Stadium;
@@ -73,6 +74,12 @@ public class MyPageController {
 		
 		ArrayList<Integer> requestList=revS.getRequestMatchingTeamIDListByID(userid);
 		ArrayList<MatchingTeam> list=mats.getMatchingTeamList(userid);
+		
+		for(MatchingTeam i : list) {
+			String team_name = ts.getTeamName(i.getTeam_id());
+			i.setTeam_name(team_name);
+		}
+		
 		model.addAttribute("reviewRequestIDList",requestList);
 		model.addAttribute("requestlist",list);
 		return "myPage/myPage";
@@ -100,8 +107,8 @@ public class MyPageController {
 	@GetMapping("myPage3")
 	public String myPage3(@AuthenticationPrincipal UserDetails user, Model model) {
 		String username = user.getUsername();
-		int id = mems.getId(username);
-		
+		Member member = mems.getMember(username);
+		model.addAttribute("member", member);
 		
 		return "myPage/myPage3";
 	}
