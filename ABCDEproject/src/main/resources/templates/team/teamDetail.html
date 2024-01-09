@@ -5,7 +5,6 @@
 <title>TEAM</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rubik+Lines&display=swap" rel="stylesheet">
 
@@ -78,8 +77,7 @@
 	        context: this,
 	        data: { 'num': num, 'teamId': teamId },
 	        success: function () {
-				$(this).removeClass("btn-info").addClass("btn-light").val('수락 대기');
-				//$(this).val('수락 대기');
+				$(this).removeClass("btn-success").addClass("btn-light").val('수락 대기');
 	        },
 	        error: function (e) {
 	            alert(JSON.stringify(e));

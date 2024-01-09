@@ -161,9 +161,25 @@
 	<select id="getTeamByID" parameterType="int" resultType="Team">
 		select * from team where id=#{teamid}
 	</select>
+
 	<select id="getTeamMatching" parameterType="int" resultType="MatchingTeam">
 		select * from matching_team where id=#{matching_team_id}
 	</select>
+
+	<select id="getLeaderList" resultType="Integer">
+		select leader_id from team
+	</select>
+	<select id="getMyTeam" parameterType="int" resultType="String">
+		select team_name from team
+		where
+			leader_id LIKE #{memberid}
+	</select>
+	<select id="getTeamId" parameterType="String" resultType="int">
+		select id from team
+		where
+			team_name = #{selectedTeam}
+	</select>
+	
 </mapper>
 
 

@@ -25,4 +25,6 @@ public class MatchingTeam{
 	int avg_point;
 	int opponent;
 	int schedule_id;
+	
+	String team_name;
 }

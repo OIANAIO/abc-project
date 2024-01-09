@@ -91,4 +91,18 @@
 		delete RECRUITMENT_POST
 		where id like #{id}
 	</delete>
+	<update id="updateTeam" parameterType="map">
+		update
+			recruitment_post
+		set
+			team_id = #{teamId}
+		where
+			writer_id = #{writer_id} AND title = #{title}
+	</update>
+	
 </mapper>
+
+
+
+
+

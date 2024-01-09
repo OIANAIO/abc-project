@@ -1,62 +1,85 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org">
+
 <head>
-<meta charset="EUC-KR">
-<title>팀원 모집 글쓰기</title>
-<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-<script>
-		//글수정폼 확인
+	<meta charset="EUC-KR">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>팀원 모집 글쓰기</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<!--<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>-->
+	<script th:src="@{/js/ckeditor/ckeditor.js}"></script>
+	
+	<script>
 		function validation() {
 			let title = document.getElementById('title');
-			let contents = document.getElementById('content');
-			console.log(title.value.length); 
-			console.log(contents.value.length); 
-			if (title.value.length < 5) {
-				alert("제목을 입력하세요.");
+			let contents = CKEDITOR.instances.content.getData();
+
+			if (title.value.trim().length < 5) {
+				alert("제목을 5글자 이상 입력하세요.");
 				title.focus();
-				title.select();
 				return false;
 			}
-		if(CKEDITOR.instances.contents.getData().length < 1){				
-			alert("내용을 입력하세요.");
-				contents.focus();
-				contents.select();
+
+			if (contents.trim().length < 1) {
+				alert("내용을 입력하세요.");
+				CKEDITOR.instances.content.focus();
 				return false;
 			}
+
 			return true;
 		}
 
+		function showImage() {
+			const input = document.getElementById('image');
+			const imageContainer = document.getElementById('imageContainer');
+
+			const file = input.files[0];
+
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					imageContainer.src = e.target.result;
+				};
+				reader.readAsDataURL(file);
+			}
+		}
 	</script>
 </head>
+
 <body>
-	<h1 style="text-align: center;">팀원모집 글쓰기</h1>
-	<form th:action="@{/recruitment/write}" method="post"onsubmit="return validation();">
-		<table>
-			<tr>
-				<th>제목</th>
-				<td>
-					<input type="text" name="title" id="title" style="width:398px;">
-				</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td>
-					<textarea name="content" id="content"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" class="white" style="text-align:center;">
-					<input type="submit" value="저장">
-				</td>
-			</tr>
-		</table>
-	</form>
-	<script>
-				CKEDITOR.replace("content", {
-      height: 500, // 에디터 높이를 500px로 설정
-   });
-	</script>
+	<div style="width: 60vw; margin: 0 auto;">
+		<div class="container">
+			<form th:action="@{/recruitment/write}" method="post" onsubmit="return validation();" enctype="multipart/form-data">
+				<div class="mb-3">
+					<div class="input-group">
+						<span class="input-group-text" id="basic-addon3">제목</span>
+						<input type="text" class="form-control" name="title" id="basic-url" aria-describedby="basic-addon3 basic-addon4" required>&nbsp;
+						<div>
+							<select id="selectTeam" name="selectTeam" class="form-select" aria-label="Default select example">
+								<option th:each="item : ${myTeamList}" th:value="${item}" th:text="${item}"></option>
+						    </select>
+					    </div>
+					</div>
+				</div>
+				<div class="mb-3">
+					<textarea name="content" id="content" required></textarea>
+				</div>
+				<div class="text-center">
+					<button type="submit" class="btn btn-outline-secondary">저장</button>
+				</div>
+			</form>
+		</div>
+	</div>
 	
-	
+<script>
+	CKEDITOR.replace("content", {
+		height: 500,
+		// 기타 CKEditor 관련 설정 추가 가능
+	});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 </body>
 </html>
+

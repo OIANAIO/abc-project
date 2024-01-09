@@ -51,4 +51,10 @@ public interface TeamService {
 
 	Team getTeamByID(int teamid);
 
+	ArrayList<Integer> getLeaderIdList();
+
+	ArrayList<String> getMyTeam(int memberid);
+
+	int getTeamID(String selectedTeam);
+
 }

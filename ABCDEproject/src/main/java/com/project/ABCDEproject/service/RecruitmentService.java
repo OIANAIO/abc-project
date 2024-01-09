@@ -22,4 +22,6 @@ public interface RecruitmentService {
 
 	PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String searchWord);
 
+	void updateTeam(String writer_id, String title, int teamid);
+
 }

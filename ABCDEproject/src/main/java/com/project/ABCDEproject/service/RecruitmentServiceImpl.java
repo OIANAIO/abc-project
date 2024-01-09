@@ -22,9 +22,8 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 	
 	@Override
 	public ArrayList<Recruitment> selectList(PageNavigator navi, String type, String searchWord) {
-HashMap<String, String> map = getMap(type, searchWord);
+		HashMap<String, String> map = getMap(type, searchWord);
 		RowBounds rb = new RowBounds(navi.getCurrentPage(), navi.getCountPerPage());
-		
 		
 		ArrayList<Recruitment> result = dao.selectList(map, rb);
 		return result;
@@ -79,6 +78,16 @@ HashMap<String, String> map = getMap(type, searchWord);
 	public ArrayList<Recruitment> search(Map<String, String> map) {
 		ArrayList<Recruitment> recruitmentList = dao.search(map);
 		return recruitmentList;
+	}
+
+	
+	@Override
+	public void updateTeam(String writer_id, String title, int teamId) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("teamId", teamId);
+		map.put("title", title);
+		map.put("writer_id", writer_id);
+		dao.updateTeam(map);
 	}
 	
 	
