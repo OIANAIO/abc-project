@@ -199,6 +199,12 @@ public class TeamController {
 		System.out.println(team);
 		Record result=recS.getResultById(teamId);
 		System.out.println(result);
+		if(result==null)
+		{
+			result=new Record();
+			result.setWincount(0);
+			result.setLosecount(0);
+		}
 		ArrayList<Record> recordList=recS.getListById(teamId);
 		System.out.println(recordList);
 		if(review==null)

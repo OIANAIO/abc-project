@@ -17,4 +17,5 @@ public class StadiumSchedule {
 	String name;
 	String thumbnail;
 	String game_date;
+	String address;
 }

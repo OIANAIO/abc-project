@@ -47,6 +47,12 @@ public class Member implements UserDetails{
 		return this.id;
 	}
 	
+	public boolean isAdmin()
+	{
+		if(rolename.equals("ROLE_ADMIN")) return true;
+		else return false;
+	}
+	
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;

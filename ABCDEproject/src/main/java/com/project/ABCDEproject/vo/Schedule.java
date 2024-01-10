@@ -15,4 +15,5 @@ public class Schedule {
 	int end_time;
 	int price;
 	String game_date;
+
 }

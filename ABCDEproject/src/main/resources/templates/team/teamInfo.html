@@ -76,15 +76,20 @@
 	
 	<script th:inline="javascript">
     /* Thymeleaf에서 계산된 결과를 JavaScript 변수에 저장 */
-	    var winPercentage = /*[[${result.wincount} / ${result.wincount + result.losecount} * 100]]*/0;
+    	if(("[[${result.wincount}]]")==="0"&&"[[${result.losecount}]]"==="0")
+    	{
+    		var winPercentage=0;
+    	}
+    	else
+    	{
+    		var winPercentage = /*[[${result.wincount} / ${result.wincount + result.losecount} * 100]]*/0;
+    	}
 	    /* JavaScript에서 소수점 이하 두 자리까지 제한 */
 	    var formattedPercentage = winPercentage.toFixed(2);
 	
 	    /* HTML에 결과 출력 */
 	    document.getElementById("percen").innerHTML = formattedPercentage+'%';
 	</script>
-	
-	
 	
 	<script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
@@ -166,7 +171,6 @@
                         context.lineTo(pointX, pointY);
                     }
                 }
-                
                 
                 if("[[${review.team_id}]]"==="0")
                 	{
