@@ -94,7 +94,17 @@
 		delete RECRUITMENT_POST
 		where id like #{id}
 	</delete>
-	
+	<select id="getRecruRankList" resultType="Recruitment">
+		<![CDATA[
+	        SELECT *
+	        FROM (
+	            SELECT *
+	            FROM recruitment_post
+	            ORDER BY hits DESC
+	        )
+	        WHERE ROWNUM <= 10
+	    ]]>
+	</select>
 </mapper>
 
 

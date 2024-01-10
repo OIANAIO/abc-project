@@ -83,14 +83,14 @@
 	</select>
 	<select id="getMemberRankList" resultType="Member">
 		<![CDATA[
-        SELECT *
-        FROM (
-            SELECT *
-            FROM member
-            ORDER BY point DESC
-        )
-        WHERE ROWNUM <= 10
-    ]]>
+	        SELECT *
+	        FROM (
+	            SELECT *
+	            FROM member
+	            ORDER BY point DESC
+	        )
+	        WHERE ROWNUM <= 10
+	    ]]>
 	</select>
 	<select id="getMember" parameterType="String" resultType="Member">
 		select * from member

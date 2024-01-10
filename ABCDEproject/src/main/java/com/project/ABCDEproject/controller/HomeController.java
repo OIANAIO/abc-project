@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.project.ABCDEproject.service.HomeService;
 import com.project.ABCDEproject.service.MemberService;
 import com.project.ABCDEproject.vo.Member;
+import com.project.ABCDEproject.vo.Recruitment;
 import com.project.ABCDEproject.vo.Team;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,16 +32,18 @@ public class HomeController {
 		if(user != null) {
 			String userTh = memS.getThumb(user.getUsername());
 			model.addAttribute("userTh", userTh);
+			
+			Member u = memS.getMember(user.getUsername());
+			model.addAttribute("isAdmin",u.isAdmin());
 		}
-		
-		Member u=memS.getMember(user.getUsername());
 		
 		ArrayList<Member> memberlist = service.getMemberRankList();
 		ArrayList<Team> teamlist = service.getTeamRankList();
+		ArrayList<Recruitment> recrulist = service.getRecruRankList();
 		
-		model.addAttribute("isAdmin",u.isAdmin());
 		model.addAttribute("memberlist", memberlist);
 		model.addAttribute("teamlist", teamlist);
+		model.addAttribute("recrulist", recrulist);
 		
 		return "home";
 	}
