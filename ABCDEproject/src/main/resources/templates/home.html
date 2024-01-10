@@ -10,7 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rock+Salt&family=Rubik+Lines&display=swap" rel="stylesheet">
 
 <!--부트스트랩-->
+<link rel="stylesheet" href="https://bootstrapmade.com/assets/css/demo.css/demo.css?v=5.2">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<!-- animate.css를 먼저 로드 -->
+<link type="text/css" rel="stylesheet" href="animate.css">
+<!-- 제이쿼리 로드 -->
+<script type="text/javascript" src="jquery.min.js"></script>
+    <!-- aniview 로드 -->
+    <script type="text/javascript" src="jquery.aniview.js"></script>
 
 <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
@@ -32,7 +40,7 @@
 				
 				<li>
 				<li><a th:href="@{stadium/stadiumList}" th:text="stadium"></a></li>
-				<li><a th:href="@{matching/requestMatching}" th:text="matching"></a></li>
+				<li th:if="!(${isAdmin})"><a th:href="@{matching/requestMatching}" th:text="matching"></a></li>
 				<li th:if="${isAdmin}"><a th:href="@{schedule/create}" th:text="schedule"></a></li>
 				<li><a th:href="@{team/teamList}" th:text="team"></a></li>
 				<li><a th:href="@{recruitment/recruitmentList}" th:text="recruitment"></a></li>
@@ -45,9 +53,9 @@
 		</nav>
 	</div>
 	
-	<div style="margin: 0; background-image: url('/teamA/img/haikei.png'); width: 100vw; height: 530px; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; overflow-x: hidden; border-radius: 0 0 20px 20px; box-shadow: 0 4px 8px rgb(128, 128, 128, 0.3), 0 -4px 8px rgba(128, 128, 128, 0.3), 4px 0 8px rgba(128, 128, 128, 0.3), -4px 0 8px rgba(128, 128, 128, 0.3);">
+	<div style="margin: 0; background-image: url('/teamA/img/haikei.png'); width: 100vw; height: 530px; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; overflow-x: hidden; border-radius: 0 0 20px 20px; box-shadow: 0 4px 8px rgb(128, 128, 128, 0.3), 0 -4px 8px rgba(128, 128, 128, 0.3), 4px 0 8px rgba(128, 128, 128, 0.3), -4px 0 8px rgba(128, 128, 128, 0.3);" class="animate__animated animate__fadeIn">
 		<div style="padding-top: 130px; margin: 0 auto;">
-			<div style="margin-left: 30vw; text-align: center; position: fixed;">
+			<div class="animate__animated animate__backInDown" style="margin-left: 30vw; text-align: center; position: fixed;">
 				<p class="text">Find Your</p>
 				<p class="text">Competitor!</p>
 			</div>
@@ -55,9 +63,11 @@
 		</div>
 	</div>
 	
-	<div style="display: flex; justify-content: center; padding-top: 50px;">
-				<div id="rankTable">
-					<table class="rank">
+	<div style="display: flex; justify-content: center; padding-top: 10px;">
+		<div class="row my-4">
+			<div class="animate__animated animate__fadeInUp card" style="box-shadow: 0 4px 8px rgb(128, 128, 128, 0.1), 0 -4px 8px rgba(128, 128, 128, 0.1), 4px 0 8px rgba(128, 128, 128, 0.1), -4px 0 8px rgba(128, 128, 128, 0.1); z-index: 10; width: 26vw; border-radius: 15px 15px 15px 15px; font-family: Gowun Batang, 'Gowun Batang';">
+				<div class="card-header" style="padding: 10px; margin: 10px;">
+					<table class="table">
 						<tr>
 							<th>
 								등수
@@ -76,9 +86,13 @@
 			            </tr>
 					</table>
 				</div>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<div id="rankTable">
-					<table class="rank">
+			</div>
+		</div>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="row my-4">
+			<div class="animate__animated animate__fadeInUp card" style="box-shadow: 0 4px 8px rgb(128, 128, 128, 0.1), 0 -4px 8px rgba(128, 128, 128, 0.1), 4px 0 8px rgba(128, 128, 128, 0.1), -4px 0 8px rgba(128, 128, 128, 0.1); z-index: 10; width: 26vw; border-radius: 15px 15px 15px 15px; font-family: Gowun Batang, 'Gowun Batang';">
+				<div class="card-header" style="padding: 10px; margin: 10px;">
+					<table class="table">
 						<tr>
 							<th>
 								등수
@@ -92,13 +106,19 @@
 						</tr>
 						<tr th:each="team, rowNumber : ${teamlist}">
 			                <td th:text="${rowNumber.count}"></td>
-			                <td><img th:src="@{/img/{image}(image=${team.team_icon})}" style="max-width: 50px; max-height: 50px;"></td>
+			                <td>
+								<div style="border-radius: 50%; width: 30px; height: 30px; overflow: hidden; margin: 0 auto;">
+									<img th:src="@{/img/{image}(image=${team.team_icon})}" style="width: 100%; height: 100%; display: block;">
+								</div>
+							</td>
 			                <td th:text="${team != null ? team.team_name : ''}"></td>
 			            </tr>
 					</table>
 				</div>
 			</div>
-	
+		</div>
+
+
 	<!--오프캔버스-->
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 	  <div class="offcanvas-header">
@@ -133,6 +153,7 @@
 	<div class="mb-5">
 	</div>
 </body>
+
 </html>
 
 

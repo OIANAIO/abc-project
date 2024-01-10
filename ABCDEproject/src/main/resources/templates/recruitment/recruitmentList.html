@@ -15,6 +15,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rubik+Lines&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 <style>
 	a {
 		text-decoration: none;
@@ -68,13 +70,13 @@
 	</nav>
 </div>
 
-<div style="padding-top:100px; margin:0 auto; width: 70vw;">
+<div style="padding-top:100px; margin:0 auto; width: 70vw;" class="animate__animated animate__fadeIn">
 	<table class="table">
 		<tr>
 			<td class="white" colspan="3"></td>
 			<td class="white">
-				<button class="btn btn-secondary" th:if="!${result}" onclick="goTeam();"><a style="color: white;">글쓰기</a></button>
-				<button class="btn btn-secondary" th:if="${result}"><a th:href="@{/recruitment/write}" style="color: white;">글쓰기</a></button>
+				<button class="btn btn-secondary btn-sm" style="width: 8vw;" th:if="!${result}" onclick="goTeam();"><a style="color: white;">글쓰기</a></button>
+				<button class="btn btn-secondary btn-sm" style="width: 8vw;" th:if="${result}"><a th:href="@{/recruitment/write}" style="color: white;">글쓰기</a></button>
 			</td>
 		</tr>
 		<tr>

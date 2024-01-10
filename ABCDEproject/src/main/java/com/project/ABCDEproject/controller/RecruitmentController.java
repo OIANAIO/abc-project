@@ -89,6 +89,7 @@ public class RecruitmentController {
 	public String writeForm(Recruitment recruitment, @AuthenticationPrincipal UserDetails user, @RequestParam("selectTeam") String selectedTeam) {
 		recruitment.setWriter_id(user.getUsername());
 		int teamId = ts.getTeamID(selectedTeam);
+		log.debug("DDDDDDDDDDDDD{}", recruitment);
 		service.writeRecruitment(recruitment, teamId);
 		
 		return "redirect:/recruitment/recruitmentList";

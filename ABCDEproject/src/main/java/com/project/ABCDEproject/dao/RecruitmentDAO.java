@@ -30,5 +30,7 @@ public interface RecruitmentDAO {
 
 	ArrayList<Recruitment> search(Map<String, String> map);
 
+	ArrayList<Recruitment> getRecruRankList();
+
 
 }
