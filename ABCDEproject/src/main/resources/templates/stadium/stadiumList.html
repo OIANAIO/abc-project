@@ -25,6 +25,7 @@
 </head>
 <body>
 <div>
+<<<<<<< HEAD
 	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url(/teamA/img/haikei.png);">
 		<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
 			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
@@ -43,6 +44,11 @@
 </div>
 
 <div class="container" style="padding-top:130px; width: 70vw;">
+	<div class="row my-4">
+		<div class="col">
+			<a class="btn btn-primary" th:if="${isAdmin}" th:href="@{/stadium/create}">구장 생성</a>
+		</div>
+	</div>
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 	  	<div th:each="stadium : ${list}" class="col">
 	  		<a th:href="@{/stadium/detail(stadiumid=${stadium.id})}" style="text-decoration-line:none;">
@@ -56,6 +62,7 @@
 	 		</a>
 		</div>
 	</div>
+
 </div>
 
 </body>

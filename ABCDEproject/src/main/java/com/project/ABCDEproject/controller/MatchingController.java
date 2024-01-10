@@ -127,7 +127,7 @@ public class MatchingController {
 		
 		//선호지역 저장
 
-		return "redirect:/";
+		return "redirect:/myPage/myPage";
 	}
 	
 	public static int calculateAverage(ArrayList<Integer> list) {

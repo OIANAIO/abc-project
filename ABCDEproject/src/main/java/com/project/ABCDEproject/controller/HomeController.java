@@ -24,18 +24,21 @@ public class HomeController {
 	HomeService service;
 	
 	@Autowired
-	MemberService ms;
+	MemberService memS;
 	
 	@GetMapping("/")
 	public String home(@AuthenticationPrincipal UserDetails user, Model model) {
 		if(user != null) {
-			String userTh = ms.getThumb(user.getUsername());
+			String userTh = memS.getThumb(user.getUsername());
 			model.addAttribute("userTh", userTh);
 		}
+		
+		Member u=memS.getMember(user.getUsername());
 		
 		ArrayList<Member> memberlist = service.getMemberRankList();
 		ArrayList<Team> teamlist = service.getTeamRankList();
 		
+		model.addAttribute("isAdmin",u.isAdmin());
 		model.addAttribute("memberlist", memberlist);
 		model.addAttribute("teamlist", teamlist);
 		

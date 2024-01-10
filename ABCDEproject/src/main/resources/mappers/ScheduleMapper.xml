@@ -4,10 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.ABCDEproject.dao.ScheduleDAO">
 	<select id="getScheduleList" resultType="StadiumSchedule">
-	select a.*, b.thumbnail, b.name from schedule a
+	select a.*, b.thumbnail, b.name, b.address
+	from schedule a
 	left outer join stadium b
 	on a.stadium_id=b.id
-	WHERE game_date > sysdate
+	left outer join match m
+	on a.id = m.schedule_id
+	WHERE game_date > sysdate and m.state is NULL
 	</select>
 	
 	<insert id="addSchedule" parameterType="Schedule">

@@ -39,9 +39,11 @@ public class StadiumController {
 	String uploadpath;
 	
 	@GetMapping("stadiumList")
-	public String stadiumList(Model model) {
+	public String stadiumList(Model model,@AuthenticationPrincipal UserDetails user) {
+		
 		ArrayList<Stadium> list=service.GetStadiumList();
-		System.out.println(list);
+		Member u=memS.getMember(user.getUsername());
+		model.addAttribute("isAdmin",u.isAdmin());
 		model.addAttribute("list",list);
 		return "stadium/stadiumList";
 	}
