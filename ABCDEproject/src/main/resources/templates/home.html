@@ -32,7 +32,7 @@
 				
 				<li>
 				<li><a th:href="@{stadium/stadiumList}" th:text="stadium"></a></li>
-				<li><a th:href="@{matching/requestMatching}" th:text="matching"></a></li>
+				<li th:if="${!isAdmin}"><a th:href="@{matching/requestMatching}" th:text="matching"></a></li>
 				<li th:if="${isAdmin}"><a th:href="@{schedule/create}" th:text="schedule"></a></li>
 				<li><a th:href="@{team/teamList}" th:text="team"></a></li>
 				<li><a th:href="@{recruitment/recruitmentList}" th:text="recruitment"></a></li>

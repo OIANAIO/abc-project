@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.ABCDEproject.service.MatchingService;
 import com.project.ABCDEproject.service.MemberService;
 import com.project.ABCDEproject.service.MyPageService;
+import com.project.ABCDEproject.service.RecordService;
 import com.project.ABCDEproject.service.ReviewService;
 import com.project.ABCDEproject.service.StadiumService;
 import com.project.ABCDEproject.service.TeamService;
 import com.project.ABCDEproject.vo.MatchingTeam;
 import com.project.ABCDEproject.vo.Member;
+import com.project.ABCDEproject.vo.RecordCount;
 import com.project.ABCDEproject.vo.Review;
 import com.project.ABCDEproject.vo.ReviewRequest;
 import com.project.ABCDEproject.vo.Stadium;
@@ -51,6 +53,9 @@ public class MyPageController {
 	
 	@Autowired
 	StadiumService staS;
+	
+	@Autowired
+	RecordService recS;
 	
 	@ResponseBody
 	@GetMapping("getStadium")
@@ -111,6 +116,8 @@ public class MyPageController {
 		Member member = mems.getMember(username);
 		model.addAttribute("member", member);
 		
+		RecordCount recordCount=recS.getRecordCount(member.getId());
+		model.addAttribute("record",recordCount);
 		try {
 			ArrayList<Integer> teamIdList = ts.getTeamIdList(member.getId());
 			ArrayList<Team> teamList = ts.getTeamList(teamIdList);

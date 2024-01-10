@@ -21,6 +21,7 @@ import com.project.ABCDEproject.vo.Match;
 import com.project.ABCDEproject.vo.MatchingTeam;
 import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Record;
+import com.project.ABCDEproject.vo.RecordUser;
 import com.project.ABCDEproject.vo.ReviewRequest;
 import com.project.ABCDEproject.vo.TeamMember;
 
@@ -62,9 +63,7 @@ public class AdminPageController {
 		MatchingTeam team_a=teamS.getTeamMatching(match.getMatching_team_id_a());
 		MatchingTeam team_b=teamS.getTeamMatching(match.getMatching_team_id_b());
 		
-		System.out.println(team_a);
 		ArrayList<Integer> list_a=teamS.getTeamMemberIdList(team_a.getTeam_id());
-		list_a.add(team_a.getResolver_id());
 		int sum_a=0;
 		for(int val:list_a)
 		{
@@ -74,7 +73,6 @@ public class AdminPageController {
 		int avg_a=sum_a/list_a.size();
 		
 		ArrayList<Integer> list_b=teamS.getTeamMemberIdList(team_b.getTeam_id());
-		list_b.add(team_b.getResolver_id());
 		int sum_b=0;
 		for(int val:list_b)
 		{
@@ -112,12 +110,13 @@ public class AdminPageController {
 		else {
 			record.setWinner_team_id(team_b.getTeam_id());
 			record.setLoser_team_id(team_a.getTeam_id());
+			System.out.println(list_b.size());
 			for(int val:list_b)
 			{
 				Member member=memS.selectMember(memS.getMemberid(val));
 				System.out.println(member);
 				memS.updateMember(member);
-				member.setPoint(member.getPoint()+addScoreB);	
+				member.setPoint(member.getPoint()+addScoreB);
 			}
 			for(int val:list_a)
 			{
@@ -141,6 +140,41 @@ public class AdminPageController {
 		ms.endMatchingTeam(team_a.getId());
 		ms.endMatchingTeam(team_b.getId());
 		
+		if(target==0)
+		{
+			for(int val:list_a)
+			{
+				RecordUser recordUser=new RecordUser();
+				recordUser.setMember_id(val);
+				recordUser.setRecord_id(record.getId());
+				rs.addWinUser(recordUser);
+			}
+			for(int val:list_b)
+			{
+				RecordUser recordUser=new RecordUser();
+				recordUser.setMember_id(val);
+				recordUser.setRecord_id(record.getId());
+				rs.addDefeatUser(recordUser);
+			}
+		}
+		else
+		{
+			for(int val:list_b)
+			{
+				RecordUser recordUser=new RecordUser();
+				recordUser.setMember_id(val);
+				recordUser.setRecord_id(record.getId());
+				rs.addWinUser(recordUser);
+			}
+			for(int val:list_a)
+			{
+				RecordUser recordUser=new RecordUser();
+				recordUser.setMember_id(val);
+				recordUser.setRecord_id(record.getId());
+				rs.addDefeatUser(recordUser);
+			}
+		}
+		System.out.println(list_b);
 		request1.setState(0);
 		request1.setTarget_member_id(team_a.getResolver_id());
 		request1.setTarget_team_id(ms.getMatchingTeam(team_a.getOpponent()).getTeam_id());

@@ -15,128 +15,7 @@
 		font-family: 'Gowun Batang', Gowun Batang;
 	}
 </style>
-
-</head>
-<body class="bg-secondary-subtle">
-	
-<div>
-	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url('https://data.1freewallpapers.com/download/beautiful-sunset-view-ocean-and-landscape-view-of-mountain-under-black-yellow-clouds-blue-sky-nature.jpg');">
-		<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
-			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
-			
-			<li style="margin: 0 10px;">
-			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/stadium/stadiumList}" th:text="stadium"></a></li>
-			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/matching/requestMatching}" th:text="matching"></a></li>
-			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/record/recordList}" th:text="schedule"></a></li>
-			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/team/teamList}" th:text="team"></a></li>
-			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
-			</li>
-			
-			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
-		</ul>
-	</nav>
-</div>
-	
-<div class="card" style="width: 70vw; margin: 100px auto 0 auto; overflow:hidden; box-shadow: 0 4px 8px rgb(128, 128, 128, 0.1), 0 -4px 8px rgba(128, 128, 128, 0.1), 4px 0 8px rgba(128, 128, 128, 0.1), -4px 0 8px rgba(128, 128, 128, 0.1);">
-	<div class="container">
-		<div class="card" style="margin-top: 10px;">
-			<table class="table" style="vertical-align: middle;">
-				<tr>
-					<td style="text-align: right; width: 50vw;">
-						<div style="border-radius: 50%; width: 60px; height: 60px; overflow: hidden; margin: 0 10px 0 auto;">
-							<img th:src="@{'/img/' + ${team.team_icon}}" style="width: 100%; height: 100%; display: block;">
-						</div>
-					</td>
-					<td style="text-align: left; width: 50vw;">
-						<h3 th:text="${team.team_name}"></h3>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align: center;">
-						<h5 th:text="${team.team_description}"></h5>
-					</td>
-				</tr>
-			</table>
-		</div><br><br>
-		
-		<div class="row mt-4">
-			<div style="width: 1vw"> </div>
-			<div class="col-auto bg-white p-2 text-center" style="margin: 0 auto;">
-				<h3 class="fw-bold">팀 전력 분석</h3>
-				<canvas id="octagonCanvas" width="500" height="500"></canvas>
-			</div>
-			<div class="col-6" style="margin: 0 auto; text-align: center;">
-				<div style="display: flex; justify-content: space-evenly;">
-					<div class="col-6">
-						<h3 class="fw-bold">승률</h3>
-						<h4 class="fw-bold" id="percen"></h4>
-					</div>
-					<div class="col-6" th:if="${result != null}">
-						<h3 class="fw-bold">전적</h3>
-						<p class="d-inline fs-4 text-primary fw-bold" th:text="${result.wincount}+'승'"></p>
-						<p class="d-inline fs-4 text-danger fw-bold" th:text="${result.losecount}+'패'"></p>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row mt-4">
-			<div class="col bg-white p-4">
-			<h3 class="fw-bold">최근 전적</h3>
-				<div class="card mb-4" th:each="record:${recordList}">
-					<th:block th:if="${record.winner_team_id}==${team.id}">
-					  <div class="card-header bg-primary text-white fw-bold" >
-					  	승리
-					  </div>
-					  <div class="card-body" style="background-color:#cfe2ff">
-					    <blockquote class="blockquote mb-0">
-					      <p><th:block th:text="${record.winner_team_name}+'  vs  '+ ${record.loser_team_name}"></th:block></p>
-					      <footer class="blockquote-footer" th:text="${#strings.substring(record.match_date, 0,11)}"></footer>
-					    </blockquote>
-					  </div>
-				  	</th:block>
-				  	<th:block th:if="${record.loser_team_id}==${team.id}">
-					  <div class="card-header bg-danger text-white fw-bold">
-					  	패배
-					  </div>
-					  <div class="card-body" style="background-color:#f8d7da">
-					    <blockquote class="blockquote mb-0">
-					      <p><th:block th:text="${record.loser_team_name}+'  vs  '+ ${record.winner_team_name}"></th:block></p>
-					      <footer class="blockquote-footer" th:text="${#strings.substring(record.match_date, 0,11)}"></footer>
-					    </blockquote>
-					  </div>
-				  	</th:block>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>		
-	
-	
-	
-	
-	
-	
-	
-	
-	<script th:inline="javascript">
-    /* Thymeleaf에서 계산된 결과를 JavaScript 변수에 저장 */
-    	if(("[[${result.wincount}]]")==="0"&&"[[${result.losecount}]]"==="0")
-    	{
-    		var winPercentage=0;
-    	}
-    	else
-    	{
-    		var winPercentage = /*[[${result.wincount} / ${result.wincount + result.losecount} * 100]]*/0;
-    	}
-	    /* JavaScript에서 소수점 이하 두 자리까지 제한 */
-	    var formattedPercentage = winPercentage.toFixed(2);
-	
-	    /* HTML에 결과 출력 */
-	    document.getElementById("percen").innerHTML = formattedPercentage+'%';
-	</script>
-	
-	<script th:inline="javascript">
+<script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
             // Canvas 요소와 2D 컨텍스트 가져오기
             var canvas = document.getElementById("octagonCanvas");
@@ -263,6 +142,127 @@
             drawOctagonReview(centerX, centerY, 200);
         });
     </script>
+</head>
+<body class="bg-secondary-subtle">
+	
+<div>
+	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url('https://data.1freewallpapers.com/download/beautiful-sunset-view-ocean-and-landscape-view-of-mountain-under-black-yellow-clouds-blue-sky-nature.jpg');">
+		<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
+			
+			<li style="margin: 0 10px;">
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/stadium/stadiumList}" th:text="stadium"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/matching/requestMatching}" th:text="matching"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/record/recordList}" th:text="schedule"></a></li>
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/team/teamList}" th:text="team"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
+			</li>
+			
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
+		</ul>
+	</nav>
+</div>
+
+<div class="card" style="width: 70vw; margin: 100px auto 0 auto; overflow:hidden; box-shadow: 0 4px 8px rgb(128, 128, 128, 0.1), 0 -4px 8px rgba(128, 128, 128, 0.1), 4px 0 8px rgba(128, 128, 128, 0.1), -4px 0 8px rgba(128, 128, 128, 0.1);">
+	<div class="container">
+		<div class="card" style="margin-top: 10px;">
+			<table class="table" style="vertical-align: middle;">
+				<tr>
+					<td style="text-align: right; width: 50vw;">
+						<div style="border-radius: 50%; width: 60px; height: 60px; overflow: hidden; margin: 0 10px 0 auto;">
+							<img th:src="@{'/img/' + ${team.team_icon}}" style="width: 100%; height: 100%; display: block;">
+						</div>
+					</td>
+					<td style="text-align: left; width: 50vw;">
+						<h3 th:text="${team.team_name}"></h3>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: center;">
+						<h5 th:text="${team.team_description}"></h5>
+					</td>
+				</tr>
+			</table>
+		</div><br><br>
+		
+		<div class="row mt-4">
+			<div style="width: 1vw"> </div>
+			<div class="col-auto bg-white p-2 text-center" style="margin: 0 auto;">
+				<h3 class="fw-bold">팀 전력 분석</h3>
+				<canvas id="octagonCanvas" width="500" height="500"></canvas>
+			</div>
+			<div class="col-6" style="margin: 0 auto; text-align: center;">
+				<div style="display: flex; justify-content: space-evenly;">
+					<div class="col-6">
+						<h3 class="fw-bold">승률</h3>
+						<h4 class="fw-bold" id="percen"></h4>
+					</div>
+					<div class="col-6" th:if="${result != null}">
+						<h3 class="fw-bold">전적</h3>
+						<p class="d-inline fs-4 text-primary fw-bold" th:text="${result.wincount}+'승'"></p>
+						<p class="d-inline fs-4 text-danger fw-bold" th:text="${result.losecount}+'패'"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row mt-4">
+			<div class="col bg-white p-4">
+			<h3 class="fw-bold">최근 전적</h3>
+				<div class="card mb-4" th:each="record:${recordList}">
+					<th:block th:if="${record.winner_team_id}==${team.id}">
+					  <div class="card-header bg-primary text-white fw-bold" >
+					  	승리
+					  </div>
+					  <div class="card-body" style="background-color:#cfe2ff">
+					    <blockquote class="blockquote mb-0">
+					      <p><th:block th:text="${record.winner_team_name}+'  vs  '+ ${record.loser_team_name}"></th:block></p>
+					      <footer class="blockquote-footer" th:text="${#strings.substring(record.match_date, 0,11)}"></footer>
+					    </blockquote>
+					  </div>
+				  	</th:block>
+				  	<th:block th:if="${record.loser_team_id}==${team.id}">
+					  <div class="card-header bg-danger text-white fw-bold">
+					  	패배
+					  </div>
+					  <div class="card-body" style="background-color:#f8d7da">
+					    <blockquote class="blockquote mb-0">
+					      <p><th:block th:text="${record.loser_team_name}+'  vs  '+ ${record.winner_team_name}"></th:block></p>
+					      <footer class="blockquote-footer" th:text="${#strings.substring(record.match_date, 0,11)}"></footer>
+					    </blockquote>
+					  </div>
+				  	</th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>		
+	
+	
+	
+	
+	
+	
+	
+	
+	<script th:inline="javascript">
+    /* Thymeleaf에서 계산된 결과를 JavaScript 변수에 저장 */
+    	if(("[[${result.wincount}]]")==="0"&&"[[${result.losecount}]]"==="0")
+    	{
+    		var winPercentage=0;
+    	}
+    	else
+    	{
+    		var a=/*[[${result.wincount}]]*/0;
+    		var b=/*[[${result.wincount + result.losecount}]]*/0;
+    		var winPercentage = a/b*100;
+    	}
+	    /* JavaScript에서 소수점 이하 두 자리까지 제한 */
+	    var formattedPercentage = winPercentage.toFixed(2);
+	
+	    /* HTML에 결과 출력 */
+	    document.getElementById("percen").innerHTML = formattedPercentage+'%';
+	</script>
     
 </body>
 </html>

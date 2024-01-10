@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.project.ABCDEproject.dao.RecordDAO;
 import com.project.ABCDEproject.vo.Record;
+import com.project.ABCDEproject.vo.RecordCount;
+import com.project.ABCDEproject.vo.RecordUser;
 import com.project.ABCDEproject.vo.Review;
 
 @Service
@@ -28,6 +30,23 @@ public class RecordServiceImpl implements RecordService{
 	@Override
 	public Record getResultById(int teamId) {
 		return dao.getResultById(teamId);
+	}
+
+	@Override
+	public void addDefeatUser(RecordUser recordUser) {
+		dao.addDefeatUser(recordUser);
+		
+	}
+
+	@Override
+	public void addWinUser(RecordUser recordUser) {
+		dao.addWinUser(recordUser);
+		
+	}
+
+	@Override
+	public RecordCount getRecordCount(int id) {
+		return dao.getRecordCount(id);
 	}
 	
 }

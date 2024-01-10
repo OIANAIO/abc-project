@@ -28,6 +28,18 @@
 	WHERE
 	    winner_team_id = #{teamId} OR loser_team_id = #{teamId}	
 	</select>
+	<select id="addDefeatUser" parameterType="RecordUser">
+		insert into defeat_user(id, record_id, member_id) values(defeat_user_seq.nextval,#{record_id},#{member_id})
+	</select>
+	<select id="addWinUser" parameterType="RecordUser">
+		insert into win_user(id, record_id, member_id) values(win_user_seq.nextval,#{record_id},#{member_id})
+	</select>
+	<select id="getRecordCount" parameterType="int" resultType="RecordCount">
+		SELECT
+    (SELECT COUNT(*) FROM win_user WHERE member_id = #{id}) AS winCount,
+    (SELECT COUNT(*) FROM defeat_user WHERE member_id = #{id}) AS defeatCount
+    from dual
+	</select>
 </mapper>
 
 

@@ -96,6 +96,10 @@
 											<th style="padding-left: 20px;">내 점수 : </th>
 											<td th:text="${member.point}"></td>
 										</tr>
+										<tr>
+											<th style="padding-left: 20px;">내 전적 : </th>
+											<td th:text="${record.winCount}+'승 '+${record.defeatCount}+'패'"></td>
+										</tr>
 									</table>
 								</td>
 							</tr>

@@ -212,9 +212,6 @@ public class TeamController {
 			review=new Review();
 			review.setTeam_id(0);
 		}
-		
-		
-		
 		model.addAttribute("review",review);
 		model.addAttribute("team",team);
 		model.addAttribute("recordList",recordList);
