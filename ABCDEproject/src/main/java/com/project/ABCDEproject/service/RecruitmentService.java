@@ -14,7 +14,7 @@ public interface RecruitmentService {
 	
 	Recruitment readRecruitment(int id);
 
-	int writeRecruitment(Recruitment recruitment);
+	void writeRecruitment(Recruitment recruitment, int teamId);
 
 	int updaterecruitment(Recruitment recruitment);
 
@@ -22,6 +22,5 @@ public interface RecruitmentService {
 
 	PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String searchWord);
 
-	void updateTeam(String writer_id, String title, int teamid);
 
 }

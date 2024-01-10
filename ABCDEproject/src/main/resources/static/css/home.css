@@ -1,14 +1,19 @@
 @charset "UTF-8";
 
 	body {
-		height: 100vh;
 		width: 100vw;
-		background-image: url('/teamA/img/haikei.png');
+		/*background-image: url('/teamA/img/haikei.png');*/
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-attachment: fixed;
 		overflow-x: hidden;
+		transition: background-color 0.5s ease;
 	}
+	
+	body.scrolled {
+      background-color: white; /* 스크롤 내릴 때 변경할 배경 색상 */
+    }
+	
 	nav{
 		background-image: url('/teamA/img/haikei.png');
 		position: fixed;
@@ -70,10 +75,11 @@
 		height: 100px;
 	}*/
 	
-	/*#rankTable{
-		max-height: 300px;
-        overflow-y: auto;
-	}*/
+	#rankTable{
+		box-shadow: 0 4px 8px rgb(128, 128, 128, 0.1), 0 -4px 8px rgba(128, 128, 128, 0.1), 4px 0 8px rgba(128, 128, 128, 0.1), -4px 0 8px rgba(128, 128, 128, 0.1);
+		z-index: 10;
+		border-radius: 15px 15px 15px 15px;
+	}
 
 
 

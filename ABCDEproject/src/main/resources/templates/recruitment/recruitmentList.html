@@ -71,21 +71,19 @@
 <div style="padding-top:100px; margin:0 auto; width: 70vw;">
 	<table class="table">
 		<tr>
-			<td class="white" colspan="4"></td>
+			<td class="white" colspan="3"></td>
 			<td class="white">
 				<button class="btn btn-secondary" th:if="!${result}" onclick="goTeam();"><a style="color: white;">글쓰기</a></button>
 				<button class="btn btn-secondary" th:if="${result}"><a th:href="@{/recruitment/write}" style="color: white;">글쓰기</a></button>
 			</td>
 		</tr>
 		<tr>
-			<th style="width: 8vw;">글번호</th>
 			<th>작성자</th>
 			<th>제목</th>
 			<th>조회수</th>
 			<th style="width:20vw;">작성일</th>
 		</tr>
 		<tr th:each="recruitment : ${recruitmentList}">
-			<td th:text="${recruitment.id}"></td>
 			<td th:text="${recruitment.writer_id}"></td>
 			<td>
 				<a th:href="@{/recruitment/read(id=${recruitment.id})}" th:text="${recruitment.title}"></a>

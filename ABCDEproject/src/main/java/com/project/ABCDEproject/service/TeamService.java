@@ -53,8 +53,12 @@ public interface TeamService {
 
 	ArrayList<Integer> getLeaderIdList();
 
-	ArrayList<String> getMyTeam(int memberid);
+	ArrayList<Team> getMyTeam(int memberid);
 
 	int getTeamID(String selectedTeam);
+
+	ArrayList<Integer> getTeamIdList(int id);
+
+	ArrayList<Team> getTeamList(ArrayList<Integer> teamIdList);
 
 }

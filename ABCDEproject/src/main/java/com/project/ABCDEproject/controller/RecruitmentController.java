@@ -78,7 +78,7 @@ public class RecruitmentController {
 	@GetMapping("write")
 	public String write(@AuthenticationPrincipal UserDetails user, Model model) {
 		int memberid = ms.getId(user.getUsername());
-		ArrayList<String> myTeamList = ts.getMyTeam(memberid);
+		ArrayList<Team> myTeamList = ts.getMyTeam(memberid);
 		
 		model.addAttribute("myTeamList", myTeamList);
 		
@@ -88,9 +88,8 @@ public class RecruitmentController {
 	@PostMapping("write")
 	public String writeForm(Recruitment recruitment, @AuthenticationPrincipal UserDetails user, @RequestParam("selectTeam") String selectedTeam) {
 		recruitment.setWriter_id(user.getUsername());
-		int result = service.writeRecruitment(recruitment);
 		int teamId = ts.getTeamID(selectedTeam);
-		service.updateTeam(recruitment.getWriter_id(), recruitment.getTitle(), teamId);
+		service.writeRecruitment(recruitment, teamId);
 		
 		return "redirect:/recruitment/recruitmentList";
 	}
@@ -98,7 +97,10 @@ public class RecruitmentController {
 	@GetMapping("read")
 	public String read(@RequestParam(name = "id", defaultValue = "0") int id, Model model) {
 		Recruitment recruitment = service.readRecruitment(id);
+		String teamName = ts.getTeamName(recruitment.getTeam_id());
+		
 		model.addAttribute("recruitment", recruitment);
+		model.addAttribute("teamName", teamName);
 
 		log.debug("컨텐츠 {}",recruitment.getContent() );
 		

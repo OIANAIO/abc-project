@@ -5,6 +5,7 @@
 <mapper namespace="com.project.ABCDEproject.dao.StadiumDAO">
 	<select id="GetStadiumList" resultType="Stadium">
 	select * from stadium
+	order by id desc
 	</select>
 	<select id="getStadium" resultType="Stadium" parameterType="int">
 	select * from stadium where id=#{stadiumid}

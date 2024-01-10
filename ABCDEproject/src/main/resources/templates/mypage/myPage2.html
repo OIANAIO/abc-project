@@ -64,7 +64,7 @@
 				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
 				</li>
 				
-				<li style="margin: 0 10px;"><a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:text="|MY PAGE|">MY PAGE</a></li>
+				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
 			</ul>
 		</nav>
 	</div>
@@ -75,7 +75,7 @@
 			<h3 class="front">팀 초대 요청 목록</h3>
 			<br><br>
 			<div class="accordion" id="accordionExample">
-				<div class="card" style="width: 78%;">
+				<div class="card" style="width: 78%; padding: 10px;">
 					<div class="card-header">
 						<div class="row">
 							<div class="col-2">
@@ -117,7 +117,7 @@
 		</div>
 	</div>
 	
-	<div style="margin: 72px auto 0 auto; width: 15vw; margin-left: -23vw;" class="card">
+	<div style="margin: 72px auto 0 auto; width: 15vw; height: 170px; margin-left: -23vw;" class="card">
 		<div class="card-header">
     		<a th:text="|${#authentication.principal.username}님의 MY PAGE|"	style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
   		</div>
@@ -129,10 +129,12 @@
 				<a th:href="@{/myPage/myPage2}" th:text="|팀 초대 요청|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
 			</li>
 			<li class="list-group-item">
-				<a th:href="@{/myPage/myPage3}" th:text="|내 정보|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+				<a th:href="@{/myPage/myPage3}" th:text="|내 정보|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a th:href="@{/member/logoutin}" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"><button class="btn btn-outline-secondary btn-sm">로그아웃</button></a>
 			</li>
 		</ul>
 	</div>
+
 </div>
 	
 	<!--오프캔버스-->

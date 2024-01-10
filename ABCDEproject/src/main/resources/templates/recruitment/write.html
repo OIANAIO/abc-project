@@ -57,7 +57,7 @@
 						<input type="text" class="form-control" name="title" id="basic-url" aria-describedby="basic-addon3 basic-addon4" required>&nbsp;
 						<div>
 							<select id="selectTeam" name="selectTeam" class="form-select" aria-label="Default select example">
-								<option th:each="item : ${myTeamList}" th:value="${item}" th:text="${item}"></option>
+								<option th:each="item : ${myTeamList}" th:value="${item.team_name}" th:text="${item.team_name}"></option>
 						    </select>
 					    </div>
 					</div>

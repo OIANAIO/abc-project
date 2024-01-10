@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>HOME</title>
+
+<!--구글 폰트-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rock+Salt&family=Rubik+Lines&display=swap" rel="stylesheet">
 
+<!--부트스트랩-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
 <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
@@ -20,15 +21,7 @@
 <link rel="stylesheet" th:href="@{/css/home.css}">
 
 <script>
-	window.addEventListener('scroll', function () {
-        const header = document.querySelector('body');
-        const scrollPosition = window.scrollY;
-
-        // 배경 투명도 조절
-        const opacity = scrollPosition / 100; // 스크롤 위치에 따라 조절
-
-        header.style.backgroundColor = `rgba(0, 0, 0, ${Math.min(opacity, 1)})`;
-    });
+	
 </script>
 </head>
 <body>
@@ -52,55 +45,59 @@
 		</nav>
 	</div>
 	
+	<div style="margin: 0; background-image: url('/teamA/img/haikei.png'); width: 100vw; height: 530px; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; overflow-x: hidden; border-radius: 0 0 20px 20px; box-shadow: 0 4px 8px rgb(128, 128, 128, 0.3), 0 -4px 8px rgba(128, 128, 128, 0.3), 4px 0 8px rgba(128, 128, 128, 0.3), -4px 0 8px rgba(128, 128, 128, 0.3);">
 		<div style="padding-top: 130px; margin: 0 auto;">
-			<div style="margin: 0 auto; text-align: center;">
+			<div style="margin-left: 30vw; text-align: center; position: fixed;">
 				<p class="text">Find Your</p>
 				<p class="text">Competitor!</p>
-		</div>
+			</div>
 			
-		<div style="display: flex; justify-content: center; padding-top: 250px;">
-			<div id="rankTable">
-				<table class="rank">
-					<tr>
-						<th>
-							등수
-						</th>
-						<th>
-							이름
-						</th>
-						<th>
-							점수
-						</th>
-					</tr>
-					<tr th:each="member, rowNumber : ${memberlist}">
-		                <td th:text="${rowNumber.count}"></td>
-		                <td th:text="${member.memberid}"></td>
-		                <td th:text="${member.point}"></td>
-		            </tr>
-				</table>
-			</div>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div id="rankTable">
-				<table class="rank">
-					<tr>
-						<th>
-							등수
-						</th>
-						<th>
-							아이콘
-						</th>
-						<th>
-							팀 이름
-						</th>
-					</tr>
-					<tr th:each="team, rowNumber : ${teamlist}">
-		                <td th:text="${rowNumber.count}"></td>
-		                <td><img th:src="@{'/img/' + ${team.team_icon}}" style="max-width: 50px; max-height: 50px;"></td>
-		                <td th:text="${team != null ? team.team_name : ''}"></td>
-		            </tr>
-				</table>
-			</div>
 		</div>
+	</div>
+	
+	<div style="display: flex; justify-content: center; padding-top: 50px;">
+				<div id="rankTable">
+					<table class="rank">
+						<tr>
+							<th>
+								등수
+							</th>
+							<th>
+								이름
+							</th>
+							<th>
+								점수
+							</th>
+						</tr>
+						<tr th:each="member, rowNumber : ${memberlist}">
+			                <td th:text="${rowNumber.count}"></td>
+			                <td th:text="${member.memberid}"></td>
+			                <td th:text="${member.point}"></td>
+			            </tr>
+					</table>
+				</div>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div id="rankTable">
+					<table class="rank">
+						<tr>
+							<th>
+								등수
+							</th>
+							<th>
+								아이콘
+							</th>
+							<th>
+								팀 이름
+							</th>
+						</tr>
+						<tr th:each="team, rowNumber : ${teamlist}">
+			                <td th:text="${rowNumber.count}"></td>
+			                <td><img th:src="@{/img/{image}(image=${team.team_icon})}" style="max-width: 50px; max-height: 50px;"></td>
+			                <td th:text="${team != null ? team.team_name : ''}"></td>
+			            </tr>
+					</table>
+				</div>
+			</div>
 	
 	<!--오프캔버스-->
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -118,7 +115,7 @@
 			</div>
 			<div class="col-auto" sec:authorize="isAuthenticated()">
 				<div style="border-radius: 50%; width: 80px; height: 80px; overflow: hidden; margin: 0 auto;">
-					<img img th:src="@{'/img/' + ${userTh}}" style="width: 100%; height: 100%; display: block;">
+					<img th:src="@{/img/{image}(image=${userTh})}" style="width: 100%; height: 100%; display: block;">
 				</div>
 				<br>
 				<span style="font-family: Gowun Batang, 'Gowun Batang'; font-weight: bold;" th:text="|환영합니다, ${#authentication.principal.username}님|"></span>

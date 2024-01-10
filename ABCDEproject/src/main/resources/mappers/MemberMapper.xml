@@ -97,6 +97,11 @@
 		where
 			memberid = #{username}
 	</select>
+	<select id="getMemberOwner" parameterType="int" resultType="Member">
+		select * from member
+		where
+			id = #{memberid}
+	</select>
 	<select id="getThumb" parameterType="String" resultType="String">
 		select thumbnail from member
 		where

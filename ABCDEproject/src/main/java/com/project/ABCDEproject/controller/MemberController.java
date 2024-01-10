@@ -46,7 +46,7 @@ public class MemberController {
 			member.setThumbnail(savefile);
 		}
 		service.joinMember(member);
-		return "redirect:/";
+		return "redirect:/member/loginForm";
 	}
 	
 	@GetMapping("loginForm")

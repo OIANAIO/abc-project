@@ -113,6 +113,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		return phoneSearchList;
 	}
+
+	@Override
+	public Member getMemberOwner(int memberid) {
+		Member member = dao.getMemberOwner(memberid);
+		
+		return member;
+	}
 	
 	
 	

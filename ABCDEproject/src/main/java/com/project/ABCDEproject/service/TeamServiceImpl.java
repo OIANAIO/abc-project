@@ -159,8 +159,8 @@ public class TeamServiceImpl implements TeamService{
 
 
 	@Override
-	public ArrayList<String> getMyTeam(int memberid) {
-		ArrayList<String> myTeamList = dao.getMyTeam(memberid);
+	public ArrayList<Team> getMyTeam(int memberid) {
+		ArrayList<Team> myTeamList = dao.getMyTeam(memberid);
 		
 		return myTeamList;
 	}
@@ -171,6 +171,22 @@ public class TeamServiceImpl implements TeamService{
 		int teamId = dao.getTeamId(selectedTeam);
 		
 		return teamId;
+	}
+
+
+	@Override
+	public ArrayList<Integer> getTeamIdList(int id) {
+		ArrayList<Integer> teamIdList = dao.getTeamIdList(id);
+		
+		return teamIdList;
+	}
+
+
+	@Override
+	public ArrayList<Team> getTeamList(ArrayList<Integer> teamIdList) {
+		ArrayList<Team> teamList = dao.getTeamList(teamIdList);
+		
+		return teamList;
 	}
 
 

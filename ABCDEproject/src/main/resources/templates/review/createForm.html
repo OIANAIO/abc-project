@@ -3,186 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rubik+Lines&display=swap" rel="stylesheet">
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 <style>
-#myform fieldset{
-    display: inline-block;
-    direction: rtl;
-    border:0;
-}
-#myform fieldset legend{
-    text-align: right;
-}
-#myform input[type=radio]{
-    display: none;
-}
-#myform label{
-    font-size: 2em;
-    color: transparent;
-    text-shadow: 0 0 0 #f0f0f0;
-}
-#myform label:hover{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#myform label:hover ~ label{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#myform input[type=radio]:checked ~ label{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#reviewContents {
-    width: 100%;
-    height: 150px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: solid 1.5px #D3D3D3;
-    border-radius: 5px;
-    font-size: 16px;
-    resize: none;
-}
+	
+	div{
+		font-family: 'Gowun Batang', Gowun Batang;
+	}
+	
+	#myform fieldset{
+	    display: inline-block;
+	    direction: rtl;
+	    border:0;
+	    font-family: 'Gowun Batang', Gowun Batang;
+	}
+	#myform fieldset legend{
+	    text-align: right;
+	    font-family: 'Gowun Batang', Gowun Batang;
+	}
+	#myform input[type=radio]{
+	    display: none;
+	    font-family: 'Gowun Batang', Gowun Batang;
+	}
+	#myform label{
+	    font-size: 2em;
+	    color: transparent;
+	    text-shadow: 0 0 0 #f0f0f0;
+	    font-family: 'Gowun Batang', Gowun Batang;
+	}
+	#myform label:hover{
+	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+	#myform label:hover ~ label{
+	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+	#myform input[type=radio]:checked ~ label{
+	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+	#reviewContents {
+	    width: 100%;
+	    height: 150px;
+	    padding: 10px;
+	    box-sizing: border-box;
+	    border: solid 1.5px #D3D3D3;
+	    border-radius: 5px;
+	    font-size: 16px;
+	    resize: none;
+	    font-family: 'Gowun Batang', Gowun Batang;
+	}
 </style>
 </head>
 <body>
-	<div class="container">
+	
+<div>
+	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url('https://data.1freewallpapers.com/download/beautiful-sunset-view-ocean-and-landscape-view-of-mountain-under-black-yellow-clouds-blue-sky-nature.jpg');">
+		<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
+			
+			<li style="margin: 0 10px;">
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/stadium/stadiumList}" th:text="stadium"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/matching/requestMatching}" th:text="matching"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/record/recordList}" th:text="schedule"></a></li>
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/team/teamList}" th:text="team"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
+			</li>
+			
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
+		</ul>
+	</nav>
+</div>
+	
+	<div class="container" style="padding-top: 100px;">
 		<div class="row">
 			<div class="col">
-				<div class="mb-3">
+				
+				<div class="mb-3" style="text-align: center;">
 					<h3 th:text="${team.team_name}+'팀에대한 평점을 남겨주세요!'"></h3>
-					
-					
 				</div>
-				<div class="mb-3">
+				
+				<div class="card">
 					<form th:action="@{/review/create}" class="mb-3" name="myform" id="myform" method="post">
 						<input name="team_id" type="hidden" th:value="${team.id}">
 						<input name="matching_team_id" type="hidden" th:value="${matching_team_id}">
-						<div>
-						<fieldset>
-							<span class="text-bold">매너</span>
-							<input type="radio" name="manner" value="5" id="manner1"><label
-								for="manner1">★</label>
-							<input type="radio" name="manner" value="4" id="manner2"><label
-								for="manner2">★</label>
-							<input type="radio" name="manner" value="3" id="manner3"><label
-								for="manner3">★</label>
-							<input type="radio" name="manner" value="2" id="manner4"><label
-								for="manner4">★</label>
-							<input type="radio" name="manner" value="1" id="manner5"><label
-								for="manner5">★</label>
-						</fieldset>
+						
+						<div style="display: flex;">
+							<div style="width: 50vw;">
+								<div>
+									<fieldset>
+										<span class="text-bold">매너</span>
+										<input type="radio" name="manner" value="5" id="manner1"><label
+											for="manner1">★</label>
+										<input type="radio" name="manner" value="4" id="manner2"><label
+											for="manner2">★</label>
+										<input type="radio" name="manner" value="3" id="manner3"><label
+											for="manner3">★</label>
+										<input type="radio" name="manner" value="2" id="manner4"><label
+											for="manner4">★</label>
+										<input type="radio" name="manner" value="1" id="manner5"><label
+											for="manner5">★</label>
+									</fieldset>
+								</div>
+								<div>
+									<fieldset>
+										<span class="text-bold">공격</span>
+										<input type="radio" name="offensive" value="5" id="offensive1"><label
+											for="offensive1">★</label>
+										<input type="radio" name="offensive" value="4" id="offensive2"><label
+											for="offensive2">★</label>
+										<input type="radio" name="offensive" value="3" id="offensive3"><label
+											for="offensive3">★</label>
+										<input type="radio" name="offensive" value="2" id="roffensive4"><label
+											for="roffensive4">★</label>
+										<input type="radio" name="offensive" value="1" id="offensive5"><label
+											for="offensive5">★</label>
+									</fieldset>
+								</div>
+								<div>
+									<fieldset>
+										<span class="text-bold">수비</span>
+										<input type="radio" name="defensive" value="5" id="defensive1"><label
+											for="defensive1">★</label>
+										<input type="radio" name="defensive" value="4" id="defensive2"><label
+											for="defensive2">★</label>
+										<input type="radio" name="defensive" value="3" id="defensive3"><label
+											for="defensive3">★</label>
+										<input type="radio" name="defensive" value="2" id="defensive4"><label
+											for="defensive4">★</label>
+										<input type="radio" name="defensive" value="1" id="defensive5"><label
+											for="defensive5">★</label>
+									</fieldset>
+								</div>
+								<div>
+									<fieldset>
+										<span class="text-bold">체력</span>
+										<input type="radio" name="strength" value="5" id="strength1"><label
+											for="strength1">★</label>
+										<input type="radio" name="strength" value="4" id="strength2"><label
+											for="strength2">★</label>
+										<input type="radio" name="strength" value="3" id="strength3"><label
+											for="strength3">★</label>
+										<input type="radio" name="strength" value="2" id="strength4"><label
+											for="strength4">★</label>
+										<input type="radio" name="strength" value="1" id="strength5"><label
+											for="strength5">★</label>
+									</fieldset>
+								</div>
+								<div>
+									<fieldset>
+										<span class="text-bold">드리블</span>
+										<input type="radio" name="dribble" value="5" id="dribble1"><label
+											for="dribble1">★</label>
+										<input type="radio" name="dribble" value="4" id="dribble2"><label
+											for="dribble2">★</label>
+										<input type="radio" name="dribble" value="3" id="dribble3"><label
+											for="dribble3">★</label>
+										<input type="radio" name="dribble" value="2" id="dribble4"><label
+											for="dribble4">★</label>
+										<input type="radio" name="dribble" value="1" id="dribble5"><label
+											for="dribble5">★</label>
+									</fieldset>
+								</div>
+								<div>
+									<fieldset>
+										<span class="text-bold">스피드</span>
+										<input type="radio" name="speed" value="5" id="speed1"><label
+											for="speed1">★</label>
+										<input type="radio" name="speed" value="4" id="speed2"><label
+											for="speed2">★</label>
+										<input type="radio" name="speed" value="3" id="speed3"><label
+											for="speed3">★</label>
+										<input type="radio" name="speed" value="2" id="speed4"><label
+											for="speed4">★</label>
+										<input type="radio" name="speed" value="1" id="speed5"><label
+											for="speed5">★</label>
+									</fieldset>
+								</div>
+								<div>
+									<fieldset>
+										<span class="text-bold">패스</span>
+										<input type="radio" name="pass" value="5" id="pass1"><label
+											for="pass1">★</label>
+										<input type="radio" name="pass" value="4" id="pass2"><label
+											for="pass2">★</label>
+										<input type="radio" name="pass" value="3" id="pass3"><label
+											for="pass3">★</label>
+										<input type="radio" name="pass" value="2" id="pass4"><label
+											for="pass4">★</label>
+										<input type="radio" name="pass" value="1" id="pass5"><label
+											for="pass5">★</label>
+									</fieldset>
+								</div>
+								<div class="mb-3">
+									<fieldset>
+										<span class="text-bold">슛</span>
+										<input type="radio" name="shot" value="5" id="shot1"><label
+											for="shot1">★</label>
+										<input type="radio" name="shot" value="4" id="shot2"><label
+											for="shot2">★</label>
+										<input type="radio" name="shot" value="3" id="shot3"><label
+											for="shot3">★</label>
+										<input type="radio" name="shot" value="2" id="shot4"><label
+											for="shot4">★</label>
+										<input type="radio" name="shot" value="1" id="shot5"><label
+											for="shot5">★</label>
+									</fieldset>
+								</div>
+							</div>
+							
+							<div style="width: 50vw;">
+								<div>
+									<h3>코멘트</h3>
+					  				<textarea class="form-control" rows="10"></textarea>
+								</div>
+								<div class="d-grid gap-2 ">
+								  <button class="btn btn-primary" type="submit">등록</button>
+								</div>
+							</div>
 						</div>
-						<div>
-						<fieldset>
-							<span class="text-bold">공격</span>
-							<input type="radio" name="offensive" value="5" id="offensive1"><label
-								for="offensive1">★</label>
-							<input type="radio" name="offensive" value="4" id="offensive2"><label
-								for="offensive2">★</label>
-							<input type="radio" name="offensive" value="3" id="offensive3"><label
-								for="offensive3">★</label>
-							<input type="radio" name="offensive" value="2" id="roffensive4"><label
-								for="roffensive4">★</label>
-							<input type="radio" name="offensive" value="1" id="offensive5"><label
-								for="offensive5">★</label>
-						</fieldset>
-						</div>
-						<div>
-						<fieldset>
-							<span class="text-bold">수비</span>
-							<input type="radio" name="defensive" value="5" id="defensive1"><label
-								for="defensive1">★</label>
-							<input type="radio" name="defensive" value="4" id="defensive2"><label
-								for="defensive2">★</label>
-							<input type="radio" name="defensive" value="3" id="defensive3"><label
-								for="defensive3">★</label>
-							<input type="radio" name="defensive" value="2" id="defensive4"><label
-								for="defensive4">★</label>
-							<input type="radio" name="defensive" value="1" id="defensive5"><label
-								for="defensive5">★</label>
-						</fieldset>
-						</div>
-						<div>
-						<fieldset>
-							<span class="text-bold">체력</span>
-							<input type="radio" name="strength" value="5" id="strength1"><label
-								for="strength1">★</label>
-							<input type="radio" name="strength" value="4" id="strength2"><label
-								for="strength2">★</label>
-							<input type="radio" name="strength" value="3" id="strength3"><label
-								for="strength3">★</label>
-							<input type="radio" name="strength" value="2" id="strength4"><label
-								for="strength4">★</label>
-							<input type="radio" name="strength" value="1" id="strength5"><label
-								for="strength5">★</label>
-						</fieldset>
-						</div>
-						<div>
-						<fieldset>
-							<span class="text-bold">드리블</span>
-							<input type="radio" name="dribble" value="5" id="dribble1"><label
-								for="dribble1">★</label>
-							<input type="radio" name="dribble" value="4" id="dribble2"><label
-								for="dribble2">★</label>
-							<input type="radio" name="dribble" value="3" id="dribble3"><label
-								for="dribble3">★</label>
-							<input type="radio" name="dribble" value="2" id="dribble4"><label
-								for="dribble4">★</label>
-							<input type="radio" name="dribble" value="1" id="dribble5"><label
-								for="dribble5">★</label>
-						</fieldset>
-						</div>
-						<div>
-						<fieldset>
-							<span class="text-bold">스피드</span>
-							<input type="radio" name="speed" value="5" id="speed1"><label
-								for="speed1">★</label>
-							<input type="radio" name="speed" value="4" id="speed2"><label
-								for="speed2">★</label>
-							<input type="radio" name="speed" value="3" id="speed3"><label
-								for="speed3">★</label>
-							<input type="radio" name="speed" value="2" id="speed4"><label
-								for="speed4">★</label>
-							<input type="radio" name="speed" value="1" id="speed5"><label
-								for="speed5">★</label>
-						</fieldset>
-						</div>
-						<div>
-						<fieldset>
-							<span class="text-bold">패스</span>
-							<input type="radio" name="pass" value="5" id="pass1"><label
-								for="pass1">★</label>
-							<input type="radio" name="pass" value="4" id="pass2"><label
-								for="pass2">★</label>
-							<input type="radio" name="pass" value="3" id="pass3"><label
-								for="pass3">★</label>
-							<input type="radio" name="pass" value="2" id="pass4"><label
-								for="pass4">★</label>
-							<input type="radio" name="pass" value="1" id="pass5"><label
-								for="pass5">★</label>
-						</fieldset>
-						</div>
-						<div class="mb-3">
-						<fieldset>
-							<span class="text-bold">슛</span>
-							<input type="radio" name="shot" value="5" id="shot1"><label
-								for="shot1">★</label>
-							<input type="radio" name="shot" value="4" id="shot2"><label
-								for="shot2">★</label>
-							<input type="radio" name="shot" value="3" id="shot3"><label
-								for="shot3">★</label>
-							<input type="radio" name="shot" value="2" id="shot4"><label
-								for="shot4">★</label>
-							<input type="radio" name="shot" value="1" id="shot5"><label
-								for="shot5">★</label>
-						</fieldset>
-						</div>
-						<div class="mb-3">
-							<label for="content" class="form-label">코멘트</label>
-			  				<textarea class="form-control" name="content" id="content" rows="10"></textarea>
-						</div>
-						<div class="d-grid gap-2 ">
-						  <button class="btn btn-primary" type="submit">등록</button>
-						</div>
+						
 					</form>
 				</div>
 			</div>

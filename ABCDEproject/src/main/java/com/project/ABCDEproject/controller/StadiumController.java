@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.ABCDEproject.service.MemberService;
 import com.project.ABCDEproject.service.StadiumService;
 import com.project.ABCDEproject.util.FileService;
+import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Stadium;
 import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamMember;
@@ -46,16 +47,20 @@ public class StadiumController {
 	}
 	
 	@GetMapping("detail")
-	public String detail(Model model, @RequestParam(name="stadiumid") int stadiumid)
-	{
+	public String detail(Model model, @RequestParam(name="stadiumid") int stadiumid){
 		Stadium stadium = service.getStadium(stadiumid);
+		int ownerId = stadium.getOwner();
+		Member owner = memS.getMemberOwner(ownerId);
+		
 		model.addAttribute("stadium",stadium);
+		model.addAttribute("owner", owner);
+		
 		return "stadium/detail";
 	}
 	
 	@GetMapping("create")
-	public String createForm()
-	{
+	public String createForm(){
+		
 		return "stadium/createForm";
 	}
 	

@@ -26,6 +26,7 @@
 				</if>
 			</where>
 		</if>
+		order by write_date desc
 	</select>
 	<select id="countTotal" parameterType="map" resultType="int">
 		select count(*) from RECRUITMENT_POST
@@ -48,21 +49,23 @@
 			</where>
 		</if>
 	</select>
-	<insert id="writerecruitment" parameterType="Recruitment">
+	<insert id="writerecruitment" parameterType="map">
 		insert into
-		RECRUITMENT_POST
+			RECRUITMENT_POST
 		(
 		id
 		, writer_id
 		, title
 		, content
 		, hits
+		, team_id
 		) values (
-		RECRUITMENT_POST_SEQ.nextval
-		, #{writer_id}
-		, #{title}
-		, #{content}
-		, #{hits}
+		RECRUITMENT_POST_SEQ.nextval,
+		#{recruitment.writer_id},
+        #{recruitment.title},
+        #{recruitment.content},
+        #{recruitment.hits},
+		#{teamId}
 		)
 	</insert>
 	<select id="readRecruitment" parameterType="int"
@@ -91,14 +94,6 @@
 		delete RECRUITMENT_POST
 		where id like #{id}
 	</delete>
-	<update id="updateTeam" parameterType="map">
-		update
-			recruitment_post
-		set
-			team_id = #{teamId}
-		where
-			writer_id = #{writer_id} AND title = #{title}
-	</update>
 	
 </mapper>
 

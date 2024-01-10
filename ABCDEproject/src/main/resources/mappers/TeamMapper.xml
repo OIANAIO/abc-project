@@ -169,8 +169,8 @@
 	<select id="getLeaderList" resultType="Integer">
 		select leader_id from team
 	</select>
-	<select id="getMyTeam" parameterType="int" resultType="String">
-		select team_name from team
+	<select id="getMyTeam" parameterType="int" resultType="Team">
+		select * from team
 		where
 			leader_id LIKE #{memberid}
 	</select>
@@ -179,7 +179,18 @@
 		where
 			team_name = #{selectedTeam}
 	</select>
-	
+	<select id="getTeamIdList" parameterType="int" resultType="String">
+		select team_id from team_member
+		where
+			member_id = #{id}
+	</select>
+	<select id="getTeamList" parameterType="List" resultType="Team">
+		select * from Team
+		WHERE id IN
+		    <foreach item="item" collection="list" open="(" separator="," close=")">
+		        #{item}
+		    </foreach>
+	</select>
 </mapper>
 
 

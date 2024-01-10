@@ -28,6 +28,8 @@ public interface MemberService {
 	ArrayList<Member> searchAddMember(String addWord);
 
 	Member getMember(String username);
+	
+	Member getMemberOwner(int memberid);
 
 	String getThumb(String username);
 

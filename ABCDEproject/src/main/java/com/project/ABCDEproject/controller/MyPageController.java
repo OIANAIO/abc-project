@@ -23,6 +23,7 @@ import com.project.ABCDEproject.vo.Member;
 import com.project.ABCDEproject.vo.Review;
 import com.project.ABCDEproject.vo.ReviewRequest;
 import com.project.ABCDEproject.vo.Stadium;
+import com.project.ABCDEproject.vo.Team;
 import com.project.ABCDEproject.vo.TeamInvite;
 import com.project.ABCDEproject.vo.TeamMember;
 
@@ -109,6 +110,18 @@ public class MyPageController {
 		String username = user.getUsername();
 		Member member = mems.getMember(username);
 		model.addAttribute("member", member);
+		
+		try {
+			ArrayList<Integer> teamIdList = ts.getTeamIdList(member.getId());
+			ArrayList<Team> teamList = ts.getTeamList(teamIdList);
+			for(Team t : teamList) {
+				int tlid = t.getLeader_id();
+				t.setLeader_memberid(mems.getMemberid(tlid));
+			}
+			
+			model.addAttribute("teamList", teamList);
+		} catch (Exception e) {
+		}
 		
 		return "myPage/myPage3";
 	}

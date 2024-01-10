@@ -25,6 +25,9 @@
 	div {
 		font-family: 'Gowun Batang', Gowun Batang;
 	}
+	th {
+		text-align: center;
+	}
 </style>
 <script>
 
@@ -47,7 +50,7 @@
 				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
 				</li>
 				
-				<li style="margin: 0 10px;"><a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:text="|MY PAGE|">MY PAGE</a></li>
+				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
 			</ul>
 		</nav>
 	</div>
@@ -57,34 +60,71 @@
 		<div class="row my-4">
 			<h3 class="front">내 정보</h3><br><br>
 			<div class="accordion" id="accordionExample">
-				<div class="card" style="width: 78%;">
-					<div class="card-header">
+				<div class="card" style="width: 78%; padding: 10px;">
+					<div class="card-header" style="padding: 20px;">
 						<table>
 							<tr>
 								<td>
 									<div style="width: 10vw;">
 										<img class="img-thumbnail" th:src="@{'/img/' + ${member.thumbnail}}">
+									</div><br>
+									<div style="margin-top: -12px;">
+										<a th:href="@{/member/update}" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';">
+											<button class="form-control">회원정보 수정</button>
+										</a>
 									</div>
 								</td>
 								<td>
-									<table>
+									<table style="margin: 0 20px; width: 50vw;" class="table">
 										<tr>
+											<th style="padding-left: 20px; width: 10vw;">아이디 : </th>
 											<td th:text="${member.memberid}"></td>
 										</tr>
 										<tr>
+											<th style="padding-left: 20px;">이메일 : </th>
 											<td th:text="${member.email}"></td>
 										</tr>
 										<tr>
+											<th style="padding-left: 20px;">전화번호 : </th>
 											<td th:text="${member.phone}"></td>
 										</tr>
 										<tr>
+											<th style="padding-left: 20px;">마지막 접속일 : </th>
 											<td th:text="${member.last_login}"></td>
 										</tr>
 										<tr>
+											<th style="padding-left: 20px;">내 점수 : </th>
 											<td th:text="${member.point}"></td>
 										</tr>
 									</table>
 								</td>
+							</tr>
+						</table>
+						<div style="margin-top: 18px; margin-right: 6px; text-align: right;">
+							<a th:href="@{/member/delete}" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';">
+								<button class="btn btn-outline-danger" style="width: 10vw;">회원 탈퇴</button>
+							</a>
+						</div>
+						<hr>
+						<table class="table table-bordered">
+							<tr>
+								<th colspan="4" style="text-align: left;">내가 속한 팀</th>
+							</tr>
+							<tr>
+								<th style="width: 7vw;">엠블럼</th>
+								<th>팀 이름</th>
+								<th style="width: 11vw;">팀장</th>
+								<th>설명</th>
+							</tr>
+							<tr th:each="team : ${teamList}">
+								<td>
+									<div style="border-radius: 50%; width: 50px; height: 50px; overflow: hidden; margin: 0 auto;">
+										<img th:src="@{'/img/' + ${team.team_icon}}" style="width: 100%; height: 100%; display: block;">
+									</div>
+								</td>
+								<td th:text="${team.team_name}"></td>
+								<td th:text="${team.leader_memberid}"></td>
+								<td th:text="${team.team_description}"></td>
 							</tr>
 						</table>
 					</div>
@@ -94,7 +134,7 @@
 		</div>
 	</div>
 	
-	<div style="margin: 72px auto 0 auto; width: 15vw; margin-left: -23vw;" class="card">
+	<div style="margin: 72px auto 0 auto; width: 15vw; height: 170px; margin-left: -23vw;" class="card">
 		<div class="card-header">
     		<a th:text="|${#authentication.principal.username}님의 MY PAGE|"	style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
   		</div>
@@ -106,10 +146,12 @@
 				<a th:href="@{/myPage/myPage2}" th:text="|팀 초대 요청|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
 			</li>
 			<li class="list-group-item">
-				<a th:href="@{/myPage/myPage3}" th:text="|내 정보|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+				<a th:href="@{/myPage/myPage3}" th:text="|내 정보|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a th:href="@{/member/logoutin}" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"><button class="btn btn-outline-secondary btn-sm">로그아웃</button></a>
 			</li>
 		</ul>
 	</div>
+	
 </div>
 	
 	<!--오프캔버스-->

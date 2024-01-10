@@ -41,5 +41,7 @@ public interface MemberDAO {
 	ArrayList<String> emailSearchList(String email);
 
 	ArrayList<String> phoneSearchList(String phone);
+
+	Member getMemberOwner(int memberid);
 	
 } // DAO
