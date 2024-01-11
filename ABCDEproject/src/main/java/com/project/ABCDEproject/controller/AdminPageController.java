@@ -79,7 +79,7 @@ public class AdminPageController {
 			Member member=memS.selectMember(memS.getMemberid(val));
 			sum_b+=member.getPoint();
 		}
-		int avg_b=sum_a/list_b.size();
+		int avg_b=sum_b/list_b.size();
 		
 		float aP=1/(1+10^((avg_b-avg_a)/500));
 		float bP=1/(1+10^((avg_a-avg_b)/500));
@@ -93,7 +93,6 @@ public class AdminPageController {
 			for(int val:list_a)
 			{
 				Member member=memS.selectMember(memS.getMemberid(val));
-				System.out.println(member);
 				member.setPoint(member.getPoint()+addScoreA);
 				memS.updateMember(member);
 				
@@ -102,7 +101,6 @@ public class AdminPageController {
 			{
 				
 				Member member=memS.selectMember(memS.getMemberid(val));
-				System.out.println(member);
 				member.setPoint(member.getPoint()-addScoreA);
 				memS.updateMember(member);
 			}
@@ -110,18 +108,15 @@ public class AdminPageController {
 		else {
 			record.setWinner_team_id(team_b.getTeam_id());
 			record.setLoser_team_id(team_a.getTeam_id());
-			System.out.println(list_b.size());
 			for(int val:list_b)
 			{
 				Member member=memS.selectMember(memS.getMemberid(val));
-				System.out.println(member);
 				memS.updateMember(member);
 				member.setPoint(member.getPoint()+addScoreB);
 			}
 			for(int val:list_a)
 			{
 				Member member=memS.selectMember(memS.getMemberid(val));
-				System.out.println(member);
 				member.setPoint(member.getPoint()-addScoreB);
 				memS.updateMember(member);
 				

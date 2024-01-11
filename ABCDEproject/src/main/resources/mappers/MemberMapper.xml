@@ -35,6 +35,9 @@
 			, originalthumbnail = #{originalthumbnail},
 			thumbnail = #{thumbnail}
 			</if>
+			<if test="point!=null">
+			, point=#{point}
+			</if>
 		where
 			memberid = #{memberid}
 	</update>
