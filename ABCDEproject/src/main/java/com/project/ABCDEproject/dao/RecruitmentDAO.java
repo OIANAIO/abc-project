@@ -16,7 +16,7 @@ public interface RecruitmentDAO {
 
 	int writeBoard(Recruitment recruitment);
 
-	void writerecruitment(Map<String, Object> map);
+	void writerecruitment(Recruitment recruitment);
 
 	void updateHits(int id);
 

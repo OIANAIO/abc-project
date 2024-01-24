@@ -29,23 +29,41 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home(@AuthenticationPrincipal UserDetails user, Model model) {
-		if(user != null) {
-			String userTh = memS.getThumb(user.getUsername());
-			model.addAttribute("userTh", userTh);
-			
-			Member u = memS.getMember(user.getUsername());
-			model.addAttribute("isAdmin",u.isAdmin());
-		}
-		
-		ArrayList<Member> memberlist = service.getMemberRankList();
-		ArrayList<Team> teamlist = service.getTeamRankList();
-		ArrayList<Recruitment> recrulist = service.getRecruRankList();
-		
-		model.addAttribute("memberlist", memberlist);
-		model.addAttribute("teamlist", teamlist);
-		model.addAttribute("recrulist", recrulist);
-		
-		return "home";
-	}
+		if (user != null) {
+            String userTh = memS.getThumb(user.getUsername());
+            model.addAttribute("userTh", userTh);
+
+            Member u = memS.getMember(user.getUsername());
+
+            // Null check for 'u' object
+            if (u != null) {
+                model.addAttribute("isAdmin", u.isAdmin());
+            } else {
+                // Handle the case where 'u' is null, e.g., set isAdmin to false or handle accordingly
+                model.addAttribute("isAdmin", false);
+            }
+        } else {
+            // Handle the case where 'user' is null, e.g., set userTh to a default value or handle accordingly
+            model.addAttribute("userTh", "defaultThumb");
+            model.addAttribute("isAdmin", false);
+        }
+
+        ArrayList<Member> memberlist = service.getMemberRankList();
+        ArrayList<Team> teamlist = service.getTeamRankList();
+        ArrayList<Recruitment> recrulist = service.getRecruRankList();
+
+        // Null check for 'memberlist', 'teamlist', and 'recrulist'
+        if (memberlist != null) {
+            model.addAttribute("memberlist", memberlist);
+        }
+        if (teamlist != null) {
+            model.addAttribute("teamlist", teamlist);
+        }
+        if (recrulist != null) {
+            model.addAttribute("recrulist", recrulist);
+        }
+
+        return "home";
+    }
 	
 } // controller

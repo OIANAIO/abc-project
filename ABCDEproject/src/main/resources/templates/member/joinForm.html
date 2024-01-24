@@ -61,37 +61,15 @@
 		}
 		
 		function emailCheck() {
-			let email = $('input[name="email"]').val();
+			let mail_check = $("#hid").attr("check");
 			
-			$.ajax({
-				url: 'emailCheck',
-				type: 'post',
-				data: { email: email },
-				success: function (result) {
-					let str = '<span ';
-					
-					if(result == '이메일을 입력하세요'){
-						str += 'style="color:red;">';
-						emailTrue= false;
-					}
-					
-					if(result == '중복된 이메일입니다'){
-						str += 'style="color:red;">';
-						emailTrue= false;
-					}
-					
-					if(result == '사용할 수 있는 이메일입니다'){
-						str += 'style="color:green;">';
-						emailTrue= true;
-					}
-						
-					str += result + '<span>';
-				$('#emailOK').html(str);
-               },
-               error: function (error) {
-                  console.error('Error:', error);
-               }
-            });
+			if (mail_check == "false") {
+	            alert('이메일을 인증하세요');
+	            return false;
+	         } else {
+	        	 emailTrue= true;
+	         }
+			
 		}
 		
 		function phoneCheck() {
@@ -153,7 +131,7 @@
             idCheck();
 		});
 		
-		$('input[name="email"]').keyup(function () {
+		$('input[name="phone"]').focus(function () {
             emailCheck();
 		});
 		
@@ -163,6 +141,20 @@
 		
 		$('input[name="memberpw"]').keyup(function () {
             pwCheck();
+		});
+		
+		// 가입 활성화
+		
+		$('input[name="memberid"]').keydown(function () {
+            updateSubmitButton();
+		});
+		
+		$('input[name="memberpw"]').keydown(function () {
+            updateSubmitButton();
+		});
+		
+		$('input[name="email"]').keydown(function () {
+            updateSubmitButton();
 		});
 		
 		$('input[name="phone"]').keydown(function () {
@@ -218,6 +210,38 @@
             setExternalImage();
         };
         
+      //이메일
+        function sendNumber() {
+           $("#mail_number").css("display", "block");
+           console.log("1차통과");
+           $.ajax({
+              url: "/teamA/mail",
+              type: "post",
+              dataType: "json",
+              data: {"mail": $("#mail").val()},
+              success: function (data) {
+                 alert("인증번호를 발송했습니다.");
+                 $("#Confirm").attr("value", data);
+              }
+              , error: function (request, status, error) {
+                 alert("올바른 이메일을 입력하세요.")
+                 console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+              }
+           });
+        }
+
+        function confirmNumber() {
+           var number1 = $("#number").val();
+           var number2 = $("#Confirm").val();
+
+           if (number1 == number2) {
+              alert("인증되었습니다.");
+              $("#hid").attr("check", "true");
+           } else {
+              alert("인증번호가 다릅니다.");
+           }
+        }
+        
 </script>
 </head>
 <body style="background-color: #F8F9FA;">
@@ -256,8 +280,19 @@
 					<tr>
 						<th>이메일</th>
 						<td>
-							<input type="email" name="email" id="email" class="form-control" autocomplete="off">
-							<div id="emailOK"></div>
+							<div id="mail_input" name="mail_input">
+		                     <input type="text" name="email" id="mail"  placeholder="이메일 입력" class="form-control" autocomplete="off">
+		                     <button type="button" id="sendBtn" name="sendBtn" class="form-control" onclick="sendNumber()">인증번호</button>
+		                  </div>
+		                  <br>
+		                  <div id="mail_number" name="mail_number" >
+		                     <input type="text" name="number" id="number" placeholder="인증번호 입력" class="form-control" autocomplete="off">
+		                     <button type="button" name="confirmBtn" id="confirmBtn" class="form-control"	 onclick="confirmNumber()">이메일
+		                        인증</button>
+		                  </div>
+		                  <br>
+		                  <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+		                  <input type="hidden" id="hid" check="false">
 						</td>
 					</tr>
 					<tr>

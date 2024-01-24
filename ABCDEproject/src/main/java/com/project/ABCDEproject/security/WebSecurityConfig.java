@@ -31,6 +31,7 @@ public class WebSecurityConfig {
         		"/member/emailCheck",
         		"/member/phoneCheck",
         		"/member/findId",
+        		"/mail",
         		"/thymeleaf",
         		"/img/**",
                 "/css/**",

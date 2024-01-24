@@ -52,6 +52,7 @@ public class RecruitmentController {
 	@GetMapping("recruitmentList")
 	public String recruitmentList(Model model, @RequestParam(name = "page", defaultValue = "1") int page, String type, String searchWord, @AuthenticationPrincipal UserDetails user) {
 		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+		System.out.println(navi);	
 		ArrayList<Recruitment> recruitmentList = service.selectList(navi, type, searchWord);
 //		log.debug("ㅇㅇㅇㅇㅇㅇ{}", recruitmentList);
 //		log.debug("페이지퍼:{}", pagePerGroup);
@@ -84,13 +85,14 @@ public class RecruitmentController {
 		
 		return "recruitment/write";
 	}
-
+	
 	@PostMapping("write")
 	public String writeForm(Recruitment recruitment, @AuthenticationPrincipal UserDetails user, @RequestParam("selectTeam") String selectedTeam) {
 		recruitment.setWriter_id(user.getUsername());
 		int teamId = ts.getTeamID(selectedTeam);
-		log.debug("DDDDDDDDDDDDD{}", recruitment);
-		service.writeRecruitment(recruitment, teamId);
+		recruitment.setTeam_id(teamId);
+		System.out.println(recruitment);
+		service.writeRecruitment(recruitment);
 		
 		return "redirect:/recruitment/recruitmentList";
 	}

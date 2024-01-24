@@ -27,7 +27,7 @@
 </head>
 <body>
 <div>
-	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url(/teamA/img/haikei.png);" class="animate__animated animate__fadeInDown">
+	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url(/teamA/img/haikei.png); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 -4px 8px rgba(0, 0, 0, 0), 0 0 0 rgba(0, 0, 0, 0.2);" class="animate__animated animate__fadeInDown">
 		<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
 			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
 			
@@ -54,7 +54,7 @@
 	  	<div th:each="stadium : ${list}" class="col">
 	  		<a th:href="@{/stadium/detail(stadiumid=${stadium.id})}" style="text-decoration-line:none;">
 	    		<div class="card animate__animated animate__zoomIn" style="overflow:hidden; box-shadow: 0 4px 8px rgb(128, 128, 128, 0.1), 0 -4px 8px rgba(128, 128, 128, 0.1), 4px 0 8px rgba(128, 128, 128, 0.1), -4px 0 8px rgba(128, 128, 128, 0.1); width: 20vw;">
-	     			<img th:src="@{/img/{image}(image=${stadium.thumbnail})}" height="200px" width="100%">
+	     			<img th:src="@{'/img/' + ${stadium.thumbnail}}" height="200px" width="100%">
 			      		<div class="card-body" style="background-color: white; z-index: 10;">
 			        		<h5 class="card-title" th:text="${stadium.name}"></h5>
 			        		<p class="card-text" th:text="${stadium.address}"></p>

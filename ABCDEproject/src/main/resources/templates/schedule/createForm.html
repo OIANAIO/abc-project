@@ -11,6 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300&family=Roboto:wght@100&family=Rubik+Lines&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rubik+Lines&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 <style>
 	div{
 		font-family: 'Gowun Batang', Gowun Batang;
@@ -21,7 +23,7 @@
 <body >
 
 <div>
-	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url('https://img.lovepik.com/photo/40014/3695.jpg_wh860.jpg');">
+	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url(/teamA/img/haikei.png); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 -4px 8px rgba(0, 0, 0, 0), 0 0 0 rgba(0, 0, 0, 0.2);" class="animate__animated animate__fadeInDown">
 		<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
 			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
 			
@@ -38,7 +40,7 @@
 	</nav>
 </div>
 
-<div class="container" style="padding-top: 100px;">
+<div class="container animate__animated animate__fadeInDown" style="padding-top: 100px;">
 	<div class="row">
 		<div class="col-8 offset-md-2 card" style="padding: 20px;">
 		<form th:action="@{/schedule/create}" method="post" enctype="multipart/form-data" >

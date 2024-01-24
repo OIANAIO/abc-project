@@ -12,6 +12,8 @@ import com.project.ABCDEproject.dao.RecruitmentDAO;
 import com.project.ABCDEproject.util.PageNavigator;
 import com.project.ABCDEproject.vo.Recruitment;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 @Service
 public class RecruitmentServiceImpl implements RecruitmentService {
 
@@ -22,8 +24,9 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 	@Override
 	public ArrayList<Recruitment> selectList(PageNavigator navi, String type, String searchWord) {
 		HashMap<String, String> map = getMap(type, searchWord);
-		RowBounds rb = new RowBounds(navi.getCurrentPage(), navi.getCountPerPage());
-		
+		System.out.println(navi);
+		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
+		System.out.println(type);
 		ArrayList<Recruitment> result = dao.selectList(map, rb);
 		return result;
 	}
@@ -36,11 +39,8 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 	}
 
 	@Override
-	public void writeRecruitment(Recruitment recruitment, int teamId) {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("recruitment", recruitment);
-		map.put("teamId", teamId);
-		dao.writerecruitment(map);
+	public void writeRecruitment(Recruitment recruitment) {
+		dao.writerecruitment(recruitment);
 	}
 
 	@Override

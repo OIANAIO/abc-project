@@ -14,13 +14,11 @@ public interface RecruitmentService {
 	
 	Recruitment readRecruitment(int id);
 
-	void writeRecruitment(Recruitment recruitment, int teamId);
+	void writeRecruitment(Recruitment recruitment);
 
 	int updaterecruitment(Recruitment recruitment);
 
 	void deleteBoard(int id);
 
 	PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String searchWord);
-
-
 }

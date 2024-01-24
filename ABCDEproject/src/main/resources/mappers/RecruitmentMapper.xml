@@ -49,7 +49,7 @@
 			</where>
 		</if>
 	</select>
-	<insert id="writerecruitment" parameterType="map">
+	<insert id="writerecruitment" parameterType="Recruitment">
 		insert into
 			RECRUITMENT_POST
 		(
@@ -61,11 +61,11 @@
 		, team_id
 		) values (
 		RECRUITMENT_POST_SEQ.nextval,
-		#{recruitment.writer_id},
-        #{recruitment.title},
-        #{recruitment.content},
-        #{recruitment.hits},
-		#{teamId}
+		#{writer_id},
+        #{title},
+        #{content},
+        #{hits},
+		#{team_id}
 		)
 	</insert>
 	<select id="readRecruitment" parameterType="int"
