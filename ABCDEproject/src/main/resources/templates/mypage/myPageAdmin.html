@@ -26,26 +26,12 @@
 	div {
 		font-family: 'Gowun Batang', Gowun Batang;
 	}
-	
+	th {
+		text-align: center;
+	}
 </style>
-
 <script>
-	function invOK(button) {
-		let teamId = button.getAttribute('data-teamid');
-		
-		if (confirm('초대 요청을 수락하시겠습니까?')) {
-			location.href = 'invOK?teamId=' + teamId;
-		}
-	}
-	
-	function invNO(button) {
-		let teamId = button.getAttribute('data-teamid');
-		
-		if (confirm('초대 요청을 거부하시겠습니까?')) {
-			location.href = 'invNO?teamId=' + teamId;
-		}
-	}
-	
+
 </script>
 
 </head>
@@ -76,69 +62,85 @@
 <div style="display: flex; justify-content: center; padding-top: 100px;" class="animate__animated animate__fadeInDown">
 	<div class="container">
 		<div class="row my-4">
-			<h3 class="front">팀 초대 요청 목록</h3>
-			<br><br>
+			<h3 class="front">내 정보</h3><br><br>
 			<div class="accordion" id="accordionExample">
 				<div class="card" style="width: 78%; padding: 10px;">
-					<div class="card-header">
-						<div class="row">
-							<div class="col-2">
-								신청번호
-							</div>
-							<div class="col-2">
-								팀 이름
-							</div>
-							<div class="col-5">
-								수신자
-							</div>
-							<div class="col-3">
-								상태
-							</div>
+					<div class="card-header" style="padding: 20px;">
+						<table>
+							<tr>
+								<td>
+									<div style="width: 185px; height: 185px;">
+										<img class="img-thumbnail" th:src="@{'/img/' + ${member.thumbnail}}" style="width: 100%;height: 100%;">
+									</div><br>
+									<div style="margin-top: -6px;">
+										<a th:href="@{/member/update}" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';">
+											<button class="form-control">회원정보 수정</button>
+										</a>
+									</div>
+								</td>
+								<td>
+									<table style="margin: 0 20px; width: 48vw;" class="table">
+										<tr>
+											<th style="padding-left: 20px; width: 10vw;">아이디 : </th>
+											<td th:text="${member.memberid}"></td>
+										</tr>
+										<tr>
+											<th style="padding-left: 20px;">이메일 : </th>
+											<td th:text="${member.email}"></td>
+										</tr>
+										<tr>
+											<th style="padding-left: 20px;">전화번호 : </th>
+											<td th:text="${member.phone}"></td>
+										</tr>
+										<tr>
+											<th style="padding-left: 20px;">마지막 접속일 : </th>
+											<td th:text="${member.last_login}"></td>
+										</tr>
+										<tr>
+											<th style="padding-left: 20px;">내 점수 : </th>
+											<td th:text="${member.point}"></td>
+										</tr>
+										<tr>
+											<th style="padding-left: 20px;">내 전적 : </th>
+											<td th:text="${record.winCount}+'승 '+${record.defeatCount}+'패'"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<div style="margin-top: 18px; margin-right: 6px; text-align: right;">
+							<a th:href="@{/member/delete}" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';">
+								<button class="btn btn-outline-danger" style="width: 10vw;">회원 탈퇴</button>
+							</a>
 						</div>
 					</div>
-					<ul class="list-group list-group-flush">
-						<!-- 중복 제거된 데이터만 출력 -->
-			            <li th:each="inv, iterStat : ${invList}" class="list-group-item"
-			                th:unless="${iterStat.index > 0 and invList[iterStat.index - 1].team_id == inv.team_id}">
-			                <div class="row">
-								<div class="col-2"><span th:text="${inv.id}"></span></div>
-
-								<div class="col-2"><span th:text="${inv.team_name}"></span></div>
-
-								<div class="col-5"><span th:text="${inv.addressee_name}"></span></div>
-
-								<div class="col-3 text-start">
-									<button class="btn btn-primary" th:data-teamid="${inv.team_id}" onclick="invOK(this);">수락</button>
-									<button class="btn btn-secondary" th:data-teamid="${inv.team_id}" onclick="invNO(this);">거부</button>
-								</div>
-
-							</div>
-						</li>
-					</ul>
 				</div>
 
 			</div>
 		</div>
 	</div>
 	
-	<div style="margin: 72px auto 0 auto; width: 15vw; height: 170px; margin-left: -23vw;" class="card">
+	<div style="margin: 72px auto 0 auto; width: 15vw; height: 213px; margin-left: -23vw;" class="card">
 		<div class="card-header">
-    		<a th:text="|${#authentication.principal.username}님의 MY PAGE|"	style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+    		<a th:text="|${#authentication.principal.username}님의 ADMIN PAGE|"	style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
   		</div>
   		<ul class="list-group list-group-flush">
 			<li class="list-group-item">
-				<a th:href="@{/myPage/myPage}" th:text="|매칭 현황|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+				<a th:href="@{/stadium/create}" th:text="|구장 등록|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
 			</li>
 			<li class="list-group-item">
-				<a th:href="@{/myPage/myPage2}" th:text="|팀 초대 요청|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+				<a th:href="@{/schedule/create}" th:text="|일정 등록|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
 			</li>
 			<li class="list-group-item">
-				<a th:href="@{/myPage/myPage3}" th:text="|내 정보|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a th:href="@{/AdminPage/recordsetting}" th:text="|승패 결정|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>
+			</li>
+			<li class="list-group-item">
+				<a th:href="@{/myPage/myPageAdmin}" th:text="|내 정보|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang'; text-decoration: none;"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a th:href="@{/member/logoutin}" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"><button class="btn btn-outline-secondary btn-sm">로그아웃</button></a>
 			</li>
 		</ul>
 	</div>
-
+	
 </div>
 	
 	<!--오프캔버스-->
@@ -148,12 +150,11 @@
 	  </div>
 	  <div class="offcanvas-body">
 	    <div>
-			<a th:href="@{myPage/myPage}" th:text="|MY PAGE|" style="color: black; font-weight: bold;"></a>
-			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
+			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|" style="color: black; font-weight: bold; text-decoration: none; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
 	    </div>
 	  </div>
 	</div>

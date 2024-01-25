@@ -42,9 +42,10 @@ public class StadiumController {
 	public String stadiumList(Model model,@AuthenticationPrincipal UserDetails user) {
 		
 		ArrayList<Stadium> list=service.GetStadiumList();
-		Member u=memS.getMember(user.getUsername());
-		model.addAttribute("isAdmin",u.isAdmin());
+		Member m = memS.getMember(user.getUsername());
+		model.addAttribute("isAdmin", m.isAdmin());
 		model.addAttribute("list",list);
+		
 		return "stadium/stadiumList";
 	}
 	

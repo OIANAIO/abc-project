@@ -81,23 +81,26 @@ function moveReviewCreate(num){
 </head>
 
 <body>
-	<div>
-		<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url(/teamA/img/haikei.png);">
-			<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
-				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
-				
-				<li style="margin: 0 10px;">
-				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/stadium/stadiumList}" th:text="stadium"></a></li>
-				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/matching/requestMatching}" th:text="matching"></a></li>
-				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/schedule/create}" th:text="schedule"></a></li>
-				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/team/teamList}" th:text="team"></a></li>
-				<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
-				</li>
-				
-				<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a></li>
-			</ul>
-		</nav>
-	</div>
+<div>
+	<nav style="position: fixed; top: 0; width: 100%; z-index: 100; padding-top: 30px; padding-bottom: 30px; background-image: url(/teamA/img/haikei.png); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 -4px 8px rgba(0, 0, 0, 0), 0 0 0 rgba(0, 0, 0, 0.2);" class="animate__animated animate__fadeInDown">
+		<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: row; justify-content: space-around;">
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif; font-size: 15pt;" th:href="@{/}" th:text="|FOOTBALLPLANET|"></a></li>
+			
+			<li style="margin: 0 10px;">
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif; font-size: 15pt;" th:href="@{/stadium/stadiumList}" th:text="stadium"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif; font-size: 15pt;" th:href="@{/matching/requestMatching}" th:text="matching"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif; font-size: 15pt;" th:href="@{/schedule/create}" th:text="schedule"></a></li>
+			<li style="margin: 0 10px;"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif; font-size: 15pt;" th:href="@{/team/teamList}" th:text="team"></a></li>
+			<li style="margin: 0 10px;" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif; font-size: 15pt;" th:href="@{/recruitment/recruitmentList}" th:text="recruitment"></a></li>
+			</li>
+			
+			<li style="margin: 0 10px;">
+				<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif; font-size: 15pt;" th:href="@{/myPage/myPage}" th:text="|MY PAGE|"></a>
+				<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/stadium/create}" th:text="|ADMIN PAGE|" style="text-decoration: none; color: white; font-family: 'Rajdhani', sans-serif; font-size: 15pt;"></a>
+			</li>
+		</ul>
+	</nav>
+</div>
 
 <div style="display: flex; justify-content: center; padding-top: 100px;">
 	<div class="container">
@@ -173,24 +176,6 @@ function moveReviewCreate(num){
 	</div>
 
 </div>
-
-
-	<!--오프캔버스-->
-	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-	  <div class="offcanvas-header">
-	    <h5 class="offcanvas-title" id="offcanvasExampleLabel">MY PAGE</h5>
-	  </div>
-	  <div class="offcanvas-body">
-	    <div>
-			<a th:href="@{myPage/myPage}" th:text="|MY PAGE|" style="color: black; font-weight: bold;"></a>
-			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/logoutin}" th:text="로그아웃" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="|회원정보 수정|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-			<div class="col-auto" sec:authorize="isAuthenticated()"><a th:href="@{/member/delete}" th:text="|회원 탈퇴|" style="color: black; font-weight: bold; font-family: Gowun Batang, 'Gowun Batang';"></a></div>
-	    </div>
-	  </div>
-	</div>
 	
 	
 </body>

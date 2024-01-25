@@ -133,6 +133,29 @@ public class MyPageController {
 		return "myPage/myPage3";
 	}
 	
+	@GetMapping("myPageAdmin")
+	public String myPageAdmin(@AuthenticationPrincipal UserDetails user, Model model) {
+		String username = user.getUsername();
+		Member member = mems.getMember(username);
+		model.addAttribute("member", member);
+		
+		RecordCount recordCount=recS.getRecordCount(member.getId());
+		model.addAttribute("record",recordCount);
+		try {
+			ArrayList<Integer> teamIdList = ts.getTeamIdList(member.getId());
+			ArrayList<Team> teamList = ts.getTeamList(teamIdList);
+			for(Team t : teamList) {
+				int tlid = t.getLeader_id();
+				t.setLeader_memberid(mems.getMemberid(tlid));
+			}
+			
+			model.addAttribute("teamList", teamList);
+		} catch (Exception e) {
+		}
+		
+		return "myPage/myPageAdmin";
+	}
+	
 	@GetMapping("invOK")
 	public String invOK(@RequestParam(name="teamId", defaultValue = "0") int teamId, @AuthenticationPrincipal UserDetails user, Model model) {
 		String username = user.getUsername();

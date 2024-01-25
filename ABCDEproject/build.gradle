@@ -22,6 +22,9 @@ repositories {
 }
 
 dependencies {
+	// 이메일 인증시 필요
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'javax.mail:javax.mail-api:1.6.2' // 최신 버전 확인
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
